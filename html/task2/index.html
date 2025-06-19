@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 2 - Product Card Grid Layout</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="product.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="wrapper">
+        <div class="logo">P<span class="red">M</span></div>
+        <div class="hamburger" id="hamburger">
+          <div class="burger1 line"></div>
+          <div class="burger2 line"></div>
+          <div class="burger3 line"></div>
+        </div>
+
+        <div class="nav_menu_mobile hide" id="navMenuMobile">
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contacts</li>
+            <li>Projects</li>
+          </ul>
+        </div>
+
+        <div class="nav_menu" id="navMenu">
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contacts</li>
+            <li>Projects</li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="product-grid wrapper">
+      <div class="product-card">
+        <img
+          src="https://images.pexels.com/photos/30755567/pexels-photo-30755567.jpeg"
+          alt="Sneakers"
+        />
+        <div class="product-info">
+          <div class="flex space-between">
+            <div>
+              <h2>Nike Men's Sneaker</h2>
+              <p class="sub-title">Men's Collection</p>
+            </div>
+            <p>$59.99</p>
+          </div>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img
+          src="https://images.pexels.com/photos/3908800/pexels-photo-3908800.jpeg"
+          alt="backpack"
+        />
+        <div class="product-info">
+          <div class="flex space-between">
+            <div>
+              <h2>Backpack</h2>
+              <p class="sub-title">Women's Collection</p>
+            </div>
+            <p>$79.99</p>
+          </div>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img
+          src="https://images.pexels.com/photos/9561297/pexels-photo-9561297.jpeg"
+          alt="Watch"
+        />
+        <div class="product-info">
+          <div class="flex space-between">
+            <div>
+              <h2>Rolex Diamond Watch</h2>
+              <p class="sub-title">Men's Collection</p>
+            </div>
+            <p>$129.99</p>
+          </div>
+          <button>Add to Cart</button>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="script.js"></script>
+</html>
