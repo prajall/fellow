@@ -1,0 +1,65 @@
+.about-description {
+  text-align: center;
+}
+
+.experience-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 1.5rem auto;
+  gap: 6rem;
+}
+
+.side {
+  width: 50%;
+}
+
+.education * {
+  text-align: right;
+}
+
+.experience {
+  position: relative;
+}
+
+.education .experience {
+  border-right: 3px solid var(--primary);
+  padding-right: 1rem;
+}
+
+.work-experience .experience {
+  border-left: 3px solid var(--primary);
+  padding-left: 1rem;
+}
+
+.circle {
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  position: absolute;
+}
+.experience .circle {
+  right: -7px;
+  top: 0px;
+}
+.work-experience .circle {
+  left: -7px;
+  top: 0px;
+}
+
+.content h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.content p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.content .date {
+  font-size: 0.8rem;
+  opacity: 80%;
+}

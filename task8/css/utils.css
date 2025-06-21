@@ -1,0 +1,42 @@
+.flex {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.flexbetween {
+  display: flex;
+  justify-content: space-between;
+}
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper-screen {
+  padding: 0.5rem 5rem;
+}
+.wrapper {
+  padding: 0.5rem 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .wrapper-screen {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.border {
+  border: 1px solid #10002b;
+}
+.border-red {
+  border: 1px solid red;
+}
+
+.separator1 {
+  margin-top: 0.5rem;
+}
+.separator2 {
+  margin-top: 1.5rem;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 4 - Contact Form with Validation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Contact Form</h1>
+    <form>
+      <label for="name">Name:</label>
+      <input id="name" type="text" required />
+      <br />
+      <label for="email">Email:</label>
+      <input id="email" type="email" required />
+      <br />
+      <label for="age" pattern="[0-9]{10}" title="10 digit number"
+        >Phone:</label
+      >
+      <input id="phone" type="number" required />
+      <br />
+      <label for="message">Message:</label>
+      <textarea id="message" required></textarea>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+  <script src="script.js"></script>
+</html>
