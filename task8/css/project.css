@@ -1,0 +1,81 @@
+#projects {
+  padding-top: 5rem;
+}
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .projects-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .projects-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.project-card {
+  position: relative;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.project-card:hover {
+  border: 1px solid #11111146;
+}
+.project-card img {
+  width: 100%;
+  border-radius: 20px;
+}
+.project-card h3 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  overflow: hidden;
+}
+.project-card:hover img {
+  filter: blur(5px);
+  transform: scale(1.01);
+  transition: filter 0.3s ease;
+}
+
+.project-card:hover .description {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.project-card .description {
+  position: absolute;
+  z-index: 20;
+  top: -8px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f07e;
+  color: #111111;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card .description h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.project-card .description p {
+  font-size: 14px;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid #111111;
+  margin-top: 1rem;
+}

@@ -19,16 +19,19 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/utils.css" />
     <link rel="stylesheet" href="css/about.css" />
+    <link rel="stylesheet" href="css/project.css" />
+    <link rel="stylesheet" href="css/contact.css" />
     <script
       src="https://kit.fontawesome.com/22975437ca.js"
       crossorigin="anonymous"
     ></script>
   </head>
-  <body>
+  <body class="">
     <!-- ----------Header and Hero section-------------- -->
     <section id="hero" class="wrapper-screen">
+      <canvas></canvas>
       <header id="home">
-        <nav class="flexbetween">
+        <nav class="flexbetween w-full">
           <img
             src="https://www.prajalmaharjan.com.np/logo.png"
             alt="logo"
@@ -42,7 +45,8 @@
           </div>
         </nav>
       </header>
-      <div id="left">
+
+      <div id="left" class="">
         <h1 class="">Hey 👋 I'm Prajal Maharjan</h1>
         <p class="separator2">
           I'm a creative Full Stack Developer specialized in creating dynamic
@@ -63,7 +67,7 @@
           <div class="hero-image-shadow">dds</div>
         </div>
       </div>
-      <div id="right" class="hero-links">
+      <div id="right" class="hero-links center-content">
         <a target="_blank" href="https://instagram.com/prajalmaharjan"
           ><i class="fa-brands fa-instagram"></i>Instagram</a
         >
@@ -127,22 +131,104 @@
             <div class="experience separator2">
               <div class="circle"></div>
               <div class="content">
-                <h4>+2 Science - NEB</h4>
-                <p>Trinity International College</p>
-                <p class="date">2018 - 2020</p>
-              </div>
-            </div>
-            <div class="experience separator2">
-              <div class="circle"></div>
-              <div class="content">
-                <h4>SEE</h4>
-                <p>Dallu Awasiya Vidhyalaya</p>
-                <p class="date">Completed: Mar 2018</p>
+                <h4>Full Stack Developer - Internship</h4>
+                <p>msoft International</p>
+                <p class="date">Jul 2024 - Nov 2024</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ------------------ Projects section---------------- -->
+    <section id="projects" class="wrapper-screen">
+      <h2>PROJECTS</h2>
+      <p class="about-description">
+        Here are some of the projects I have worked on.
+      </p>
+      <div class="projects-container separator2">
+        <a href="https://filefolio.net" target="_blank" class="project-card">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-30-07.png?alt=media&token=2829ac82-015a-44ff-a882-b151f6e6f0c9"
+            alt="Project 1"
+          />
+          <div class="description separator1 about-description">
+            <h3 class="">Filefolio: File sharing app</h3>
+            <p>View Project</p>
+          </div>
+        </a>
+
+        <a
+          href="https://kit-store.vercel.app"
+          target="_blank"
+          class="project-card"
+        >
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-30-35.png?alt=media&token=b69c7738-f4f0-46d4-973c-f83fa9807ec4"
+            alt="Project 1"
+          />
+          <div class="description separator1 about-description">
+            <h3 class="">Kit Store - Ecommerce</h3>
+            <p>View Project</p>
+          </div>
+        </a>
+        <a class="project-card">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-34-07.png?alt=media&token=4ea0abfd-6e22-4c01-a8aa-bf7d985df019"
+            alt="Project 1"
+          />
+          <div class="description separator1 about-description">
+            <h3 class="">Jive Connection</h3>
+            <p>View Project</p>
+          </div>
+        </a>
+        <a class="project-card">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-39-49.png?alt=media&token=24399ddd-524c-4e87-9aaa-6645f7991722"
+            alt="Project 1"
+          />
+          <div class="description separator1 about-description">
+            <h3 class="">62 Management</h3>
+            <p>View Project</p>
+          </div>
+        </a>
+        <!-- Add more project cards as needed -->
+      </div>
+    </section>
+    <!-- ---------------- Contacts ---------------- -->
+    <section id="contacts" class="wrapper-screen">
+      <h2>LET'S CONNECT</h2>
+      <p class="about-description">
+        Contact me on my socials or send me a mail:
+      </p>
+      <div class="contact-container">
+        <div class="contact-image">
+          <img
+            src="https://www.prajalmaharjan.com.np/images/contact.svg"
+            alt="Contact Illustration"
+          />
+        </div>
+
+        <form class="contact-form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email/Contact"
+            required
+          />
+
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Message"
+            required
+          ></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
   </body>
+  <script src="script.js"></script>
 </html>

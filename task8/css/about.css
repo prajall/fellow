@@ -6,30 +6,26 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  max-width: 800px;
+  max-width: 700px;
   margin: 1.5rem auto;
   gap: 6rem;
+  margin-top: 3rem;
+}
+
+.experience-section h3 {
+  text-align: center;
 }
 
 .side {
   width: 50%;
 }
 
-.education * {
-  text-align: right;
-}
-
 .experience {
   position: relative;
 }
 
-.education .experience {
-  border-right: 3px solid var(--primary);
-  padding-right: 1rem;
-}
-
-.work-experience .experience {
-  border-left: 3px solid var(--primary);
+.experience {
+  border-left: 3px solid var(--primary-light);
   padding-left: 1rem;
 }
 
@@ -39,16 +35,9 @@
   background-color: var(--primary);
   border-radius: 50%;
   position: absolute;
-}
-.experience .circle {
-  right: -7px;
-  top: 0px;
-}
-.work-experience .circle {
   left: -7px;
   top: 0px;
 }
-
 .content h3 {
   font-size: 1rem;
   font-weight: 600;
