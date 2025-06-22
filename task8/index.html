@@ -26,7 +26,7 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body class="">
+  <body class="dark">
     <!-- ----------Header and Hero section-------------- -->
     <section id="hero" class="wrapper-screen">
       <canvas></canvas>
@@ -47,34 +47,45 @@
       </header>
 
       <div id="left" class="">
-        <h1 class="">Hey 👋 I'm Prajal Maharjan</h1>
-        <p class="separator2">
+        <h1 class="animate-fade">Hey 👋 I'm Prajal Maharjan</h1>
+        <p class="separator2 animate-fade animate-delay">
           I'm a creative Full Stack Developer specialized in creating dynamic
           web applications. I help you to bring your innovative ideas to life.
           Lets work together.
         </p>
-        <div class="hero-buttons flex separator2">
+        <div class="hero-buttons flex separator2 animate-fade animate-delay2">
           <button>Hire Me</button>
-          <button>Resume</button>
+          <button><a href=""></a> Resume</button>
         </div>
       </div>
       <div id="middle">
         <div class="hero-image-container">
           <img
+            class="animate-fade"
             src="https://www.prajalmaharjan.com.np/images/potrait2.jpeg"
             alt="Hero Image"
+            dds
           />
-          <div class="hero-image-shadow">dds</div>
+          <div class="hero-image-shadow animate-fade animate-delay"></div>
         </div>
       </div>
       <div id="right" class="hero-links center-content">
-        <a target="_blank" href="https://instagram.com/prajalmaharjan"
+        <a
+          target="_blank"
+          href="https://instagram.com/prajalmaharjan"
+          class="animate-fade"
           ><i class="fa-brands fa-instagram"></i>Instagram</a
         >
-        <a target="_blank" href="https://github.com/prajall"
+        <a
+          target="_blank"
+          href="https://github.com/prajall"
+          class="animate-fade animate-delay"
           ><i class="fa-brands fa-github"></i>Github</a
         >
-        <a target="_blank" href="https://linkedin.com/in/prajalmaharjan"
+        <a
+          target="_blank"
+          href="https://linkedin.com/in/prajalmaharjan"
+          class="animate-fade animate-delay2"
           ><i class="fa-brands fa-linkedin"></i>LinkedIn</a
         >
       </div>
@@ -82,16 +93,16 @@
 
     <!-- ------------------ About section---------------- -->
     <section id="about" class="wrapper-screen">
-      <h2>ABOUT</h2>
-      <p class="about-description separator2">
+      <h2 class="intersection-observer">ABOUT</h2>
+      <p class="about-description separator2 intersection-observer">
         Driven by passion, charged by coffee. I love building beautiful digital
         experiences.
       </p>
       <div class="experience-section">
         <div class="side education">
-          <h3>Education</h3>
+          <h3 class="intersection-observer">Education</h3>
           <div class="separator2">
-            <div class="experience separator2">
+            <div class="experience separator2 intersection-observer">
               <div class="circle"></div>
               <div class="content">
                 <h4>BScCSIT - Tribhuvan University</h4>
@@ -99,7 +110,7 @@
                 <p class="date">2021 - 2025</p>
               </div>
             </div>
-            <div class="experience separator2">
+            <div class="experience separator2 intersection-observer">
               <div class="circle"></div>
               <div class="content">
                 <h4>+2 Science - NEB</h4>
@@ -107,7 +118,7 @@
                 <p class="date">2018 - 2020</p>
               </div>
             </div>
-            <div class="experience separator2">
+            <div class="experience separator2 intersection-observer">
               <div class="circle"></div>
               <div class="content">
                 <h4>SEE</h4>
@@ -118,9 +129,9 @@
           </div>
         </div>
         <div class="side work-experience">
-          <h3>Work Experience</h3>
+          <h3 class="intersection-observer">Work Experience</h3>
           <div class="separator2">
-            <div class="experience separator2">
+            <div class="experience separator2 intersection-observer">
               <div class="circle"></div>
               <div class="content">
                 <h4>Software Engineering Fellowship</h4>
@@ -128,7 +139,7 @@
                 <p class="date">Jun 2025 - present</p>
               </div>
             </div>
-            <div class="experience separator2">
+            <div class="experience separator2 intersection-observer">
               <div class="circle"></div>
               <div class="content">
                 <h4>Full Stack Developer - Internship</h4>
@@ -143,12 +154,16 @@
 
     <!-- ------------------ Projects section---------------- -->
     <section id="projects" class="wrapper-screen">
-      <h2>PROJECTS</h2>
-      <p class="about-description">
+      <h2 class="intersection-observer">PROJECTS</h2>
+      <p class="about-description intersection-observer">
         Here are some of the projects I have worked on.
       </p>
       <div class="projects-container separator2">
-        <a href="https://filefolio.net" target="_blank" class="project-card">
+        <a
+          href="https://filefolio.net"
+          target="_blank"
+          class="project-card intersection-observer"
+        >
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-30-07.png?alt=media&token=2829ac82-015a-44ff-a882-b151f6e6f0c9"
             alt="Project 1"
@@ -162,7 +177,7 @@
         <a
           href="https://kit-store.vercel.app"
           target="_blank"
-          class="project-card"
+          class="project-card intersection-observer"
         >
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-30-35.png?alt=media&token=b69c7738-f4f0-46d4-973c-f83fa9807ec4"
@@ -173,7 +188,7 @@
             <p>View Project</p>
           </div>
         </a>
-        <a class="project-card">
+        <a class="project-card intersection-observer">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-34-07.png?alt=media&token=4ea0abfd-6e22-4c01-a8aa-bf7d985df019"
             alt="Project 1"
@@ -183,7 +198,7 @@
             <p>View Project</p>
           </div>
         </a>
-        <a class="project-card">
+        <a class="project-card intersection-observer">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-39-49.png?alt=media&token=24399ddd-524c-4e87-9aaa-6645f7991722"
             alt="Project 1"
@@ -198,20 +213,22 @@
     </section>
     <!-- ---------------- Contacts ---------------- -->
     <section id="contacts" class="wrapper-screen">
-      <h2>LET'S CONNECT</h2>
-      <p class="about-description">
+      <h2 class="intersection-observer">LET'S CONNECT</h2>
+      <p class="about-description intersection-observer">
         Contact me on my socials or send me a mail:
       </p>
       <div class="contact-container">
         <div class="contact-image">
           <img
+            class="intersection-observer"
             src="https://www.prajalmaharjan.com.np/images/contact.svg"
             alt="Contact Illustration"
           />
         </div>
 
-        <form class="contact-form">
+        <form class="contact-form" id="contactForm">
           <input
+            class="intersection-observer"
             type="email"
             name="email"
             placeholder="Your Email/Contact"
@@ -219,6 +236,7 @@
           />
 
           <textarea
+            class="intersection-observer"
             name="message"
             rows="5"
             placeholder="Message"
@@ -228,6 +246,12 @@
           <button type="submit">Send Message</button>
         </form>
       </div>
+    </section>
+    <section class="wrapper-screen">
+      <p class="about-description">
+        You've spent <span id="time">00:00:00</span> time in this amazing
+        portfolio.
+      </p>
     </section>
   </body>
   <script src="script.js"></script>

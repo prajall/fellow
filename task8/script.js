@@ -33,3 +33,81 @@ const draw = () => {
 };
 
 setInterval(draw, 50);
+
+// intersection observer
+
+const intersectionElements = document.querySelectorAll(
+  ".intersection-observer"
+);
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("show", entry.isIntersecting);
+      if (entry.isIntersecting) {
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.5,
+  }
+);
+
+intersectionElements.forEach((element) => {
+  observer.observe(element);
+});
+
+//animate-fade
+const elements = document.querySelectorAll(".animate-fade");
+
+elements.forEach((element) => {
+  element.classList.add("animate");
+});
+
+// Form submission
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported ");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      console.log("User location:", latitude, longitude);
+
+      alert("Form submitted with location");
+    },
+    (error) => {
+      console.error("Geolocation error:", error.message);
+      alert("Unable to get your location.");
+    }
+  );
+});
+
+//worker
+const timeDisplay = document.getElementById("time");
+const worker = new Worker("worker.js");
+
+worker.onmessage = function (e) {
+  let hours = e.data.hours;
+  let minutes = e.data.minutes;
+  let seconds = e.data.seconds;
+
+  if (hours < 10) hours = "0" + hours;
+  if (minutes < 10) minutes = "0" + minutes;
+  if (seconds < 10) seconds = "0" + seconds;
+
+  timeDisplay.textContent = hours + ":" + minutes + ":" + seconds;
+};
+
+window.addEventListener("beforeunload", function () {
+  console.log("Final time spent: " + timeDisplay.textContent);
+});

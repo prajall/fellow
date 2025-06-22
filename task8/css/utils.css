@@ -47,3 +47,35 @@
 .separator2 {
   margin-top: 1.5rem;
 }
+
+#middle.animate-fade {
+  opacity: 1;
+}
+.animate-fade {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.7s ease-out;
+}
+
+.animate-fade.animate {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.animate-delay {
+  transition-delay: 0.2s;
+}
+.animate-delay2 {
+  transition-delay: 0.4s;
+}
+
+.intersection-observer {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.7s ease-out;
+}
+
+.intersection-observer.show {
+  opacity: 1;
+  transform: translateY(0px);
+}

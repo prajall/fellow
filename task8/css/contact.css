@@ -31,13 +31,14 @@
   border: 2px solid #6b7280;
   border-radius: 0.75rem;
   font-size: 1rem;
-  color: #111827;
+  color: var(--primary);
   outline: none;
+  background-color: var(--bg);
 }
 
 .contact-form button {
-  background-color: #171717;
-  color: white;
+  background-color: var(--primary);
+  color: var(--bg);
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.75rem;
@@ -46,7 +47,7 @@
 }
 
 .contact-form button:hover {
-  background-color: #111827;
+  background-color: var(--primary-light);
 }
 
 @media (min-width: 1024px) {
