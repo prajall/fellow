@@ -1,0 +1,41 @@
+#skillsContainer {
+  max-width: 800px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0.5rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  width: 200px;
+  padding: 0.6rem 0.7rem;
+  margin: 0px auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--hover-color);
+  color: var(--hover-color);
+}
+
+#skillsContainer i {
+  font-size: 25px;
+}
+
+@media (max-width: 768px) {
+  #skillsContainer .card {
+    width: 100%;
+  }
+  #skillsContainer i {
+    font-size: 15px;
+  }
+}

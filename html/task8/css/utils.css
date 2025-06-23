@@ -16,6 +16,7 @@
 }
 .flexcenter {
   display: flex;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
 }
@@ -54,7 +55,7 @@
 .animate-fade {
   opacity: 0;
   transform: translateY(15px);
-  transition: all 0.7s ease-out;
+  transition: 0.7s ease-out;
 }
 
 .animate-fade.animate {
@@ -72,7 +73,7 @@
 .intersection-observer {
   opacity: 0;
   transform: translateY(15px);
-  transition: all 0.7s ease-out;
+  transition: transform, opacity 0.7s ease-out;
 }
 
 .intersection-observer.show {

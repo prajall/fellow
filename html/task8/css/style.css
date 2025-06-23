@@ -95,16 +95,17 @@ header {
   grid-area: right;
 }
 
-#left button {
+#left a {
   padding: 0.5rem 2rem;
   border-radius: 100px;
+  width: 130px;
   background-color: var(--bg);
   color: var(--primary);
   border: 1px solid var(--primary);
   box-shadow: 3px 3px 0px var(--primary);
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
-#left button:hover {
+#left a:hover {
   box-shadow: 5px 5px 0px var(--primary);
   transform: scale(1.01);
 }

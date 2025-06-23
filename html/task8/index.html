@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/project.css" />
     <link rel="stylesheet" href="css/contact.css" />
+    <link rel="stylesheet" href="css/skills.css" />
+
     <script
       src="https://kit.fontawesome.com/22975437ca.js"
       crossorigin="anonymous"
@@ -50,12 +52,12 @@
         <h1 class="animate-fade">Hey 👋 I'm Prajal Maharjan</h1>
         <p class="separator2 animate-fade animate-delay">
           I'm a creative Full Stack Developer specialized in creating dynamic
-          web applications. I help you to bring your innovative ideas to life.
-          Lets work together.
+          web applications. I'll help you to bring your innovative ideas to
+          life. Lets work together.'
         </p>
         <div class="hero-buttons flex separator2 animate-fade animate-delay2">
-          <button>Hire Me</button>
-          <button><a href="./resume.pdf" target="_blank">Resume</a></button>
+          <a href="#contacts">Hire Me</a>
+          <a href="./resume.pdf" target="_blank">Resume</a>
         </div>
       </div>
       <div id="middle">
@@ -93,8 +95,8 @@
 
     <!-- ------------------ About section---------------- -->
     <section id="about" class="wrapper-screen">
-      <h2 class="intersection-observer">ABOUT</h2>
-      <p class="about-description separator2 intersection-observer">
+      <h2 class="">ABOUT</h2>
+      <p class="about-description separator2">
         Driven by passion, charged by coffee. I love building beautiful digital
         experiences.
       </p>
@@ -151,18 +153,77 @@
         </div>
       </div>
     </section>
+    <!-- -------------- Skills section ---------------------- -->
+    <section>
+      <h2 class="">SKILLS</h2>
+      <p class="about-description separator2">
+        I am comfortable working in frontend, backend or cloud services
+      </p>
+      <div id="skillsContainer" class="">
+        <div data-color="#e34c26" class="card intersection-observer flex">
+          <div class="icon"><i class="fa-brands fa-html5"></i></div>
+          <div class="title">HTML</div>
+        </div>
+        <div data-color="#264de4" class="card intersection-observer flexcenter">
+          <div class="icon">
+            <i class="fa-brands fa-css3-alt"></i>
+          </div>
+          <div class="title">CSS</div>
+        </div>
+        <div class="card intersection-observer flex" data-color="#f7df1e">
+          <div class="icon"><i class="fa-brands fa-js"></i></div>
+          <div class="title">Javascript</div>
+        </div>
+        <div class="card intersection-observer flex" data-color="#61dafb">
+          <div class="icon">
+            <i class="fa-brands fa-react"></i>
+          </div>
+          <div class="title">React</div>
+        </div>
+        <div class="card intersection-observer flex" data-color="#4479A1">
+          <div class="icon">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <div class="title">Database</div>
+        </div>
+        <div class="card intersection-observer flex" data-color="#000">
+          <div class="icon">
+            <i class="fa-solid fa-n"></i>
+          </div>
+          <div class="title">NextJS</div>
+        </div>
+        <div class="card intersection-observer flex" data-color="#ff9900">
+          <div class="icon">
+            <i class="fa-brands fa-aws"></i>
+          </div>
+          <div class="title">AWS</div>
+        </div>
+        <div class="card intersection-observer flex" data-color="#339933">
+          <div class="icon">
+            <i class="fa-brands fa-node-js"></i>
+          </div>
+          <div class="title">NodeJS</div>
+        </div>
+        <div class="card intersection-observer flex" data-color="#3776ab">
+          <div class="icon">
+            <i class="fa-brands fa-python"></i>
+          </div>
+          <div class="title">Python</div>
+        </div>
+      </div>
+    </section>
 
     <!-- ------------------ Projects section---------------- -->
     <section id="projects" class="wrapper-screen">
-      <h2 class="intersection-observer">PROJECTS</h2>
-      <p class="about-description intersection-observer">
+      <h2 class="">PROJECTS</h2>
+      <p class="about-description">
         Here are some of the projects I have worked on.
       </p>
       <div class="projects-container separator2">
         <a
           href="https://filefolio.net"
           target="_blank"
-          class="project-card intersection-observer"
+          class="project-card intersection-observer intersection-observer"
         >
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-30-07.png?alt=media&token=2829ac82-015a-44ff-a882-b151f6e6f0c9"
@@ -177,7 +238,7 @@
         <a
           href="https://kit-store.vercel.app"
           target="_blank"
-          class="project-card intersection-observer"
+          class="project-card intersection-observer intersection-observer"
         >
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-30-35.png?alt=media&token=b69c7738-f4f0-46d4-973c-f83fa9807ec4"
@@ -188,7 +249,7 @@
             <p>View Project</p>
           </div>
         </a>
-        <a class="project-card intersection-observer">
+        <a class="project-card intersection-observer intersection-observer">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-34-07.png?alt=media&token=4ea0abfd-6e22-4c01-a8aa-bf7d985df019"
             alt="Project 1"
@@ -198,7 +259,7 @@
             <p>View Project</p>
           </div>
         </a>
-        <a class="project-card intersection-observer">
+        <a class="project-card intersection-observer intersection-observer">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/filefolio-d4e7b.appspot.com/o/prajall%2Fimages%2FScreenshot%20from%202025-06-21%2019-39-49.png?alt=media&token=24399ddd-524c-4e87-9aaa-6645f7991722"
             alt="Project 1"
@@ -208,13 +269,12 @@
             <p>View Project</p>
           </div>
         </a>
-        <!-- Add more project cards as needed -->
       </div>
     </section>
     <!-- ---------------- Contacts ---------------- -->
     <section id="contacts" class="wrapper-screen">
-      <h2 class="intersection-observer">LET'S CONNECT</h2>
-      <p class="about-description intersection-observer">
+      <h2 class="">LET'S CONNECT</h2>
+      <p class="about-description">
         Contact me on my socials or send me a mail:
       </p>
       <div class="contact-container">

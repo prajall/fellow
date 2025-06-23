@@ -2,12 +2,9 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 window.onresize = () => {
-  const dpr = window.devicePixelRatio || 1;
   canvas.width = window.innerWidth - 20;
   canvas.height = window.innerHeight - 20;
-  // ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 };
-
 window.onresize();
 
 const stars = Array.from({ length: 50 }, () => ({
@@ -96,7 +93,7 @@ form.addEventListener("submit", function (e) {
 const timeDisplay = document.getElementById("time");
 const worker = new Worker("worker.js");
 
-worker.onmessage = function (e) {
+worker.onmessage = (e) => {
   let hours = e.data.hours;
   let minutes = e.data.minutes;
   let seconds = e.data.seconds;
@@ -117,4 +114,17 @@ darkModeButton.addEventListener("click", () => {
   } else {
     darkModeButton.innerHTML = "Dark";
   }
+});
+
+//skills color change
+document.querySelectorAll(".card").forEach((card) => {
+  const color = card.dataset.color;
+
+  card.addEventListener("mouseenter", () => {
+    card.style.setProperty("--hover-color", color);
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style.removeProperty("--hover-color");
+  });
 });
