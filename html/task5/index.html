@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image Gallery with Lightbox</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Lightbox Image Gallery</h1>
+
+    <div class="gallery">
+      <a href="#img1" class="card" data-title="Camera">
+        <img
+          src="https://images.pexels.com/photos/14822819/pexels-photo-14822819.jpeg"
+          alt="Mountain"
+          loading="lazy"
+        />
+      </a>
+      <a href="#img2" class="card" data-title="Statue">
+        <img
+          src="https://images.pexels.com/photos/12566548/pexels-photo-12566548.jpeg"
+          alt="Lake"
+          loading="lazy"
+        />
+      </a>
+      <a href="#img3" class="card" data-title="Dog">
+        <img
+          src="https://images.pexels.com/photos/28683174/pexels-photo-28683174.jpeg"
+          alt="Desert"
+          loading="lazy"
+        />
+      </a>
+    </div>
+
+    <div id="img1" class="lightbox">
+      <a href="#" class="close"></a>
+      <img
+        src="https://images.pexels.com/photos/14822819/pexels-photo-14822819.jpeg"
+        alt=""
+      />
+    </div>
+
+    <div id="img2" class="lightbox">
+      <a href="#" class="close"></a>
+      <img
+        src="https://images.pexels.com/photos/12566548/pexels-photo-12566548.jpeg"
+        alt=""
+      />
+    </div>
+
+    <div id="img3" class="lightbox">
+      <a href="#" class="close"></a>
+      <img
+        src="https://images.pexels.com/photos/28683174/pexels-photo-28683174.jpeg"
+        alt=""
+      />
+    </div>
+  </body>
+</html>
