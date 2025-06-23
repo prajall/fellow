@@ -5,7 +5,7 @@ window.onresize = () => {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = window.innerWidth - 20;
   canvas.height = window.innerHeight - 20;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  // ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 };
 
 window.onresize();
@@ -107,10 +107,6 @@ worker.onmessage = function (e) {
 
   timeDisplay.textContent = hours + ":" + minutes + ":" + seconds;
 };
-
-window.addEventListener("beforeunload", function () {
-  console.log("Final time spent: " + timeDisplay.textContent);
-});
 
 //dark mode
 const darkModeButton = document.querySelector(".dark-toggle");

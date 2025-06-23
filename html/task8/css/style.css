@@ -15,6 +15,7 @@
   --bg: #111111;
   --primary: #f0f0f0;
   --primary-light: #f0f0f0d0;
+  --primary-transparent: #3d3d3d62;
 }
 
 body {
