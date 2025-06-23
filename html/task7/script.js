@@ -2,7 +2,7 @@ const forms = document.querySelectorAll("form");
 const backButtons = document.querySelectorAll(".back");
 console.log("Back buttons", backButtons);
 
-let activeForm = 2;
+let activeForm = 0;
 forms[activeForm].style.display = "block";
 
 // for indicator
@@ -42,4 +42,13 @@ backButtons.forEach((backButton) => {
     activeForm--;
     updateForm();
   });
+});
+
+const lastForm = document.getElementById("step3");
+
+lastForm.addEventListener("submit", (e) => {
+  alert("Form submitted");
+  activeForm = 0;
+  updateForm();
+  forms.forEach((form) => form.reset());
 });

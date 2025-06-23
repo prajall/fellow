@@ -53,28 +53,27 @@ button:hover {
   background-color: #333;
 }
 
+.input-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .flex {
   display: flex;
-  gap: 1rem;
-}
-
-#step3 {
-  display: flex;
-  flex-direction: column;
-}
-
-#step3 .container {
-  display: flex;
+  align-items: center;
   gap: 1rem;
 }
 
 #step3 label {
+  width: 100%;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 6px;
   display: flex;
-  border: 1px solid #222;
-  padding: 0.5rem;
-  border-radius: 5px;
-  width: fit-content;
   cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: auto;
+  padding: 0.5rem;
 }
 
 .indicatorContainer {
@@ -89,3 +88,7 @@ button:hover {
   background-color: blueviolet;
   transition: width 0.3s ease-out;
 }
+
+/* #step3 input {
+  display: none;
+} */
