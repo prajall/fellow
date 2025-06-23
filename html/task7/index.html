@@ -15,11 +15,11 @@
         <h2>Step 1: Contact Info</h2>
         <label>
           Name:
-          <input type="text" name="name" required/>
+          <input id="name" type="text" name="name" required/>
         </label>
         <label>
           Email:
-          <input type="email" name="email" required />
+          <input id="email" type="email" name="email" required />
         </label>
         <button type="submit">Next</button>
       </form>
@@ -28,15 +28,15 @@
         <h2>Step 2: Shipping Address</h2>
         <label>
           Address:
-          <input type="text" name="address" required />
+          <input id="address" type="text" name="address" required />
         </label>
         <label>
           City:
-          <input type="text" name="city" required />
+          <input id="city" type="text" name="city" required />
         </label>
         <label>
           Postal Code:
-          <input type="text" name="postal" required />
+          <input id="postal" type="text" name="postal" required />
         </label>
         <button type="button" class="back">Back</button>
         <button  type="submit">Next</button>
@@ -46,11 +46,11 @@
         <h2>Step 3: Payment Method</h2>
         <div class="input-container">
           <label>
-            <input type="radio" name="payment" value="card" required />
+            <input id="payment-card" type="radio" name="payment" value="card" required />
             <span>Credit / Debit Card
           </label>
           <label>
-            <input type="radio" name="payment" value="cod" required />
+            <input id="payment-esewa" type="radio" name="payment" value="cod" required />
             Esewa
           </label
         </div>
