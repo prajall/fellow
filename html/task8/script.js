@@ -111,3 +111,14 @@ worker.onmessage = function (e) {
 window.addEventListener("beforeunload", function () {
   console.log("Final time spent: " + timeDisplay.textContent);
 });
+
+//dark mode
+const darkModeButton = document.querySelector(".dark-toggle");
+darkModeButton.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  if (document.body.classList.contains("dark")) {
+    darkModeButton.innerHTML = "Light";
+  } else {
+    darkModeButton.innerHTML = "Dark";
+  }
+});

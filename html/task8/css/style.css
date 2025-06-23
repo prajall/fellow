@@ -196,3 +196,24 @@ canvas {
   left: 0;
   z-index: -1;
 }
+
+#footer p {
+  font-size: 12px;
+}
+
+.dark-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 3px 7px;
+  background-color: var(--bg);
+  color: var(--primary);
+  font-size: 10px;
+  border: 1px solid var(--primary);
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.dark-toggle:hover {
+  background-color: var(--primary-transparent);
+}
