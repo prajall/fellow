@@ -4,12 +4,8 @@ import "../css/ProductLightbox.css";
 
 const ProductLightbox = ({ product, onClose }) => {
   return (
-    <div className="lightbox-overlay">
-      <div className="lightbox-content">
-        <button className="lightbox-close" onClick={onClose}>
-          &times;
-        </button>
-
+    <div className="lightbox-overlay" onClick={() => onClose()} id={product.id}>
+      <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
         <div className="lightbox-grid">
           <div className="lightbox-image-container">
             <img

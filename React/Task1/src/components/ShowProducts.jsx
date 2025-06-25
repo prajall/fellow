@@ -1,20 +1,27 @@
-import React from "react";
-import { useProducts } from "../hooks/apiHooks";
+import React, { useState } from "react";
+import { useProducts } from "../utils/apiHooks";
 import "../css/ShowProducts.css";
-import { useEffect } from "react";
 import ProductLightbox from "./ProductLightbox";
+import { withAuth } from "../utils/hoc";
 
 const ShowProducts = () => {
   const { products, isLoading } = useProducts();
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleAddToCart = (product) => {
-    console.log("Added to cart:", product);
+    alert(`"${product.title}" added to cart`);
   };
 
-  const showProductDetail = () => {
+  const showProductDetail = (id) => {
     console.log("Show Product detail");
+    const selected = products.find((product) => product.id === id);
+    console.log("Selected Product", selected);
+    if (selected) {
+      setSelectedProduct(selected);
+    }
   };
 
+  const ProtectedLightBox = withAuth(ProductLightbox);
   return (
     <div className="product-container">
       {isLoading ? (
@@ -27,7 +34,9 @@ const ShowProducts = () => {
               <div
                 className="product-card"
                 key={product.id}
-                onClick={showProductDetail}
+                onClick={() => {
+                  showProductDetail(product.id);
+                }}
               >
                 <img
                   src={product.image}
@@ -51,21 +60,14 @@ const ShowProducts = () => {
               </div>
             ))}
           </div>
-          <ProductLightbox
-            product={{
-              id: 1,
-              title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-              price: 109.95,
-              description:
-                "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-              category: "men's clothing",
-              image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-              rating: {
-                rate: 3.9,
-                count: 120,
-              },
-            }}
-          />
+          {selectedProduct && (
+            <ProtectedLightBox
+              product={selectedProduct}
+              onClose={() => {
+                setSelectedProduct(null);
+              }}
+            />
+          )}
         </>
       )}
     </div>
