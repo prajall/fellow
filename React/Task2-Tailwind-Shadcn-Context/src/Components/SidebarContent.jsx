@@ -49,7 +49,9 @@ const ProductObject = ({ product }) => {
           </div>
           <div className="px-2 truncate w-full">
             <p className="">{product.title}</p>
-            <p className="text-sm text-muted-foreground">${product.price}</p>
+            <p className="text-sm text-muted-foreground">
+              ${product.price * product.quantity}
+            </p>
             <div className="flex items-center gap-2 text-sm">
               <p>Quantity:</p>
               <button
