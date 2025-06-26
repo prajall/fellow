@@ -49,7 +49,7 @@ const ShowProducts = () => {
                     <button
                       className="add-to-cart-btn"
                       onClick={(e) => {
-                        e.stopPropagation();
+                        // e.stopPropagation();
                         handleAddToCart(product);
                       }}
                     >
