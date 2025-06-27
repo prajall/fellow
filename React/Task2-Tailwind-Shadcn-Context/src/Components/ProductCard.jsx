@@ -11,9 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
+import { useCartStore } from "@/store";
 
 const ProductCard = ({ product }) => {
   const { cartItems, setCartItems } = useCart();
+  const addtoCartAction = useCartStore((state) => state.addToCart);
+  const cartItemsZ = useCartStore((state) => state.cartItems);
+
   const handleCart = () => {
     const existingItem = cartItems.find((item) => item.id === product.id);
 
@@ -34,6 +38,8 @@ const ProductCard = ({ product }) => {
       );
       toast.info("Item already exist. Added Quantity +1");
     }
+    addtoCartAction(product);
+    console.log("cartItemsZ", cartItemsZ);
   };
 
   return (

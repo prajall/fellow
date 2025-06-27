@@ -4,12 +4,17 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import { toast } from "sonner";
+import { useCartStore } from "@/store";
 
 const ProductObject = ({ product }) => {
   const { setCartItems } = useCart();
+  const addQuantity = useCartStore((state) => state.addQuantity);
+  const subQuantity = useCartStore((state) => state.subQuantity);
+  const removeItem = useCartStore((state) => state.removeItem);
 
   const handleDelete = () => {
     setCartItems((prev) => prev.filter((item) => item.id != product.id));
+    removeItem(product.id);
   };
   const handleAddQuantity = () => {
     setCartItems((prev) =>
@@ -23,6 +28,7 @@ const ProductObject = ({ product }) => {
         }
       })
     );
+    addQuantity(product.id);
   };
   const handleSubtractQuantity = () => {
     if (product.quantity == 1) {
@@ -39,11 +45,12 @@ const ProductObject = ({ product }) => {
         }
       })
     );
+    subQuantity(product.id);
   };
   return (
     <div>
       <Card className="p-0 border-none shadow-none">
-        <CardContent className=" border p-2 flex gap-2 items-center ">
+        <CardContent className="p-2 flex gap-2 items-center ">
           <div>
             <img src={product.image} alt="Image" className="w-14" />
           </div>
@@ -84,14 +91,18 @@ const ProductObject = ({ product }) => {
 
 const SidebarContent = () => {
   const { cartItems, setCartItems } = useCart();
+  const cartItemsZ = useCartStore((state) => state.cartItems);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const clearAllZ = useCartStore((state) => state.emptyCart);
 
   useEffect(() => {
     let total = 0;
-    cartItems.forEach((item) => {
-      console.log("hey");
-      total += item.price * item.quantity || 0;
-    });
+    if (cartItems.length > 0)
+      cartItems.forEach((item) => {
+        console.log("hey");
+        total += item.price * item.quantity || 0;
+      });
     setTotalPrice(total.toFixed(2));
   }, [cartItems]);
 
@@ -102,6 +113,7 @@ const SidebarContent = () => {
         variant="link"
         onClick={() => {
           setCartItems([]);
+          clearAllZ();
           toast.success("All items cleared");
         }}
         className="w-fit ml-auto"
@@ -109,7 +121,7 @@ const SidebarContent = () => {
         Clear All
       </Button>
       <div className="h-full overflow-y-auto flex flex-col gap-2">
-        {cartItems.map((item) => {
+        {cartItemsZ.map((item) => {
           return <ProductObject product={item} />;
         })}
       </div>

@@ -10,7 +10,10 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const localCart = JSON.parse(localStorage.getItem("cart")) || [];
-  const [cartItems, setCartItems] = useState(localCart || []);
+
+  const [cartItems, setCartItems] = useState(
+    Array.isArray(localCart) ? localCart : [] || []
+  );
 
   useEffect(() => {
     console.log("Cart Items: ", cartItems);
