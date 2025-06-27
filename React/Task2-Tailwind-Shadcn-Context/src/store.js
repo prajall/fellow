@@ -1,7 +1,9 @@
 import { create } from "zustand";
 
+const localCart = JSON.parse(localStorage.getItem("cart")) || [];
+
 export const useCartStore = create((set) => ({
-  cartItems: [],
+  cartItems: localCart || [],
   addToCart: (newItem) =>
     set((state) => {
       const currentItems = state.cartItems;
@@ -10,7 +12,7 @@ export const useCartStore = create((set) => ({
       console.log("Existing Item:", existingItem);
       if (!existingItem) {
         const newCartItems = [...currentItems, { ...newItem, quantity: 1 }];
-        console.log(newCartItems);
+        localStorage.setItem("cart", JSON.stringify(newCartItems));
         return { cartItems: newCartItems };
       } else {
         const newCartItems = state.cartItems.map((item) => {
@@ -22,10 +24,17 @@ export const useCartStore = create((set) => ({
             };
           }
         });
+        localStorage.setItem("cart", JSON.stringify(newCartItems));
         return { cartItems: newCartItems };
       }
     }),
-  emptyCart: () => set(() => ({ cartItems: [] })),
+  emptyCart: () =>
+    set(() => {
+      localStorage.removeItem("cart");
+      return {
+        cartItems: [],
+      };
+    }),
   addQuantity: (id) =>
     set((state) => {
       const targetItem = state.cartItems.find((item) => item.id == id);
@@ -34,12 +43,12 @@ export const useCartStore = create((set) => ({
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
       return { cartItems: updatedCart };
     }),
   subQuantity: (id) =>
     set((state) => {
       const targetItem = state.cartItems.find((item) => item.id == id);
-      //   console.log("Tar", targetItem);
       if (targetItem.quantity === 0) {
         return { cartItems: state.cartItems };
       }
@@ -48,11 +57,14 @@ export const useCartStore = create((set) => ({
           ? { ...item, quantity: item.quantity - 1 }
           : item
       );
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
       return { cartItems: updatedCart };
     }),
 
   removeItem: (id) =>
-    set((state) => ({
-      cartItems: state.cartItems.filter((item) => item.id != id),
-    })),
+    set((state) => {
+      const updatedCart = state.cartItems.filter((item) => item.id != id);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return { cartItems: updatedCart };
+    }),
 }));
