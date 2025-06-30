@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+"use client";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { products as productsData } from "@/components/data";
 
 export interface Product {
@@ -16,6 +23,10 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>(productsData);
+
+  useEffect(() => {
+    console.log("Products changed:", products);
+  }, [products]);
 
   return (
     <ProductContext.Provider value={{ products, setProducts }}>
