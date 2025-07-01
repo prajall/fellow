@@ -3,6 +3,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Product, useProductContext } from "@/providers/ProductContext";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Query = () => {
   const { products, setProducts } = useProductContext();
@@ -21,19 +24,25 @@ const Query = () => {
     });
 
   //use Mutation
-  const { mutate, status } = useMutation({
+  const productMutation = useMutation({
     mutationKey: ["product"],
     mutationFn: (newProduct: Product) => addProduct(newProduct),
     onSuccess: (newProduct) => {
       console.log("onSuccess of useMutation", newProduct);
       queryClient.invalidateQueries({ queryKey: ["product"] });
     },
-
     onError: (err) => {
       console.log("Error on useMutation:", err);
     },
-    onSettled:()
   });
+
+  const formSchema = z.object({
+    name: z.string().min(3, "Minimum length should be 3"),
+    price: z.number(),
+    id: z.number().min(1, "Id must be positive integer"),
+  });
+
+  type formInfer = z.infer<typeof formSchema>;
 
   const fetchProduct = async (id?: string) => {
     console.log("Product fetching");
@@ -58,18 +67,26 @@ const Query = () => {
     return response;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form", e);
-
-    const form: any = e.target;
-    const name = form.name.value;
-    const price = form.price.value;
-    const id = form.id.value;
-    console.log(name, price, id);
-
-    mutate({ id, name, price });
+  const addHandler = async (data: formInfer) => {
+    // e.preventDefault();
+    // const form: any = e.target;
+    // const name = form.name.value;
+    // const price = form.price.value;
+    // const id = form.id.value;
+    // console.log(name, price, id);
+    // productMutation.mutate({ id, name, price });
+    console.log(data);
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(formSchema),
+    reValidateMode: "onChange",
+    shouldFocusError: true,
+  });
 
   // const [data, setData] = useState<string | null>(null);
 
@@ -102,14 +119,37 @@ const Query = () => {
 
       <form
         action=""
-        onSubmit={(e) => handleSubmit(e)}
+        // onSubmit={(e) => handleSubmit(e)}
+        onSubmit={handleSubmit(addHandler)}
         className="border p-4 w-96 mt-10"
       >
         <h2 className="text-center">New Product</h2>
-        <input type="text" name="name" placeholder="Name of Product" />
-        <input type="number" name="price" placeholder="Price" />
-        <input type="number" name="id" placeholder="id" />
-        <button type="submit" className="bg-blue-600 px-2">
+        <input
+          {...register("name")}
+          type="text"
+          placeholder="Name of Product"
+        />
+        {errors.name && (
+          <p className="text-red-500">{errors.name.message || ""}</p>
+        )}
+        <input
+          {...register("price", { valueAsNumber: true })}
+          placeholder="Price"
+        />
+        {errors.price && (
+          <p className="text-red-500">{errors.price.message || ""}</p>
+        )}
+        <input
+          {...register("id", { valueAsNumber: true })}
+          type="number"
+          placeholder="ID"
+        />
+        {errors.id && <p className="text-red-500">{errors.id.message || ""}</p>}
+        <button
+          type="submit"
+          className="bg-blue-600 px-2"
+          disabled={productMutation.isPending}
+        >
           Add
         </button>
       </form>
