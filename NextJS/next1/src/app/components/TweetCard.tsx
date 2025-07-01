@@ -3,10 +3,11 @@ import { TweetProp } from "./CreateTweetForm";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiRepost } from "react-icons/bi";
 import { BsChatDots } from "react-icons/bs";
+import Link from "next/link";
 
 const TweetCard = ({ tweet }: { tweet: TweetProp }) => {
   return (
-    <div className="max-w-xl mx-auto my-5 p-4  rounded-xl shadow-lg border border-[var(--foreground)]">
+    <div className="max-w-xl mx-auto my-5 p-4  rounded-xl shadow-lg border border-[var(--foreground)]/30">
       <div className="flex items-center mb-3">
         <img
           src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
@@ -22,7 +23,12 @@ const TweetCard = ({ tweet }: { tweet: TweetProp }) => {
         <h3 className="text-lg font-semibold mb-1">{tweet.title}</h3>
         <p className="text-base leading-relaxed">{tweet.description}</p>
       </div>
-      <div className="flex justify-start text-sm text-gray-500">
+      <div className="flex justify-end">
+        <Link href={`/${tweet.id}`} className="hover:underline ">
+          Learn More
+        </Link>
+      </div>
+      {/* <div className="flex justify-start text-sm text-gray-500">
         <span className="flex items-center mr-4">
           <AiOutlineHeart className="w-4 h-4 mr-1" />
           1.2K
@@ -35,7 +41,7 @@ const TweetCard = ({ tweet }: { tweet: TweetProp }) => {
           <BsChatDots className="w-4 h-4 mr-1" />
           89
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };
