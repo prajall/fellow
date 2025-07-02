@@ -12,9 +12,9 @@ export const useTweets = () => {
     return new Promise((resolve, reject) => {
       // const success = Math.random() > 0.5;
       setTimeout(() => {
+        resolve(tweets);
         // if (success) {
         // console.log("Success ");
-        resolve(tweets);
         // } else {
         // console.log("Error");
         // reject(new Error("Failed to fetch tweets"));
@@ -34,8 +34,9 @@ export const useTweets = () => {
           ...tweets,
         ];
         setTweets(finalTweets);
-        resolve(finalTweets);
-        queryClient.invalidateQueries({ queryKey: ["tweets"] });
+        setTimeout(() => {
+          resolve(finalTweets);
+        }, 500);
       }, 1000);
     });
   };

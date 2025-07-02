@@ -1,7 +1,7 @@
 "use client";
 
 import { useTweetContext } from "@/providers/TweetContext";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,11 +16,17 @@ export type TweetProp = {
 
 const CreateTweetForm = () => {
   const { postTweet } = useTweets();
+  const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["tweets"],
     mutationFn: postTweet,
-    onSuccess: () => reset(),
+    onSuccess: (finalTweets) => {
+      // alert("Successfuly posted tweet");
+      // queryClient.invalidateQueries({ queryKey: ["tweets"] });
+      queryClient.setQueryData(["tweets"], finalTweets);
+      reset();
+    },
   });
 
   const formSchema = z.object({

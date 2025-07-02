@@ -12,7 +12,7 @@ const ShowTweets = () => {
     useQuery({
       queryKey: ["tweets"],
       queryFn: fetchTweets,
-      staleTime: 30 * 1000,
+      // staleTime: 30 * 1000,
       refetchInterval: 10 * 1000,
     });
 
