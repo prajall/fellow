@@ -67,3 +67,9 @@ class child_class(myClass):
 child = child_class("Okay")
 
 child.print_name();
+
+ifStatement = 'statement' if 10<11 else "nothing"
+
+
+
+print("if statement",ifStatement)
