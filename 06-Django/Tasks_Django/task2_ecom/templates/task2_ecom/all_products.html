@@ -1,0 +1,37 @@
+<!--prettier-ignore-->
+{% extends "task2_ecom/base.html" %} 
+{% block page %}
+<div class="max-w-4xl mx-auto">
+  <h2 class="text-4xl font-bold text-center mb-10">All Products</h2>
+
+  <div class="mb-6 flex justify-end">
+    <form action="{% url 'task2_ecom:all_products' %}">
+      <label for="brand">Brand:</label>
+      <select name="brand" class="border border-gray-300 rounded p-1 mr-4">
+        <option value="">All</option>
+        {% for brand in brands %}
+        <option value="{{brand.id}}">{{brand.name}}</option>
+        {%endfor%}
+      </select>
+      <label for="brand">Category:</label>
+      <select name="category" class="border border-gray-300 rounded p-1">
+        <option value="">All</option>
+        {% for category in categories %}
+        <option value="{{category.id}}">{{category.category}}</option>
+        {%endfor%}
+      </select>
+      <button
+        type="submit"
+        class="mx-2 px-3 py-1 rounded-md cursor-pointer bg-gray-900 text-white"
+      >
+        Apply
+      </button>
+    </form>
+  </div>
+  <div class="space-y-8">
+    {% for p in products %}
+    <p>{{p.name}}</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

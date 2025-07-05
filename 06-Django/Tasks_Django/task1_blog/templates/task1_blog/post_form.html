@@ -1,0 +1,26 @@
+<!--prettier-ignore-->
+{% extends "task1_blog/base.html"%}
+{%block title%}
+Post a Blog
+{%endblock%}
+ {%block content%}
+<h2 class="text-center font-bold text-4xl mb-10">Create New Blog</h2>
+
+<form
+  method="post"
+  class="max-w-2xl mx-auto p-3 lg:p-4 border border-gray-300 rounded-lg"
+>
+  <!--prettier-ignore-->
+  {% csrf_token %} 
+
+  {{form.as_p}}
+
+  <button
+    type="submit"
+    class="bg-gray-900 px-8 py-2 text-gray-50 rounded-lg cursor-pointer"
+  >
+    Submit
+  </button>
+</form>
+
+{%endblock%}

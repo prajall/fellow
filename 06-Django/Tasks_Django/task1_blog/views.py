@@ -32,7 +32,7 @@ def home_view(request):
         return HttpResponse("Internal Server Error")
 
     else:
-        return render(request, 'home.html', {'posts':posts,"authors":all_authors,"categories":all_categories})
+        return render(request, 'task1_blog/home.html', {'posts':posts,"authors":all_authors,"categories":all_categories})
 
 def detail_view(request,id):
 
@@ -44,12 +44,12 @@ def detail_view(request,id):
         return HttpResponse("Internal Server Error")
 
     else:
-        return render(request, 'detail.html', {'post':post})
+        return render(request, 'task1_blog/detail.html', {'post':post})
 
 def post_blog(request):
 
     if request.method=='GET':
-        return render(request,'post_form.html',{"form":BlogForm})
+        return render(request,'task1_blog/post_form.html',{"form":BlogForm})
 
     if request.method == 'POST':
         form = BlogForm(request.POST)
@@ -62,7 +62,7 @@ def post_blog(request):
 def edit_blog(request,id):
     post = get_object_or_404(Post,pk=id)
     if request.method=='GET':
-        return render(request,'post_form.html',{"form":BlogForm(instance=post)})
+        return render(request,'task1_blog/post_form.html',{"form":BlogForm(instance=post)})
 
     if request.method == 'POST':
         form = BlogForm(request.POST,instance=post)
