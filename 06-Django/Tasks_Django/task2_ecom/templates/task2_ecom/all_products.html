@@ -1,8 +1,8 @@
 <!--prettier-ignore-->
 {% extends "task2_ecom/base.html" %} 
 {% block page %}
-<div class="max-w-4xl mx-auto">
-  <h2 class="text-4xl font-bold text-center mb-10">All Products</h2>
+<div class="w-full mx-auto">
+  <h2 class="text-2xl font-bold mb-4">All Products</h2>
 
   <div class="mb-6 flex justify-end">
     <form action="{% url 'task2_ecom:all_products' %}">
@@ -29,9 +29,77 @@
     </form>
   </div>
   <div class="space-y-8">
-    {% for p in products %}
-    <p>{{p.name}}</p>
-    {% endfor %}
+    <div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+      <table class="min-w-full text-sm">
+        <thead class="bg-gray-50 border-b border-gray-200">
+          <tr>
+            <th
+              class="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              ID
+            </th>
+            <th
+              class="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              Image
+            </th>
+            <th
+              class="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              Name
+            </th>
+            <th
+              class="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              Brand
+            </th>
+            <th
+              class="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              Category
+            </th>
+            <th
+              class="px-6 py-3 text-left font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              Price
+            </th>
+            <th
+              class="px-6 py-3 text-right font-semibold text-gray-700 uppercase tracking-wider"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          {% for p in products %}
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-3">{{ p.id }}</td>
+            <td class="px-6 py-1">
+              {% if p.image %}
+              <img
+                src="{{p.image.url}}"
+                alt="Product Image"
+                class="w-10 h-10 object-contain"
+              />
+              {% else %} - {% endif %}
+            </td>
+            <td class="px-6 py-3">{{ p.name }}</td>
+            <td class="px-6 py-3">{{ p.brand }}</td>
+            <td class="px-6 py-3">{{ p.category }}</td>
+            <td class="px-6 py-3">Rs. {{ p.price }}</td>
+            <td class="px-6 py-3 text-right">
+              <a
+                href="{%url 'task2_ecom:edit_product' p.id %}"
+                class="hover:underline mr-3"
+                >Edit</a
+              >
+              <a href="#" class="text-red-600 hover:underline">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 {% endblock %}

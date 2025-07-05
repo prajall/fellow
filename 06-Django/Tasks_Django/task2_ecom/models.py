@@ -24,6 +24,7 @@ class Product(models.Model):
     price = models.FloatField()
     brand = models.ForeignKey(Brand,on_delete=models.SET_NULL,null=True,blank=True)
     category= models.ForeignKey(Category,on_delete=models.SET_NULL, null=True,blank=True)
+    image = models.ImageField(upload_to='products/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

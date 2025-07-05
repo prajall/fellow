@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/'media',
+MEDIA_ROOT = BASE_DIR / 'media'
 ALLOWED_HOSTS = []
 
 

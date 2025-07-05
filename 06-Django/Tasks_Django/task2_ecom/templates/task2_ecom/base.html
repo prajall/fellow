@@ -4,14 +4,14 @@
 {% block content %}
 <nav class="bg-neutral-100 py-6">
   <div class="container mx-auto px-4 flex justify-between">
-    <a href="{% url 'task1_blog:home_view' %}">
+    <a href="{% url 'task2_ecom:all_products' %}">
       <h1 class="play-fair italic font-bold text-lg">ECOMMERCE</h1>
     </a>
     <a
       href="{% url 'task2_ecom:create_product' %}"
       class="bg-gray-900 text-gray-50 px-4 py-[7px] rounded-[20px]"
     >
-      Add New +
+      Add New <span class="text-lg font-semibold"> + </span>
     </a>
   </div>
 </nav>

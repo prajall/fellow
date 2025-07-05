@@ -17,7 +17,7 @@ def all_products(request):
     try:
         products = Product.objects.select_related('brand','category').order_by('-created_at').all();
         for p in products:
-            print(model_to_dict(p))
+            print(p.image.name if p.image else "")
         if brand_id:
             products = products.filter(brand = int(brand_id))
         if category_id:
@@ -52,7 +52,8 @@ def create_product(request):
         return render(request,'task2_ecom/create_product.html',{"form":ProductForm})
 
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        print("reQUEST FILES",request.FILES)
+        form = ProductForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("task2_ecom:all_products"))
@@ -64,13 +65,15 @@ def edit_product (request,id):
 
     if request.method == 'GET':
         form = ProductForm(instance = product)
-        return render(request,'task2_ecom/product_form.html',{'form':ProductForm(instance=product)})
+        return render(request,'task2_ecom/create_product.html',{'form':ProductForm(instance=product)})
     
     if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if(form.is_valid):
+        form = ProductForm(request.POST,request.FILES,instance=product)
+        if form.is_valid:
             form.save()
             return HttpResponseRedirect(reverse('task2_ecom:all_products')) 
+        else:
+            return HttpResponseBadRequest("Bad Request")    
         
 def delete_product(request,id):
     product = get_object_or_404(Product,pk=id)
