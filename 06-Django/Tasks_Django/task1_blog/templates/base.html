@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!--prettier-ignore-->
+    {%load static%}
+     <link rel="stylesheet" href={%static 'task1_blog/style.css'%} >
+
+    <title>{% block title %}Blog | Home {% endblock%}</title>
+  </head>
+  <body>
+    <nav class="bg-neutral-100 py-8">
+      <div class="container mx-auto px-4 flex justify-between">
+        <h1 class="play-fair italic font-bold text-lg">BLUGS</h1>
+        <a
+          href="{% url 'task1_blog:post_blog' %}"
+          class="bg-gray-900 text-gray-50 px-4 py-[7px] rounded-[20px]"
+        >
+          Create Blog
+        </a>
+      </div>
+    </nav>
+    <div class="container mx-auto px-4 py-10">
+      {% block content %} {% endblock %}
+    </div>
+  </body>
+</html>

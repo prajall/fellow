@@ -6,13 +6,13 @@ class Author(models.Model):
     email = models.EmailField(unique=True)
     bio = models.CharField(null=True)
 
-    def __init__(self):
+    def __str__(self):
         return self.name
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
 
-    def __init__(self):
+    def __str__(self):
         return self.category
 
 
@@ -24,5 +24,5 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __init__(self):
+    def __str__(self):
         return self.title
