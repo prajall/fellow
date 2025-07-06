@@ -1,0 +1,39 @@
+<!-- prettier-ignore -->
+{% extends 'task4_library/base.html' %} 
+{% block title %}Member List{% endblock %} 
+{% block page %}
+<h1 class="text-2xl font-bold mb-4 text-center">Member List</h1>
+
+<div
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+>
+  <div
+    class="flex flex-col items-center justify-center border border-gray-200 py-6 px-4 rounded-xl min-h-54"
+  >
+    <span class="text-5xl">+</span>
+    <a href="{% url 'task4_library:member_create' %}" class="hover:underline">
+      Add New Member
+    </a>
+  </div>
+  {% for member in members %}
+  <div
+    class="flex flex-col items-center justify-center border border-gray-200 py-6 px-4 rounded-xl"
+  >
+    <img
+      src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
+      alt="Member List"
+      class="w-24 h-24 rounded-full"
+    />
+    <p class="font-bold text-lg mt-6">{{ member.name }}</p>
+    <p class="text-gray-500 text-sm">{{ member.email }}</p>
+    <!-- prettier-ignore -->
+    <p class="mt-4 text-sm">
+      <span class="font-semibold">Joined:</span> {{ member.membership_date | date:"F d ,Y" }}
+    </p>
+  </div>
+  <!-- prettier-ignore -->
+  {% endfor %}
+</div>
+{% endblock %} {% comment %}
+https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png
+{%endcomment%}

@@ -18,14 +18,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import render
+
+def homepage(request):
+    return render(request, 'home.html')
 
 urlpatterns = [
+    path('', homepage, name='homepage'),
     path('admin/', admin.site.urls),
     path('task1_blog/', include("task1_blog.urls")),
     path('task2_ecom/', include("task2_ecom.urls")),
-    path('task3_sms/', include("task3_sms.urls"))
-    
+    path('task3_sms/', include("task3_sms.urls")),
+    path('task4_library/', include("task4_library.urls")),   
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

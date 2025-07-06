@@ -1,0 +1,44 @@
+<!-- prettier-ignore -->
+{% extends 'task4_library/base.html' %} 
+{% block title %}Book List{% endblock %}
+{% block page %}
+<div class="flex justify-between items-center mb-2">
+  <h2 class="text-2xl font-bold mb-4">Book List</h2>
+  <a
+    href="{% url 'task4_library:book_create' %}"
+    class="bg-gray-900 text-gray-50 px-4 py-[7px] rounded-[20px]"
+  >
+    Add Book <span class="text-lg font-semibold"> + </span>
+  </a>
+</div>
+<div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+  <table class="w-full">
+    <thead>
+      <tr class="text-left border-b border-gray-200 bg-gray-100">
+        <th class="py-2 px-4">Title</th>
+        <th class="py-2 px-4">Author</th>
+        <th class="py-2 px-4">ISBN</th>
+        <th class="py-2 px-4">Publisher</th>
+        <th class="py-2 px-4">Publication Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr class="border-t border-gray-200 text-gray-800">
+        <td class="py-2 px-4">{{ book.title }}</td>
+        <td class="py-2 px-4">{{ book.author }}</td>
+        <td class="py-2 px-4">{{ book.isbn }}</td>
+        <td class="py-2 px-4">{{ book.publisher }}</td>
+        <td class="py-2 px-4">{{ book.publication_date }}</td>
+      </tr>
+      <!-- prettier-ignore -->
+      {% endfor %} 
+    {% if not books or books.count == 0 %}
+      <tr>
+        <td colspan="4" class="py-2">No books found.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!-- prettier-ignore -->
+{% extends 'task4_library/base.html' %} 
+{% block title %}Add Book   {% endblock %} 
+{% block page %}
+<h2 class="text-2xl font-bold mb-4 text-center">Add Book</h2>
+<form
+  action="{% url 'task4_library:book_create' %}"
+  method="post"
+  class="max-w-2xl mx-auto p-3 lg:p-4 border border-gray-300 rounded-lg"
+>
+  <!-- prettier-ignore -->
+  {% csrf_token %} 
+  {{ form.as_p }}
+  <button
+    type="submit"
+    class="bg-gray-900 px-8 py-2 text-gray-50 rounded-lg cursor-pointer"
+  >
+    Submit
+  </button>
+</form>
+{% endblock %}
