@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('task1_blog/', include("task1_blog.urls")),
-    path('task2_ecom/', include("task2_ecom.urls"))
+    path('task2_ecom/', include("task2_ecom.urls")),
+    path('task3_sms/', include("task3_sms.urls"))
     
 ]
 

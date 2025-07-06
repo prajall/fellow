@@ -1,0 +1,16 @@
+<!-- prettier-ignore -->
+{% extends 'task3_sms/base.html' %} 
+{% block title %}Add Department{% endblock %} 
+{% block page %}
+<h2 class="text-2xl font-bold mb-4 text-center">Add Department</h2>
+<form
+  action="{% url 'task3_sms:create_department' %}"
+  method="post"
+  class="max-w-2xl mx-auto p-3 lg:p-4 border border-gray-300 rounded-lg"
+>
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit" class="bg-gray-900 text-gray-50 px-4 py-2 rounded">
+    Submit
+  </button>
+</form>
+{% endblock %}
