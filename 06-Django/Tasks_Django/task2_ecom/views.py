@@ -77,8 +77,9 @@ def edit_product (request,id):
         
 def delete_product(request,id):
     product = get_object_or_404(Product,pk=id)
+    print(request.method)
     if request.method == 'POST':
         product.delete()
         return HttpResponseRedirect(reverse("task2_ecom:all_products"))
     else:
-        return HttpResponse('Internal Server Error')
+        return HttpResponse("uNKNOWN REQUEST METHOD")
