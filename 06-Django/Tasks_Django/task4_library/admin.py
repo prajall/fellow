@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Publisher, Book, Member, Loan
+from .models import Author, Publisher, Book, Member, Burrow
 
 # Register your models here.
 @admin.register(Author)
@@ -18,6 +18,6 @@ class BookAdmin(admin.ModelAdmin):
 class MemberAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'membership_date']
 
-@admin.register(Loan)
+@admin.register(Burrow)
 class LoanAdmin(admin.ModelAdmin):
     list_display = ['book', 'member', 'borrow_date', 'return_date', 'is_returned']

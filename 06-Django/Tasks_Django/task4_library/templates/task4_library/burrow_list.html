@@ -1,0 +1,100 @@
+<!-- prettier-ignore -->
+{% extends 'task4_library/base.html' %} 
+{% block title %}Burrow List{% endblock %}
+{% block page %}
+<div class="flex justify-between items-center mb-2">
+  <h2 class="text-2xl font-bold mb-4">Burrow List</h2>
+  <div class="mb-6 flex justify-end">
+    <form action="{% url 'task4_library:burrow_list' %}">
+      <label for="is_returned">Status:</label>
+      <select
+        name="is_returned"
+        class="border border-gray-300 rounded p-1 mr-4"
+      >
+        <option value="">All</option>
+        <option value="false">Not Returned</option>
+        <option value="true">Returned</option>
+      </select>
+      <label for="member">Member:</label>
+      <select name="member" class="border border-gray-300 rounded p-1">
+        <option value="">All</option>
+        {% for member in members %}
+        <option value="{{member.id}}">{{member.name}}</option>
+        {%endfor%}
+      </select>
+
+      <button
+        type="submit"
+        class="mx-2 px-3 py-1 rounded-md cursor-pointer bg-gray-900 text-white"
+      >
+        Apply
+      </button>
+    </form>
+  </div>
+  <a
+    href="{% url 'task4_library:burrow_create' %}"
+    class="bg-gray-900 text-gray-50 px-4 py-[7px] rounded-[20px]"
+  >
+    Add Burrow <span class="text-lg font-semibold"> + </span>
+  </a>
+</div>
+<div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+  <table class="w-full">
+    <thead>
+      <tr class="text-left border-b border-gray-200 bg-gray-100">
+        <th class="py-2 px-4">Book Title</th>
+        <th class="py-2 px-4">Member Name</th>
+        <th class="py-2 px-4">Status</th>
+        <th class="py-2 px-4">Borrow Date</th>
+        <th class="py-2 px-4">Return Date</th>
+        <th class="py-2 px-4">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for burrow in burrows %}
+      <tr class="border-t border-gray-200 text-gray-800">
+        <td class="py-2 px-4">{{ burrow.book.title }}</td>
+        <td class="py-2 px-4">{{ burrow.member.name }}</td>
+        <td class="py-2 px-4">
+          {% if burrow.is_returned %}
+          <span class="text-green-600 text-xs">Returned</span>
+          {% else %}
+          <!-- prettier-ignore -->
+          <span class="text-blue-600 text-xs">Borrowed 
+            {%if not burrow.burrow.is_returned and burrow.burrow.return_date < today %}
+            <span class="text-red-600 text-xs">Overdue</span> 
+            {% endif %}
+            </span>
+          {% endif %}
+        </td>
+        <td class="py-2 px-4">{{ burrow.borrow_date }}</td>
+        <td class="py-2 px-4">{{ burrow.return_date }}</td>
+        <td class="py-2 px-4">
+          {% if not burrow.is_returned %}
+          <form
+            action="{% url 'task4_library:burrow_return' burrow.id %}"
+            method="post"
+          >
+            {% csrf_token %}
+            <button
+              type="submit"
+              href=""
+              class="text-blue-600 text-xs cursor-pointer"
+            >
+              Return
+            </button>
+          </form>
+          {%else%} - {%endif%}
+        </td>
+      </tr>
+      <!-- prettier-ignore -->
+      {% endfor %} 
+    {% if not burrows or burrows.count == 0 %}
+      <tr>
+        <td colspan="5" class="py-2">No burrows found.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

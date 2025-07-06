@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book, Member, Burrow
-from .forms import BookForm, MemberForm
+from .forms import BookForm, MemberForm, BurrowForm
+from datetime import datetime
+
 
 # Create your views here.
 def book_create(request):
@@ -38,3 +40,47 @@ def member_list(request):
     except Exception as e:
         print("error fetching members", e)
         return render(request, 'task4_library/member_list.html', {'members': []})
+
+
+def burrow_create(request):
+    if request.method == 'POST':
+        form = BurrowForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('task4_library:burrow_list')
+    else:
+        form = BurrowForm()
+    return render(request, 'task4_library/burrow_form.html', {'form': form})
+
+def burrow_list(request):
+
+    member_id = request.GET.get("member", "")
+    is_returned = request.GET.get('is_returned')
+
+    print(is_returned)
+
+
+    burrows = Burrow.objects.all()
+    members = Member.objects.all()
+
+    if member_id:
+        burrows=burrows.filter(member=int(member_id))
+    if is_returned=='true':
+        burrows=burrows.filter(is_returned=True)
+    if is_returned=='false':
+        burrows=burrows.filter(is_returned=False)
+
+    today = datetime.now().date()
+    return render(request, 'task4_library/burrow_list.html', {'burrows': burrows, 'today': today,"members":members})  
+
+
+def burrow_return(request,id):
+    burrow_model = get_object_or_404(Burrow,pk=id)
+    print("model found",burrow_model,request.method)
+
+    if request.method == 'POST':
+        burrow_model.is_returned = True
+        burrow_model.save()
+        return redirect('task4_library:burrow_list')
+    else:
+        return redirect('task4_library:burrow_list')

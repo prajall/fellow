@@ -1,5 +1,5 @@
 from django import forms
-from .models import Book, Member
+from .models import Book, Member, Burrow
 
 
 class BookForm(forms.ModelForm):
@@ -11,3 +11,8 @@ class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ['name', 'email', 'membership_date']
+
+class BurrowForm(forms.ModelForm):
+    class Meta:
+        model = Burrow
+        fields = ['book', 'member', 'borrow_date', 'return_date', 'is_returned']
