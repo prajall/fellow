@@ -3,7 +3,17 @@
 {% block page %}
 
 <p class="text-sm text-gray-500">Event #{{event.id}}</p>
-<h1 class="text-3xl sm:text-4xl font-bold text-gray-800">{{ event.title }}</h1>
+<div class="flex gap-2 items-center">
+  <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">
+    {{ event.title }}
+  </h1>
+  <a
+    href="{% url 'task5_ems:event_edit' event.id%}"
+    title="Edit Event"
+    class="px-2 py-1 text-blue-500 hover:bg-gray-200 rounded-md"
+    ><i class="fa-solid fa-pen"></i
+  ></a>
+</div>
 
 <p class="text-gray-600 mt-4">
   <span class="font-semibold">Description:</span>
@@ -54,7 +64,7 @@
     Attendees for this event ({{total_attendees}}):
   </h2>
   <a
-    href="{% url 'task3_sms:department_list' %}"
+    href="{% url 'task5_ems:register_event' event.id %}"
     class="underline underline-offset-2"
   >
     Register

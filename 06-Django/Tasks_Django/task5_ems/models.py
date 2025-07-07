@@ -53,9 +53,9 @@ STATUS_CHOICE = [
 class Registration(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     attendee = models.ForeignKey(Attendee, on_delete=models.CASCADE)
-    registration_date = models.DateField()
+    registration_date = models.DateField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICE, default="upcomming")
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # def __init__(self):
-    #     return self.event.title
+    def __str__(self):
+        return f"{self.attendee.name}-{self.event.title}"

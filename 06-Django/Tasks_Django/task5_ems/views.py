@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.forms.models import model_to_dict 
-from django.http import HttpResponseBadRequest, HttpResponse
+from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
 from .models import Event, Registration
+from .forms import RegistrationForm, EventForm
 
 # Create your views here.
 def event_list(request):
@@ -29,3 +31,39 @@ def event_detail(request,event_id):
     except Exception as e:
         print(e)
         return HttpResponse("Internal Server Error")
+    
+def event_add(request):
+    form = EventForm()
+    return render(request, "task5_ems/event_form.html",{"form":form})
+
+def event_edit(request,event_id):
+
+    if request.method=='POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save();
+            redirect_url = reverse("task5_ems:event_detail", kwargs={"event_id":event_id})
+            return HttpResponseRedirect(redirect_url)
+
+    else:  
+        event = get_object_or_404(Event, pk=event_id)
+        form = EventForm(instance = event)
+        return render(request, "task5_ems/event_form.html",{"form":form})
+
+def register_event(request,event_id):
+
+    event = get_object_or_404(Event, pk=event_id )
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            redirect_url = reverse("task5_ems:event_detail", kwargs={"event_id":event_id})
+            return HttpResponseRedirect(redirect_url)
+        else:
+            return HttpResponseBadRequest()
+    
+    else:
+        form = RegistrationForm()
+        return render(request, 'task5_ems/registration_form.html',{"form":form,"event_id":event_id})
+
+
