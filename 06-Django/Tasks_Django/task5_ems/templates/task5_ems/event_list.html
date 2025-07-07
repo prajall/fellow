@@ -1,0 +1,45 @@
+{% extends "task5_ems/base.html" %}
+<!--prettier-ignore-->
+{% block page %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+  {%for event in events%}
+  <div
+    class="bg-white min-h-64 rounded-lg p-3 md:p-4 lg:p-6 flex flex-col md:flex-row gap-6 border border-gray-200"
+  >
+    <div class="w-full flex flex-col justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Event #{{event.id}}</p>
+        <div>
+          <a href="#" class="hover:underline underline-offset-2">
+            <h3 class="text-2xl font-semibold mb-2 text-gray-800">
+              {{event.title}}
+            </h3>
+          </a>
+          <p class="text-gray-600 mb-4 text-justify text-sm">
+            {{event.description | truncatewords:50}}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex justify-between align-bottom">
+        <div class="text-sm mt-4 text-gray-700 w-full flex flex-col gap-2">
+          <span class="text-xs"
+            ><span class="font-semibold">Organized By:</span>
+            {{event.organizer}}</span
+          >
+          <span class="text-xs"
+            ><span class="font-semibold">Venue:</span> {{event.venue}}
+          </span>
+        </div>
+        <a
+          href="{%url 'task5_ems:event_detail' event.id%}"
+          class="ml-auto mt-auto text-sm text-blue-500 min-w-fit"
+          >View Details</a
+        >
+      </div>
+    </div>
+  </div>
+  <!--prettier-ignore-->
+  {%endfor%}
+</div>
+{% endblock page %}

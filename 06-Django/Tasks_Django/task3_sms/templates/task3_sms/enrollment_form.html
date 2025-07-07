@@ -2,10 +2,14 @@
 {% extends 'task3_sms/base.html' %} 
 {% block title %}Add Enrollment{% endblock %} 
 {% block page %}
-<h2 class="text-2xl font-bold mb-4">Add Enrollment</h2>
-<form method="post">
+<h2 class="text-2xl font-bold mb-4 text-center">Add Enrollment</h2>
+
+<form
+  method="post"
+  class="border border-gray-300 max-w-2xl p-4 rounded-lg mx-auto"
+>
   {% csrf_token %} {{ form.as_p }}
-  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+  <button type="submit" class="bg-gray-900 text-white px-4 py-2 rounded">
     Submit
   </button>
 </form>

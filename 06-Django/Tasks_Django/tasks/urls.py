@@ -30,7 +30,7 @@ urlpatterns = [
     path('task2_ecom/', include("task2_ecom.urls")),
     path('task3_sms/', include("task3_sms.urls")),
     path('task4_library/', include("task4_library.urls")), 
-    path('task5_ems',include('task5_ems.urls'))  
+    path('task5_ems/',include('task5_ems.urls'))  
 ]
 
 if settings.DEBUG:

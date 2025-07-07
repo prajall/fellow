@@ -1,0 +1,26 @@
+<!--prettier-ignore-->
+{% extends "layout.html" %} 
+{% block title %}Event Management System{% endblock title %} 
+{% block content %}
+<nav class="bg-neutral-100 py-6">
+  <div class="container mx-auto px-4 flex justify-between">
+    <a href="{% url 'task4_library:home' %}">
+      <h1 class="play-fair italic font-bold text-lg">EMS</h1>
+    </a>
+    <div class="flex gap-2">
+      <a
+        href="{% url 'task4_library:burrow_list' %}"
+        class="bg-gray-900 text-gray-50 px-4 py-[7px] rounded-[20px]"
+      >
+        Book an Event
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container mx-auto px-4 py-10">
+  <!--prettier-ignore-->
+  {% block page %} 
+  {% endblock %}
+</div>
+{% endblock content %}
