@@ -5,6 +5,15 @@ from datetime import datetime
 
 
 # Create your views here.
+
+
+def home(request):
+    burrows = Burrow.objects.order_by('-created_at').all()[:10]
+    members = Member.objects.all()[:8]
+    books = Book.objects.all()[:10]
+
+    return render(request, 'task4_library/home.html', {'burrows': burrows, 'members': members,'books':books})
+
 def book_create(request):
     if request.method == 'POST':
         form = BookForm(request.POST)

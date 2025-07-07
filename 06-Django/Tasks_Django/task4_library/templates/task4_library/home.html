@@ -1,0 +1,142 @@
+<!-- prettier-ignore -->
+{% extends 'task4_library/base.html' %} 
+{% block title %}Book List{% endblock %}
+{% block page %}
+
+{% comment %} Latest Borrowssssssssssssssssssssssssssssssssss {% endcomment %}
+
+<div class="flex justify-between items-center mb-2">
+  <h2 class="text-2xl font-bold mb-2">Latest Burrows</h2>
+  <a href="{%url 'task4_library:burrow_list'%}" class="hover:underline"
+    >View All</a
+  >
+</div>
+<div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+  <table class="w-full">
+    <thead>
+      <tr class="text-left border-b border-gray-200 bg-gray-100">
+        <th class="py-2 px-4">Book Title</th>
+        <th class="py-2 px-4">Member Name</th>
+        <th class="py-2 px-4">Status</th>
+        <th class="py-2 px-4">Borrow Date</th>
+        <th class="py-2 px-4">Return Date</th>
+        <th class="py-2 px-4">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for burrow in burrows %}
+      <tr class="border-t border-gray-200 text-gray-800">
+        <td class="py-2 px-4">{{ burrow.book.title }}</td>
+        <td class="py-2 px-4">{{ burrow.member.name }}</td>
+        <td class="py-2 px-4">
+          {% if burrow.is_returned %}
+          <span class="text-green-600 text-xs">Returned</span>
+          {% else %}
+          <!-- prettier-ignore -->
+          <span class="text-blue-600 text-xs">Borrowed 
+            {%if not burrow.burrow.is_returned and burrow.burrow.return_date < today %}
+            <span class="text-red-600 text-xs">Overdue</span> 
+            {% endif %}
+            </span>
+          {% endif %}
+        </td>
+        <td class="py-2 px-4">{{ burrow.borrow_date }}</td>
+        <td class="py-2 px-4">{{ burrow.return_date }}</td>
+        <td class="py-2 px-4">
+          {% if not burrow.is_returned %}
+          <form
+            action="{% url 'task4_library:burrow_return' burrow.id %}"
+            method="post"
+          >
+            {% csrf_token %}
+            <button
+              type="submit"
+              href=""
+              class="text-blue-600 text-xs cursor-pointer"
+            >
+              Return
+            </button>
+          </form>
+          {%else%} - {%endif%}
+        </td>
+      </tr>
+      <!-- prettier-ignore -->
+      {% endfor %} 
+    {% if not burrows or burrows.count == 0 %}
+      <tr>
+        <td colspan="5" class="py-2">No burrows found.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% comment %} Memberssssssss --------------------- {% endcomment %}
+<div class="flex justify-between items-center mb-2 mt-10">
+  <h2 class="text-2xl font-bold mb-2">Latest Members</h2>
+  <a href="{%url 'task4_library:member_list'%}" class="hover:underline"
+    >View All</a
+  >
+</div>
+<div
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+>
+  {% for member in members %}
+  <div
+    class="flex flex-col items-center justify-center border border-gray-200 py-6 px-4 rounded-xl"
+  >
+    <img
+      src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
+      alt="Member List"
+      class="w-24 h-24 rounded-full"
+    />
+    <p class="font-bold text-lg mt-6">{{ member.name }}</p>
+    <p class="text-gray-500 text-sm">{{ member.email }}</p>
+    <!-- prettier-ignore -->
+    <p class="mt-4 text-sm">
+      <span class="font-semibold">Joined:</span> {{ member.membership_date | date:"F d ,Y" }}
+    </p>
+  </div>
+  <!-- prettier-ignore -->
+  {% endfor %}
+</div>
+
+{% comment %} Books --------------------- {% endcomment %}
+<div class="flex justify-between items-center mb-2 mt-10">
+  <h2 class="text-2xl font-bold mb-2">Books</h2>
+  <a href="{%url 'task4_library:book_list'%}" class="hover:underline"
+    >View All</a
+  >
+</div>
+<div class="overflow-x-auto bg-white rounded-lg border border-gray-200">
+  <table class="w-full">
+    <thead>
+      <tr class="text-left border-b border-gray-200 bg-gray-100">
+        <th class="py-2 px-4">Title</th>
+        <th class="py-2 px-4">Author</th>
+        <th class="py-2 px-4">ISBN</th>
+        <th class="py-2 px-4">Publisher</th>
+        <th class="py-2 px-4">Publication Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr class="border-t border-gray-200 text-gray-800">
+        <td class="py-2 px-4">{{ book.title }}</td>
+        <td class="py-2 px-4">{{ book.author }}</td>
+        <td class="py-2 px-4">{{ book.isbn }}</td>
+        <td class="py-2 px-4">{{ book.publisher }}</td>
+        <td class="py-2 px-4">{{ book.publication_date }}</td>
+      </tr>
+      <!-- prettier-ignore -->
+      {% endfor %} 
+    {% if not books or books.count == 0 %}
+      <tr>
+        <td colspan="4" class="py-2">No books found.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
