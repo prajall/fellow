@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'task1_blog',
     'task2_ecom',
     'task3_sms',
-    'task4_library'
+    'task4_library',
+    'task5_ems'
 ]
 
 MIDDLEWARE = [

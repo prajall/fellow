@@ -20,9 +20,13 @@ def book_create(request):
         if form.is_valid():
             form.save()
             return redirect('task4_library:book_list')
+        else:
+            print("form not valid")
+            form = BookForm()
+            return render(request, 'task4_library/book_form.html', {'form': form})
     else:
         form = BookForm()
-    return render(request, 'task4_library/book_form.html', {'form': form})
+        return render(request, 'task4_library/book_form.html', {'form': form})
 
 def book_list(request):
     books = Book.objects.all()
