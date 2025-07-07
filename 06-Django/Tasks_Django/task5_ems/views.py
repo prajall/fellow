@@ -33,6 +33,13 @@ def event_detail(request,event_id):
         return HttpResponse("Internal Server Error")
     
 def event_add(request):
+    if request.method=='POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save();
+            return HttpResponseRedirect(reverse('task5_ems:event_list'))
+
+
     form = EventForm()
     return render(request, "task5_ems/event_form.html",{"form":form})
 
@@ -41,16 +48,15 @@ def event_edit(request,event_id):
     if request.method=='POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save();
-            redirect_url = reverse("task5_ems:event_detail", kwargs={"event_id":event_id})
-            return HttpResponseRedirect(redirect_url)
-
+            form.save()
+            return HttpResponseRedirect(reverse('task5_ems:event_list'))
+        
     else:  
         event = get_object_or_404(Event, pk=event_id)
         form = EventForm(instance = event)
         return render(request, "task5_ems/event_form.html",{"form":form})
 
-def register_event(request,event_id):
+def register_atendee(request,event_id):
 
     event = get_object_or_404(Event, pk=event_id )
     if request.method == 'POST':
@@ -63,7 +69,16 @@ def register_event(request,event_id):
             return HttpResponseBadRequest()
     
     else:
+        event = get_object_or_404(Event, pk=event_id)
+        event_title = event.title
         form = RegistrationForm()
-        return render(request, 'task5_ems/registration_form.html',{"form":form,"event_id":event_id})
+        return render(request, 'task5_ems/registration_form.html',{"form":form,"event_id":event_id,"event_title":event_title})
 
 
+def cancel_registration(request,id):
+    if request.method == 'POST':
+        registration = get_object_or_404(Registration, pk=id)
+        registration.delete()
+        return HttpResponseRedirect(reverse('task5_ems:event_detail', kwargs={'event_id':registration.event.id}))
+    else:
+        return HttpResponseRedirect(reverse('task5_ems:event_list'))
