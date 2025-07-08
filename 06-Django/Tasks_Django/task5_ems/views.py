@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.forms.models import model_to_dict 
 from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
 from .models import Event, Registration
-from .forms import RegistrationForm, EventForm
+from .forms import RegistrationForm, EventForm, AttendeeForm
 
 # Create your views here.
 def event_list(request):
@@ -36,7 +36,9 @@ def event_add(request):
     if request.method=='POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save();
+            form.save()
+
+            
             return HttpResponseRedirect(reverse('task5_ems:event_list'))
 
 
@@ -56,22 +58,29 @@ def event_edit(request,event_id):
         form = EventForm(instance = event)
         return render(request, "task5_ems/event_form.html",{"form":form})
 
-def register_atendee(request,event_id):
-
+def register_attendee(request,event_id):
     event = get_object_or_404(Event, pk=event_id )
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            redirect_url = reverse("task5_ems:event_detail", kwargs={"event_id":event_id})
-            return HttpResponseRedirect(redirect_url)
-        else:
+        try:
+            form = AttendeeForm(request.POST)
+            # print(form)
+            if form.is_valid():
+                attendee = form.save();
+                response = Registration.objects.create(event=event,attendee=attendee)
+                print("New Registration:",response)
+                redirect_url = reverse("task5_ems:event_detail", kwargs={"event_id":event_id})
+                return HttpResponseRedirect(redirect_url)
+            else:
+                print("Form Invalid")
+                return HttpResponseBadRequest()
+        except Exception as e:
+            print("Error Registering attendee",e)
             return HttpResponseBadRequest()
     
     else:
         event = get_object_or_404(Event, pk=event_id)
         event_title = event.title
-        form = RegistrationForm()
+        form = AttendeeForm()
         return render(request, 'task5_ems/registration_form.html',{"form":form,"event_id":event_id,"event_title":event_title})
 
 

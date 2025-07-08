@@ -1,5 +1,5 @@
 from django import forms
-from .models import Registration, Event
+from .models import Registration, Event, Attendee
 
 class RegistrationForm(forms.ModelForm):
     class Meta:
@@ -11,6 +11,25 @@ class RegistrationForm(forms.ModelForm):
                 "class": "w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-gray-200"
             }),
         }   
+
+class AttendeeForm(forms.ModelForm):
+    class Meta:
+        model = Attendee
+        fields = ['name','email','phone']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-gray-200',
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-gray-200',
+            }),
+            'phone': forms.TextInput(attrs={
+                'class': 'w-full px-3 py-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-gray-200',
+            }),
+
+        }
+        # widgets = 
+
 
 class EventForm(forms.ModelForm):
     class Meta:
