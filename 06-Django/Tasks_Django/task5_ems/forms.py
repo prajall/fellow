@@ -28,7 +28,6 @@ class AttendeeForm(forms.ModelForm):
             }),
 
         }
-        # widgets = 
 
 
 class EventForm(forms.ModelForm):

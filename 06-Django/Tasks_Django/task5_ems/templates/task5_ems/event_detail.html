@@ -44,7 +44,9 @@
   >
     <p class="text-sm text-gray-500 font-semibold tracking-wider mb-1">
       Venue:
-      <span class="font-medium"> {{event.venue.name}} </span>
+      <span class="font-medium">
+        {{event.venue.name}}, {{event.venue.address}}
+      </span>
     </p>
   </div>
 
@@ -52,7 +54,7 @@
     class="flex-1 min-w-[250px] rounded-md flex items-center justify-center text-center"
   >
     <p class="text-sm text-gray-500 font-semibold tracking-wider mb-1">
-      Organizer
+      Organizer:
       <span class="font-medium"> {{ event.organizer.name }}</span>
     </p>
   </div>
