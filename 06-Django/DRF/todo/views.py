@@ -25,7 +25,6 @@ def todoView(request):
 def updateTodo(request,id):
 
     todo = get_object_or_404(Todo, pk=id)
-
     if request.method == 'DELETE':
         todo.delete()
         return Response("Deleted successfully")
