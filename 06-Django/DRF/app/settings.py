@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'todo',
     'blog',
-    'ecommerce'
+    'ecommerce',
+    'school_management'
 ]
 
 MIDDLEWARE = [
