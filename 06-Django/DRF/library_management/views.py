@@ -6,64 +6,6 @@ from .models import Author, Publisher, Book, Member, Borrowing
 from school_management.apiResponse import apiResponse, apiError
 
 @api_view(['POST', 'GET'])
-def author_list_create(request):
-    if request.method == 'POST':
-        serializer = AuthorSerializer(data=request.data)
-        if serializer.is_valid():
-            author = serializer.save()
-            return apiResponse(201, "Author created successfully", AuthorSerializer(author).data)
-        else:
-            return apiError(400, "Validation error", serializer.errors)
-    authors = Author.objects.all()
-    serializer = AuthorSerializer(authors, many=True)
-    return apiResponse(200, "All Authors Retrieved", serializer.data)
-
-@api_view(['GET', 'PATCH', 'DELETE'])
-def author_detail(request, id):
-    author = get_object_or_404(Author, pk=id)
-    if request.method == 'PATCH':
-        serializer = AuthorSerializer(author, data=request.data, partial=True)
-        if serializer.is_valid():
-            author = serializer.save()
-            return apiResponse(200, "Author updated successfully", AuthorSerializer(author).data)
-        else:
-            return apiError(400, "Validation error", serializer.errors)
-    elif request.method == 'DELETE':
-        author.delete()
-        return apiResponse(200, "Author deleted successfully", {})
-    serializer = AuthorSerializer(author)
-    return apiResponse(200, "Author detail fetched successfully", serializer.data)
-
-@api_view(['POST', 'GET'])
-def publisher_list_create(request):
-    if request.method == 'POST':
-        serializer = PublisherSerializer(data=request.data)
-        if serializer.is_valid():
-            publisher = serializer.save()
-            return apiResponse(201, "Publisher created successfully", PublisherSerializer(publisher).data)
-        else:
-            return apiError(400, "Validation error", serializer.errors)
-    publishers = Publisher.objects.all()
-    serializer = PublisherSerializer(publishers, many=True)
-    return apiResponse(200, "All Publishers Retrieved", serializer.data)
-
-@api_view(['GET', 'PATCH', 'DELETE'])
-def publisher_detail(request, id):
-    publisher = get_object_or_404(Publisher, pk=id)
-    if request.method == 'PATCH':
-        serializer = PublisherSerializer(publisher, data=request.data, partial=True)
-        if serializer.is_valid():
-            publisher = serializer.save()
-            return apiResponse(200, "Publisher updated successfully", PublisherSerializer(publisher).data)
-        else:
-            return apiError(400, "Validation error", serializer.errors)
-    elif request.method == 'DELETE':
-        publisher.delete()
-        return apiResponse(200, "Publisher deleted successfully", {})
-    serializer = PublisherSerializer(publisher)
-    return apiResponse(200, "Publisher detail fetched successfully", serializer.data)
-
-@api_view(['POST', 'GET'])
 def book_list_create(request):
     if request.method == 'POST':
         serializer = BookSerializer(data=request.data)
