@@ -63,8 +63,8 @@ def attendees(request,event_id):
         eventDetail = Event.objects.select_related("venue","organizer").get(pk=event_id)
         event_serializer = EventDetailSerializer(eventDetail)
         # get attendees of the event
-        attendees = Registration.objects.filter(event=event_id).all()
-        attendee_serializer = EventAttendeeSerializer(attendees, many=True)
+        attendees = Attendee.objects.filter(registration__event=event_id).all()
+        attendee_serializer = AttendeeSerializer(attendees, many=True)
         data = {
             "event":event_serializer.data,
             "attendees":attendee_serializer.data
