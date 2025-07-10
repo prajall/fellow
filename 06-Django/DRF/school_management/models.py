@@ -25,7 +25,7 @@ class Course(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    enrollment_date = models.DateFiedld()
+    enrollment_date = models.DateField()
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):

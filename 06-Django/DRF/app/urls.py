@@ -22,5 +22,6 @@ urlpatterns = [
     path('api/v1/todo/',include("todo.urls")),
     path('api/v1/blog/',include("blog.urls")),
     path('api/v1/ecommerce/',include("ecommerce.urls")),
-    path('api/v1/school_management/',include("school_management.urls"))
+    path('api/v1/school_management/',include("school_management.urls")),
+    path('api/v1/event_management/',include("event_management.urls"))   
 ]
