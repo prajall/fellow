@@ -12,6 +12,7 @@ class BlogSerializer(serializers.ModelSerializer):
         model=Blog
         fields="__all__"
 
+
 class UserSerializer(serializers.ModelSerializer):
     
     blogs = serializers.PrimaryKeyRelatedField(many=True, queryset=Blog.objects.all() )
