@@ -1,8 +1,7 @@
 from django.urls import path, include
-from .views import BlogListAPI, BlogDetailAPI,BlogMixinView, BlogDetailMixin, BlogListGeneric, BlogDetailGeneric
+from .views import BlogListAPI, BlogDetailAPI,BlogMixinView, BlogDetailMixin, BlogListGeneric, BlogDetailGeneric, BlogViewSet
 
 from rest_framework.routers import DefaultRouter
-from .views import BlogViewSet, UserListView, UserDetail
 
 router = DefaultRouter()
 router.register(r'blog',BlogViewSet)
@@ -21,6 +20,7 @@ urlpatterns = [
     path('blogs-generic/<int:pk>/',BlogDetailGeneric.as_view()),
 
     #ViewSet
+    path('blog-viewset',include(router.urls))
 
     # # Router
 

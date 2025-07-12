@@ -97,10 +97,10 @@ class BlogDetailGeneric(generics.RetrieveUpdateDestroyAPIView):
 class BlogViewSet(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializers):
-        serializers.save(owner=self.request.user)
+    # def perform_create(self, serializers):
+        # serializers.save(owner=self.request.user)
 
 # For Permissions
 class UserListView(generics.ListAPIView):
