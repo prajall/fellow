@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'task1_blog',
-    'task2_ecom'
+    'task2_ecom',
+    'task3_school',
+    'task4_library',
+    'task5_event'
 ]
 
 MIDDLEWARE = [

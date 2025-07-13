@@ -21,5 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('task1_blog/',include('task1_blog.urls')),
-    path('task2_ecom/',include('task2_ecom.urls'))
+    path('task2_ecom/',include('task2_ecom.urls')),
+    path('task3_school/',include('task3_school.urls')),
+    path('task4_library/',include('task4_library.urls')),
+    path('task5_event/',include('task5_event.urls')),
 ]
