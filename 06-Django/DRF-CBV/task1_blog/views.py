@@ -9,7 +9,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from django.contrib.auth.models import User
 from .permissions import IsOwnerOrReadOnly
-from .rest_framework import status
+from rest_framework import status
 
 # Create your views here.
 
@@ -52,7 +52,7 @@ class BlogDetailAPI(APIView):
         return Response(status = status.HTTP_204_NO_CONTENT)
 
 # Mixins
-class BlogMixinView(mixins.CreateModelMixin, mixins.ListModelMixin):
+class BlogMixinView(mixins.CreateModelMixin, mixins.ListModelMixin,generics.GenericAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
     

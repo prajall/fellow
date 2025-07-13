@@ -6,7 +6,7 @@ class BrandSerializer(serializers.ModelSerializer):
         model=Brand
         fields = "__all__"
 
-class Category(serializers.ModelCategory):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model=Category
         fields = "__all__"

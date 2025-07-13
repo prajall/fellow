@@ -4,7 +4,7 @@ from .views import BlogListAPI, BlogDetailAPI,BlogMixinView, BlogDetailMixin, Bl
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'blog',BlogViewSet)
+router.register(r"blogs-viewset",BlogViewSet)
 
 urlpatterns = [
     # APIView
@@ -19,10 +19,8 @@ urlpatterns = [
     path('blogs-generic/',BlogListGeneric.as_view()),
     path('blogs-generic/<int:pk>/',BlogDetailGeneric.as_view()),
 
-    #ViewSet
-    path('blog-viewset',include(router.urls))
-
-    # # Router
+    #ViewSets and Router
+    path('',include(router.urls))
 
     # path('',include(router.urls)),
     # path('users',UserListView.as_view()),
