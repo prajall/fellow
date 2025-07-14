@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'task2_ecom',
     'task3_school',
     'task4_library',
-    'task5_event'
+    'task5_event',
+    'rest_framework.authtoken',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        "rest_framework_simplejwt.authentication.JWTAuthentication"
+    ]
+}
 
 ROOT_URLCONF = 'app.urls'
 

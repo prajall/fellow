@@ -25,4 +25,5 @@ urlpatterns = [
     path('task3_school/',include('task3_school.urls')),
     path('task4_library/',include('task4_library.urls')),
     path('task5_event/',include('task5_event.urls')),
+    path('user/',include("user.urls"))
 ]

@@ -10,22 +10,32 @@ from rest_framework import permissions
 from django.contrib.auth.models import User
 from .permissions import IsOwnerOrReadOnly
 from rest_framework import status
+from rest_framework import permissions
+
 
 # Create your views here.
 
 # API view
 class BlogListAPI(APIView):
+
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get(self,request):
         posts = Blog.objects.all()
         serializer = BlogSerializer(posts,many=True)
         return Response(serializer.data)
-
+    
     def post(self, request):
+        if not request.user.is_authenticated:
+            return Response("Please login")
         data = request.data
+        
         serializer = BlogSerializer(data = data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=request.user)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response("Invalid serializer")
 
 class BlogDetailAPI(APIView):
 

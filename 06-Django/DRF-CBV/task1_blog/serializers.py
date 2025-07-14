@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class BlogSerializer(serializers.ModelSerializer):
 
-    owner = serializers.ReadOnlyField(source = "owner.username")
+    owner = serializers.StringRelatedField()
 
     class Meta:
         model=Blog
