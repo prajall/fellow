@@ -18,7 +18,7 @@ from rest_framework import permissions
 # API view
 class BlogListAPI(APIView):
 
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self,request):
         posts = Blog.objects.all()
