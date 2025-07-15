@@ -45,45 +45,8 @@ class ProductListCreate(generics.ListCreateAPIView):
         return queryset
 
 
-    # @swagger_auto_schema(
-    #     request_body=ProductSerializerDetail,
-    #     responses={201: ProductSerializerDetail, 400: 'Invalid data'}
-    # )
-
-class ProductList(APIView):
-    def get(self,request):
-        queryset = Product.objects.all()
-        serializer = None
-        search_query = request.GET.get("search")
-        category = request.GET.get("category")
-
-        if search_query:
-            queryset = queryset.filter(name__icontains = search_query)      
-        if category:
-            queryset = queryset.filter(category = category)      
-
-        if request.user.is_admin:
-            serializer = ProductSerializerDetail(queryset, many=True)
-        else:
-            serializer = ProductSerializerBasic(queryset, many=True)
-
-        Response(serializer.data, status = 200)
-        
-
-
-        
-
-
-    # def post(self, request):
-    #     data = request.data
-    #     serializer = ProductSerializerDetail(data=data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=201)
-    #     return Response({"error": "Invalid data"}, status=400)
-    
-    
-
-
-
+class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializerCreate
+    permission_classes = [permissions.IsAdmin]
 
