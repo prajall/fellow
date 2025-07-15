@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  
     'rest_framework.authtoken', 
-    'user'
+    'drf_yasg',
+    'user',
+    'product'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Format: Bearer <token>'
+        }
+    }
+}
 
 ROOT_URLCONF = 'app.urls'
 

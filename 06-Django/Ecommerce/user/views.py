@@ -8,6 +8,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from .serializers import CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.views import APIView
 
 
 # Create your views here.
@@ -34,6 +37,18 @@ def signup(request):
     
     serializer = UserSerializer(User.objects.all(), many=True)
     return Response(serializer.data)
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_summary="Logout user (JWT)",
+        responses={200: 'Successfully logged out'}
+    )
+    def post(self, request):
+        # No server-side token invalidation here
+        return Response({"detail": "Successfully logged out."}, status=200)
 
 # @csrf_exempt
 # @api_view(['GET','POST'])
