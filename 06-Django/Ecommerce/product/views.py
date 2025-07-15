@@ -42,6 +42,9 @@ class ProductListCreate(generics.ListCreateAPIView):
         if category:
             queryset = queryset.filter(category = category)  
         
+        if not getattr(self.request.user, "is_admin", False):
+            queryset = queryset.filter(is_active=True).all()
+        
         return queryset
 
 

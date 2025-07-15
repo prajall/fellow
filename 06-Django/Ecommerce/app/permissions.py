@@ -5,13 +5,13 @@ class IsAdmin(permissions.BasePermission):
         return request.user.is_authenticated and getattr(request.user,"is_admin", False)
 
 class IsAdminOrReadOnly(permissions.BasePermission):
-    def has_object_permission(self,request,obj,view):
+    def has_object_permission(self,request,view,obj):
         if request.method in permissions.SAFE_METHODS:
             return True
         return request.user.is_authenticated and getattr(request.user,"is_admin", False)
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
-    def has_object_permission(self,request,obj,view):
+class IsOwnerOrAdminOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self,request,view,obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return request.user.is_authenticated and request.user == obj.user
+        return request.user.is_authenticated and (request.user == obj.customer or getattr(request.user,"is_admin", False))
