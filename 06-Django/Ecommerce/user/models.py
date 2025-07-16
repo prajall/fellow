@@ -40,6 +40,7 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     @property
     def is_admin(self):
+        print("Role = ",self.role)
         return self.role=="admin"
 
     def __str__(self):

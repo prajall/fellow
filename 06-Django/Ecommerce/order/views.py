@@ -62,30 +62,30 @@ class OrderListCreateView(APIView):
             status=200
             )
 
-class OrderCancel(generics.UpdateAPIView):
+class OrderCancel(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdminOrReadOnly]
 
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializerDetail
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdminOrReadOnly ]
+    @swagger_auto_schema(request_body=None)
+    def patch(self, request, pk):
+        try:
+            order = Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            return Response({"detail": "Order not found"}, status=404)
 
-    @swagger_auto_schema(method='patch')
-    def patch(self, request, **kwargs):
-        print("passed permissions")
-        
-        order = self.get_object()
+        self.check_object_permissions(request, order)
 
-        if not order.status == "pending":
+        if order.status != "pending":
             return Response(
-                {"detail":"Only pending orders can be cancelled"},
+                {"detail": "Only pending orders can be cancelled"},
                 status=400
-                )
-        
-        serializer = self.get_serializer(
+            )
+
+        serializer = OrderSerializerDetail(
             order,
-            data = {"status":"cancelled"}, 
-            partial = True
+            data={"status": "cancelled"},
+            partial=True
         )
-        serializer.is_valid(raise_exception = True)
+        serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=200)
 
