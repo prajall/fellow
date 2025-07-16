@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -64,7 +65,6 @@ REST_FRAMEWORK = {
     )
 }
 
-
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
@@ -75,6 +75,12 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600),  
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
 
 ROOT_URLCONF = 'app.urls'
 

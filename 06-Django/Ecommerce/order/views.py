@@ -55,7 +55,12 @@ class OrderListCreateView(APIView):
             queryset = queryset.filter(product=product)
 
         serializer = OrderSerializerDetail(queryset, many=True)
-        return Response(serializer.data, status=200)
+        return Response({
+                "total_orders":queryset.count(),
+                "orders":serializer.data
+                }, 
+            status=200
+            )
 
 class OrderCancel(generics.UpdateAPIView):
 
