@@ -19,6 +19,7 @@ from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from django.http import HttpResponse
 
 
 schema_view = get_schema_view(
@@ -35,6 +36,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path("", HttpResponse("Server is working")),
     path('admin/', admin.site.urls),
     path('user/',include("user.urls")),
     path('product/',include("product.urls")),
