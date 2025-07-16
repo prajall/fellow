@@ -16,6 +16,14 @@ class UserSerializerBasic(serializers.ModelSerializer):
         model = User
         fields = ['id','email','name']
 
+class UserLoginSerializer(serializers.ModelSerializer):
+   
+   password = serializers.CharField(write_only=True)
+
+   class Meta:
+        model = User
+        fields = ['email','password']
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):

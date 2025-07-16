@@ -3,7 +3,7 @@ from .models import User
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
-from .serializers import UserSerializer
+from .serializers import *
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from .serializers import CustomTokenObtainPairSerializer
@@ -14,7 +14,11 @@ from rest_framework.views import APIView
 
 
 # Create your views here.
-
+@swagger_auto_schema(
+    method = 'POST',
+    request_body = UserLoginSerializer,
+    responses={200: 'Successfully logged out'}
+)
 @api_view(['POST','GET'])    
 def signup(request):
     if request.method == 'POST':
@@ -43,11 +47,9 @@ class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
-        operation_summary="Logout user (JWT)",
         responses={200: 'Successfully logged out'}
     )
     def post(self, request):
-        # No server-side token invalidation here
         return Response({"detail": "Successfully logged out."}, status=200)
 
 # @csrf_exempt

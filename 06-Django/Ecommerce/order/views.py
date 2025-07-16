@@ -33,18 +33,26 @@ class OrderListCreateView(APIView):
 
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=201)
+        order = get_object_or_404(Order, pk = serializer.data['id'])
+        response_serializer = OrderSerializerDetail(order)
+        return Response(response_serializer.data, status=201)
 
     def get(self,request):
-        queryset = Order.objects.all()
+        queryset = None
+
+        if not getattr(request.user, "is_admin", False):
+            queryset = request.user.orders.all()
+        else:
+            queryset = Order.objects.all()
+
+            customer = request.GET.get("customer")      
+            if customer:
+                queryset = queryset.filter(customer=customer)
+
         product = request.GET.get("product")
-        customer = request.GET.get("customer")
 
         if product:
             queryset = queryset.filter(product=product)
-        if customer:
-            queryset = queryset.filter(customer=customer)
-                   
 
         serializer = OrderSerializerDetail(queryset, many=True)
         return Response(serializer.data, status=200)
