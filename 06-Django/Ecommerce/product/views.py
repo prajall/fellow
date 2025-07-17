@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework import generics
@@ -21,6 +22,7 @@ class CategoryView(ModelViewSet):
 
 class ProductListCreate(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAdminOrReadOnly]
+    # parser_classes = [MultiPartParser, FormParser]
 
     def get_serializer_class(self):
 
