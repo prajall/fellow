@@ -26,13 +26,14 @@ class OrderListCreateView(APIView):
 
         product = get_object_or_404(Product,pk=product_id)
 
-        if product.stock <= 0:
+        if product.stock < data.get('quantity',0):
             return Response({"detail":"Product out of stock"},status = 400)
         
         serializer = OrderSerializer(data = data)
-
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        product.stock -= data.quantity
+        product.save()
         order = get_object_or_404(Order, pk = serializer.data['id'])
         response_serializer = OrderSerializerDetail(order)
         return Response(response_serializer.data, status=201)
