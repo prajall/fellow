@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import axios from "axios";
 import Cookies from "js-cookie";
+import api from "@/lib/api";
 
 const formSchema = z.object({
   email: z.email(),
@@ -38,18 +39,20 @@ const LoginPage = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log("submitting");
     try {
-      const response = await axios.post("http://localhost:8000/user/login/", {
-        email: values.email,
-        password: values.password,
-      });
-      console.log(response);
-      if (response.status == 200) {
-        const refreshToken = response.data?.refresh;
-        const accessToken = response.data?.access;
+      // const response = await axios.post("http://localhost:8000/user/login/", {
+      //   email: values.email,
+      //   password: values.password,
+      // });
+      // console.log(response);
+      // if (response.status == 200) {
+      //   const refreshToken = response.data?.refresh;
+      //   const accessToken = response.data?.access;
 
-        Cookies.set("access", accessToken);
-        Cookies.set("refresh", refreshToken);
-      }
+      //   Cookies.set("access", accessToken);
+      //   Cookies.set("refresh", refreshToken);
+      // }
+      const response = await api.get("/order/");
+      console.log("Response", response);
     } catch (error: any) {
       console.log("Error Logging in", error);
       if (error.response?.status == 401) {
