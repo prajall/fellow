@@ -11,16 +11,12 @@ type PasswordFieldProps = {
   form: any;
   name: string;
   label: string;
-  placeholder?: string;
-  type?: string;
 };
 
-export function TextField({
+export function PasswordField({
   form,
   name,
   label = "Password",
-  placeholder = "********",
-  type = "password",
 }: PasswordFieldProps) {
   return (
     <FormField
@@ -30,7 +26,7 @@ export function TextField({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} placeholder={placeholder} type={type} />
+            <Input {...field} placeholder={"********"} type="password" />
           </FormControl>
           <FormMessage />
         </FormItem>

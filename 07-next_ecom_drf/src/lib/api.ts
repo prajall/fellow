@@ -1,7 +1,9 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
-const api = axios.create({
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export const api = axios.create({
   baseURL: "http://localhost:8000",
 });
 
@@ -24,12 +26,13 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = Cookies.get("refresh");
+        console.log("Refresh token", refreshToken);
 
         if (!refreshToken) {
-          window.location.href = "/login";
+          Promise.reject("No refresh token available");
         }
         const refreshResponse = await axios.post(
-          "http://localhost:8000/user/token/refresh/",
+          `${API_URL}/user/token/refresh/`,
           {
             refresh: refreshToken,
           }
@@ -41,6 +44,7 @@ api.interceptors.response.use(
           Cookies.set("access", accessToken);
 
           error.config.headers.Authorization = `Bearer ${accessToken}`;
+
           return api(error.config);
         }
       } catch (e: any) {
@@ -51,7 +55,7 @@ api.interceptors.response.use(
           console.log("redirectinv");
           Cookies.remove("access");
           Cookies.remove("refresh");
-          window.location.href = "/loginn";
+          window.location.href = "/login";
         }
 
         return Promise.reject(e);
@@ -60,5 +64,3 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export default api;

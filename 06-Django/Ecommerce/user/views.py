@@ -52,6 +52,15 @@ class LogoutView(APIView):
     def post(self, request):
         return Response({"detail": "Successfully logged out."}, status=200)
 
+class loginView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+class UserInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        serializer = UserSerializerBasic(request.user)
+        return Response(serializer.data)
+
 # @csrf_exempt
 # @api_view(['GET','POST'])
 # def login(request):
@@ -73,9 +82,4 @@ class LogoutView(APIView):
     
 #     return Response("Login")
     
-
-class loginView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
-
-
 

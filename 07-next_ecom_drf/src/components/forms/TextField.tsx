@@ -6,6 +6,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 type TextFieldProps = {
   form: any;
@@ -13,6 +14,7 @@ type TextFieldProps = {
   label: string;
   placeholder?: string;
   type?: string;
+  className?: string;
 };
 
 export function TextField({
@@ -21,13 +23,14 @@ export function TextField({
   label,
   placeholder,
   type = "text",
+  className,
 }: TextFieldProps) {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={className}>
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input {...field} placeholder={placeholder} type={type} />

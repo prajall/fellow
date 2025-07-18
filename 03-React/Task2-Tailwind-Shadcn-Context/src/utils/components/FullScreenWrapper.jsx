@@ -1,15 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const FullScreenWrapper = ({
-  children,
-  notop,
-  className,
-}: {
-  children: React.ReactNode;
-  notop?: any;
-  className?: any;
-}) => {
+const FullScreenWrapper = ({ children, notop, className }) => {
   return (
     <div
       className={cn(

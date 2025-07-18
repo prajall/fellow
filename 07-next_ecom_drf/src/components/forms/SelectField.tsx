@@ -24,6 +24,7 @@ type SelectFieldProps = {
   label: string;
   options: SelectOption[];
   placeholder?: string;
+  className?: string;
 };
 
 export function SelectField({
@@ -32,13 +33,14 @@ export function SelectField({
   label,
   options,
   placeholder = "Select an option",
+  className,
 }: SelectFieldProps) {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={className}>
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Select
