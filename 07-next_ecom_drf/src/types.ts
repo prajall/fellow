@@ -1,5 +1,5 @@
+import { UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { ZodSchema } from "zod/v3";
 
 export interface FormFieldProp {
   label: string;
@@ -11,7 +11,7 @@ export interface FormFieldProp {
   width?: string;
 }
 export interface DynamicFormProps {
-  size: string;
+  size?: string;
   formSchema: z.ZodObject<any>;
   formTitle?: string;
   formSubTitle?: string;
@@ -21,4 +21,11 @@ export interface DynamicFormProps {
   submitText: string;
   footer?: React.ReactNode;
   disableSubmit: boolean;
+}
+
+export interface AuthUserProps {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
 }

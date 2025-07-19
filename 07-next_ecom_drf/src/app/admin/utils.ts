@@ -1,7 +1,6 @@
+import { API_URL } from "@/lib/api";
 import axios from "axios";
 import { redirect } from "next/navigation";
-
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const checkUser = async (token: string) => {
   try {
@@ -10,7 +9,6 @@ const checkUser = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("response", response);
     if (response.status === 200) {
       const user = response.data;
       return user;

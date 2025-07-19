@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+export const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const api = axios.create({
   baseURL: "http://localhost:8000",
@@ -22,7 +22,7 @@ api.interceptors.response.use(
     if (error.response?.status == 401 && !error.config._retry) {
       error.config._retry = true;
 
-      console.log("REfreshing refresh token");
+      console.log("Refreshing refresh token");
 
       try {
         const refreshToken = Cookies.get("refresh");

@@ -11,6 +11,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView
 
 
 # Create your views here.
@@ -24,6 +25,7 @@ def signup(request):
     if request.method == 'POST':
         email = request.data.get('email')
         password = request.data.get('password')
+
 
         if not email or not password:
             return Response("Email and Password are required",status=400)
@@ -42,6 +44,16 @@ def signup(request):
     serializer = UserSerializer(User.objects.all(), many=True)
     return Response(serializer.data)
 
+class SignupView(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=201, )
+    
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -59,6 +71,12 @@ class UserInfoView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         serializer = UserSerializerBasic(request.user)
+        return Response(serializer.data)
+    
+class UserInfoDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
 # @csrf_exempt

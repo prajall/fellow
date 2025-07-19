@@ -1,21 +1,16 @@
 "use client";
 
 import DynamicForm from "@/components/forms/DynamicForm";
-import { PasswordField } from "@/components/forms/PasswordField";
-import { TextField } from "@/components/forms/TextField";
 import FullScreenWrapper from "@/components/FullScreenWrapper";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
 import { FormFieldProp } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { loginApi, signupApi } from "../api";
+import toast from "react-hot-toast";
 
 const formSchema = z
   .object({
@@ -36,7 +31,16 @@ const formSchema = z
     message: "Passwords do not match",
   });
 
-const LoginPage = () => {
+const defaultValues = {
+  name: "",
+  email: "",
+  password: "",
+  confirm_password: "",
+  address: "",
+  contact: "",
+};
+
+const SignupPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,29 +52,33 @@ const LoginPage = () => {
   const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("submitting", values);
     try {
-      const response = await axios.post(`${API_URL}/user/login/`, {
-        email: values.email,
-        password: values.password,
-      });
+      const response = await signupApi(values);
       console.log(response);
-      if (response.status == 200) {
-        const refreshToken = response.data?.refresh;
-        const accessToken = response.data?.access;
+      if (response.status == 201) {
+        console.log("Loggin in");
+        const loginResponse = await loginApi(values); // login after signup
+        if (loginResponse.status == 200) {
+          const refreshToken = loginResponse.data?.refresh;
+          const accessToken = loginResponse.data?.access;
 
-        Cookies.set("access", accessToken);
-        Cookies.set("refresh", refreshToken, { expires: 2592000 });
-
-        router.push("/");
+          Cookies.set("access", accessToken);
+          Cookies.set("refresh", refreshToken, { expires: 2592000 });
+          console.log("Redirecting");
+          router.push("/");
+        }
       }
-      // const response = await api.get("/order/");
-      // console.log("Response", response);
     } catch (error: any) {
       console.log("Error Logging in", error);
-      if (error.response?.status == 401) {
-        form.setError("email", { message: "Invalid credentials provided" });
-        form.setError("password", { message: "Invalid credentials provided" });
+      const formError = error.response?.data;
+      if (formError) {
+        Object.keys(formError).forEach((key: any) => {
+          console.log("Setting error", key, formError[key][0]);
+          form.setError(key, { message: formError[key][0] });
+          toast.error(formError[key][0]);
+        });
+      } else {
+        toast.error("Failed to SignUp");
       }
     }
   };
@@ -130,7 +138,8 @@ const LoginPage = () => {
   return (
     <FullScreenWrapper className="w-full h-[80vh] flex justify-between items-center">
       <DynamicForm
-        size="xl"
+        form={form}
+        size="lg"
         formTitle="Welcome to Flora 👋"
         formSubTitle="Register a new account"
         formSchema={formSchema}
@@ -138,6 +147,7 @@ const LoginPage = () => {
         onSubmit={onSubmit}
         submitText="Signup"
         disableSubmit={false}
+        defaultValues={defaultValues}
         footer={
           <p className="text-sm mt-4 text-center text-muted-foreground">
             Already registered?{" "}
@@ -151,4 +161,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

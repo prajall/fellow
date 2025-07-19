@@ -2,19 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Open_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/contexts/AuthContext";
 
 const font = Poppins({
   weight: ["400"],
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -31,8 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.className} antialiased`}>
-        <Navbar />
-        {children}
+        <AuthProvider>
+          <Toaster />
+          <Navbar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

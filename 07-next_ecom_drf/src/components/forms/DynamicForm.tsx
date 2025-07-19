@@ -1,37 +1,29 @@
 "use client";
 
-import { PasswordField } from "@/components/forms/PasswordField";
 import { TextField } from "@/components/forms/TextField";
-import FullScreenWrapper from "@/components/FullScreenWrapper";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { typeschemaResolver } from "@hookform/resolvers/typeschema";
+import { DynamicFormProps, FormFieldProp } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import Cookies from "js-cookie";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { SelectField } from "./SelectField";
-import { DynamicFormProps, FormFieldProp } from "@/types";
+import { Loader, Loader2 } from "lucide-react";
 
 const DynamicForm = ({
+  form,
   size = "lg",
   formSchema,
   onSubmit,
   formTitle,
   formSubTitle,
-  defaultValues,
   fields = [],
   submitText,
   footer,
-}: DynamicFormProps) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
-  });
-
+  disableSubmit,
+}: DynamicFormProps & {
+  form: UseFormReturn<any>;
+}) => {
   const getClassName = (width: string = "full") => {
     switch (width) {
       case "full":
@@ -125,8 +117,13 @@ const DynamicForm = ({
           {fields.map((field: any) => renderField(form, field))}
         </div>
         <div>
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full disabled:bg-neutral-900 flex gap-0"
+            disabled={disableSubmit}
+          >
             {submitText}
+            {disableSubmit && <Loader2 className="animate-spin ml-2" />}
           </Button>
           {footer}
         </div>
