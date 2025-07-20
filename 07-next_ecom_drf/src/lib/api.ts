@@ -18,7 +18,7 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log("Retry", error.config._retry);
+    console.log("Retry", error.config);
     if (error.response?.status == 401 && !error.config._retry) {
       error.config._retry = true;
 
@@ -29,7 +29,7 @@ api.interceptors.response.use(
         console.log("Refresh token", refreshToken);
 
         if (!refreshToken) {
-          Promise.reject("No refresh token available");
+          return Promise.reject("No refresh token available");
         }
         const refreshResponse = await axios.post(
           `${API_URL}/user/token/refresh/`,

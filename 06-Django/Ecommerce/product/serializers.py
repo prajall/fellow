@@ -4,7 +4,7 @@ from .models import Category, Product, ProductImage
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ['id','name','description']
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,8 +20,10 @@ class ProductSerializerDetail(serializers.ModelSerializer):
         fields = "__all__"
 
 class ProductSerializerBasic(serializers.ModelSerializer):
-    category = serializers.StringRelatedField(read_only = True)
-    category_id = serializers.PrimaryKeyRelatedField(source = "category", read_only = True)
+    category = CategorySerializer()
+    # category = serializers.StringRelatedField(read_only = True)
+    # category_id = serializers.PrimaryKeyRelatedField(source = "category", read_only = True)
+    images = ProductImageSerializer(many=True, read_only = True)
     
     class Meta:
         model = Product

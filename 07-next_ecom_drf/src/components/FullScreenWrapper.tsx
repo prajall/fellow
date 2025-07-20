@@ -1,4 +1,6 @@
+"use client";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const FullScreenWrapper = ({
@@ -10,10 +12,14 @@ const FullScreenWrapper = ({
   notop?: any;
   className?: any;
 }) => {
+  const pathname = usePathname();
+  const adminPath = pathname.startsWith("/admin");
+
   return (
     <div
       className={cn(
-        ` px-4 md:px-10 container mx-auto ${notop ? "" : "py-16"}`,
+        adminPath ? "lg:ml-64 " : " md:px-10 container",
+        `px-4 mx-auto ${notop ? "" : "py-16"}`,
         className
       )}
     >

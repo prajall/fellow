@@ -70,7 +70,6 @@ const LoginPage = () => {
       type: "text",
       name: "email",
       placeholder: "me@example.com",
-      required: true,
       width: "full",
     },
 
@@ -79,7 +78,6 @@ const LoginPage = () => {
       type: "password",
       name: "password",
       placeholder: "********",
-      required: true,
       width: "full",
     },
   ];

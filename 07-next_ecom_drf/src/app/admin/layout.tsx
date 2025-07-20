@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { checkUser } from "./utils";
 import { redirect } from "next/navigation";
+import Sidebar from "./components/Sidebar";
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const cookie = await cookies();
@@ -12,7 +13,12 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
     redirect("/");
   }
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      <Sidebar />
+      <div className="pt-4">{children}</div>
+    </div>
+  );
 };
 
 export default AdminLayout;

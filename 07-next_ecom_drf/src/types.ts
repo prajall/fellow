@@ -7,7 +7,6 @@ export interface FormFieldProp {
   name: string;
   placeholder?: string;
   options?: any;
-  required: boolean;
   width?: string;
 }
 export interface DynamicFormProps {
@@ -21,6 +20,7 @@ export interface DynamicFormProps {
   submitText: string;
   footer?: React.ReactNode;
   disableSubmit: boolean;
+  noBorder?: boolean;
 }
 
 export interface AuthUserProps {
@@ -28,4 +28,42 @@ export interface AuthUserProps {
   email: string;
   name: string;
   role: string;
+}
+
+export interface ProductProps {
+  id: number;
+  category: {
+    id: number;
+    name: string;
+    description: string;
+  };
+  images: any[];
+  name: string;
+  description: string;
+  price: string;
+  discount: string;
+  stock?: number;
+  image?: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface ProductAPIProps {
+  results: ProductProps[];
+  count: number;
+  next?: string;
+  previous?: string;
+}
+
+export interface ProductCreateProps {
+  id: number;
+  category: number;
+  images: any[];
+  name: string;
+  description: string;
+  price: string;
+  discount: string;
+  stock?: number;
+  image?: string | null;
+  is_active: boolean;
 }

@@ -3,14 +3,17 @@
 import { TextField } from "@/components/forms/TextField";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { cn } from "@/lib/utils";
 import { DynamicFormProps, FormFieldProp } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormReturn } from "react-hook-form";
+import { Loader2 } from "lucide-react";
+import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { SelectField } from "./SelectField";
-import { Loader, Loader2 } from "lucide-react";
+import { TextAreaField } from "./TextAreaField";
+import { SwitchField } from "./SwitchForm";
 
 const DynamicForm = ({
+  noBorder = false,
   form,
   size = "lg",
   formSchema,
@@ -85,10 +88,31 @@ const DynamicForm = ({
       case "select":
         return (
           <SelectField
+            key={field.name}
             form={form}
             label={field.label}
             name={field.name}
             options={field.options}
+            className={getClassName(field.width)}
+          />
+        );
+      case "text-area":
+        return (
+          <TextAreaField
+            key={field.name}
+            form={form}
+            label={field.label}
+            name={field.name}
+            className={getClassName(field.width)}
+          />
+        );
+      case "switch":
+        return (
+          <SwitchField
+            key={field.name}
+            form={form}
+            label={field.label}
+            name={field.name}
             className={getClassName(field.width)}
           />
         );
@@ -97,11 +121,24 @@ const DynamicForm = ({
     }
   };
 
+  const sizeMap = {
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+    full: "max-w-full",
+  }[size];
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={`space-y-6 w-full max-w-${size} p-4 pt-6 border mx-auto rounded-lg`}
+        className={cn(
+          `space-y-6 w-full  p-4 pt-6 ${
+            noBorder ? "" : "border"
+          } mx-auto rounded-lg`,
+          sizeMap
+        )}
       >
         {formTitle && (
           <h2 className="text-2xl font-semibold text-center mb-0">

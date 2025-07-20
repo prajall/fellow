@@ -1,51 +1,44 @@
 "use client";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Sidebar } from "lucide-react";
 import { Button, buttonVariants } from "../../components/ui/button";
-// import SidebarContent from "./SidebarContent";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import UserIcon from "./UserIcon";
+import { useState } from "react";
+import SidebarContent from "../admin/components/SidebarContent";
 
 const Navbar = () => {
   const { user } = useAuth();
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="shadow-sm py-4">
       <FullScreenWrapper notop className="flex justify-between">
-        <Link href={"/"} className="logo">
-          <img
-            className="w-10"
-            src="https://png.pngtree.com/png-vector/20240722/ourmid/pngtree-lotus-flower-logo-vector-png-image_13160738.png"
-            alt="Logo"
-          />
-        </Link>
-        <div className="flex gap-2 items-center">
-          {/* <Sheet>
-            <SheetTrigger className="hover:bg-neutral-100 relative w-10 h-10 flex items-center justify-center cursor-pointer rounded">
-              {cartItems.length > 0 && (
-                <p className="absolute top-0 right-0 bg-black text-white rounded-full w-4 h-4 text-xs flex items-center justify-center font-semibold">
-                  {cartItems.length}
-                </p>
-              )}
-              <ShoppingCart size={20} />
+        <div className="flex items-center gap-1">
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              {/* <Button variant="ghost" size="icon" className="bg-red-600"> */}
+              <Sidebar size={24} className="text-neutral-700" />
+              {/* </Button> */}
             </SheetTrigger>
-            <SheetContent className="gap-0">
-              <SheetHeader>
-                <SheetTitle>Cart</SheetTitle>
-              </SheetHeader>
+            <SheetContent side="left" className="w-64 p-0">
               <SidebarContent />
             </SheetContent>
-          </Sheet> */}
-
+          </Sheet>
+          <Link href={"/"} className="logo">
+            <img
+              className="w-10"
+              src="https://png.pngtree.com/png-vector/20240722/ourmid/pngtree-lotus-flower-logo-vector-png-image_13160738.png"
+              alt="Logo"
+            />
+          </Link>
+        </div>
+        <div className="flex gap-2 items-center">
           {!user && (
             <>
               <Link

@@ -1,12 +1,9 @@
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import React from "react";
+import { redirect } from "next/navigation";
 
 const AdminPage = () => {
-  return (
-    <div className="p-4">
-      <FullScreenWrapper notop>Admin Page</FullScreenWrapper>
-    </div>
-  );
+  return redirect("/admin/products");
 };
 
 export default AdminPage;

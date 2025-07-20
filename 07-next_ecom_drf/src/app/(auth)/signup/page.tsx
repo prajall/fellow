@@ -89,7 +89,6 @@ const SignupPage = () => {
       type: "text",
       name: "name",
       placeholder: "Full Name",
-      required: true,
       width: "full",
     },
 
@@ -98,7 +97,6 @@ const SignupPage = () => {
       type: "text",
       name: "email",
       placeholder: "me@example.com",
-      required: true,
       width: "full",
     },
     {
@@ -106,7 +104,6 @@ const SignupPage = () => {
       type: "text",
       name: "address",
       placeholder: "kathmandu",
-      required: true,
       width: "1/2",
     },
     {
@@ -114,7 +111,6 @@ const SignupPage = () => {
       type: "text",
       name: "contact",
       placeholder: "9800000000",
-      required: true,
       width: "1/2",
     },
     {
@@ -122,7 +118,6 @@ const SignupPage = () => {
       type: "password",
       name: "password",
       placeholder: "********",
-      required: true,
       width: "1/2",
     },
     {
@@ -130,7 +125,6 @@ const SignupPage = () => {
       type: "password",
       name: "confirm_password",
       placeholder: "********",
-      required: true,
       width: "1/2",
     },
   ];

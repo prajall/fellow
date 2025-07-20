@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/contexts/AuthContext";
+import QueryProvider from "@/providers/QueryProvider";
 
 const font = Poppins({
   weight: ["400"],
@@ -24,9 +25,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${font.className} antialiased`}>
         <AuthProvider>
-          <Toaster />
-          <Navbar />
-          {children}
+          <QueryProvider>
+            <Toaster />
+            <Navbar />
+            {children}
+          </QueryProvider>
         </AuthProvider>
       </body>
     </html>
