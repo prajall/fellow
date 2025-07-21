@@ -81,3 +81,27 @@ export interface CategoryAPIProps {
   previous?: string;
   results: CategoryProps[];
 }
+
+export interface Order {
+  id: number;
+  product: {
+    id: number;
+    name: string;
+    description: string;
+    category: string;
+    category_id: number;
+    price: string;
+    discount: string;
+    image: string | null;
+    stock: number;
+  };
+  customer: {
+    id: number;
+    email: string;
+    name: string;
+    role: string;
+  };
+  quantity: number;
+  price: string;
+  status: string;
+}

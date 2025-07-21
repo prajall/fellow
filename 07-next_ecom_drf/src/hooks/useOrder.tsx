@@ -4,9 +4,7 @@ import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import z from "zod";
 
-const formSchema = z.object({
-  // Define schema for order if needed
-});
+const formSchema = z.object({});
 
 export const useOrder = () => {
   const queryClient = useQueryClient();
@@ -15,6 +13,7 @@ export const useOrder = () => {
 
   const fetchOrders = async () => {
     const response = await api.get(`/order/?page=${page}`);
+    console.log("response order", response);
     return response.data;
   };
   const addOrder = async (newOrder: z.infer<any>) => {
@@ -45,7 +44,7 @@ export const useOrder = () => {
   });
 
   return {
-    orders: data?.results || [],
+    orders: data?.orders || [],
     createOrder: orderMutation.mutate,
     isCreating: orderMutation.isPending,
     error,
