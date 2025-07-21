@@ -24,6 +24,7 @@ const DynamicForm = ({
   submitText,
   footer,
   disableSubmit,
+  footer_above,
 }: DynamicFormProps & {
   form: UseFormReturn<any>;
 }) => {
@@ -155,6 +156,7 @@ const DynamicForm = ({
           {fields.map((field: any) => renderField(form, field))}
         </div>
         <div>
+          {footer_above}
           <Button
             type="submit"
             className="w-full disabled:bg-neutral-900 flex gap-0"

@@ -1,3 +1,4 @@
+import MultiImageUploader from "@/app/components/MultiImageUploader";
 import DynamicForm from "@/components/forms/DynamicForm";
 import { useCategory } from "@/hooks/useCategory";
 import { useProduct } from "@/hooks/useProduct";
@@ -57,19 +58,19 @@ const ProductForm = ({ setOpen }: { setOpen: (value: boolean) => void }) => {
       label: "Discount",
       name: "discount",
       type: "text",
-      width: "1/2",
+      width: "1/3",
     },
     {
       label: "Stock",
       name: "stock",
       type: "text",
-      width: "1/2",
+      width: "1/3",
     },
     {
       label: "Active ",
       name: "is_active",
       type: "switch",
-      width: "1/2",
+      width: "1/3",
     },
   ];
 
@@ -94,6 +95,7 @@ const ProductForm = ({ setOpen }: { setOpen: (value: boolean) => void }) => {
       disableSubmit={false}
       fields={formFields}
       onSubmit={onSubmit}
+      footer_above={<MultiImageUploader />}
     />
   );
 };

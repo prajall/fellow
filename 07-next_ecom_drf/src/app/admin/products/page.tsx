@@ -12,13 +12,9 @@ import { useSearchParams } from "next/navigation";
 import FormModal from "../components/FormModal";
 import TableComponent from "../components/TableComponent";
 import ProductForm from "./components/ProductForm";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
 
 export default function ProductsPage() {
-  const { products, isFetching, isPending, metaData, isError } = useProduct();
-  const searchParams = useSearchParams();
-  const page = searchParams.get("page") || "1";
+  const { products, isPending, metaData, isError } = useProduct();
 
   console.log("Products", products);
 
@@ -27,6 +23,10 @@ export default function ProductsPage() {
   }
 
   const columns = [
+    {
+      title: "Id",
+      accesor: "id",
+    },
     {
       title: "Name",
       accesor: "name",

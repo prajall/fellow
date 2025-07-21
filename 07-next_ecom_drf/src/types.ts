@@ -21,6 +21,7 @@ export interface DynamicFormProps {
   footer?: React.ReactNode;
   disableSubmit: boolean;
   noBorder?: boolean;
+  footer_above?: React.ReactNode;
 }
 
 export interface AuthUserProps {

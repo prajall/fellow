@@ -39,7 +39,25 @@ export const useProduct = () => {
     return response.data;
   };
   const addProduct = async (newProduct: z.infer<any>) => {
-    const response = await api.post("/product/", newProduct);
+    const formData = new FormData();
+
+    formData.append("name", newProduct.name);
+    formData.append("description", newProduct.description);
+    formData.append("price", newProduct.price);
+    formData.append("discount", newProduct.discount);
+    formData.append("stock", newProduct.stock);
+    formData.append("category", newProduct.category);
+    formData.append("is_active", String(newProduct.is_active));
+
+    newProduct.images.forEach((image: File) => {
+      formData.append("images", image);
+    });
+
+    const response = await api.post("/product/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response;
   };
 
