@@ -94,6 +94,7 @@ const DynamicForm = ({
             name={field.name}
             options={field.options}
             className={getClassName(field.width)}
+            placeholder={"Select an option"}
           />
         );
       case "text-area":

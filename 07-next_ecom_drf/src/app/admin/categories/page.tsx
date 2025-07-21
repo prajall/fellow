@@ -11,17 +11,15 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import FormModal from "../components/FormModal";
 import TableComponent from "../components/TableComponent";
-import ProductForm from "./components/ProductForm";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
+import { useCategory } from "@/hooks/useCategory";
+import CategoryForm from "./components/CategoryForm";
 
-export default function ProductsPage() {
-  const { products, isFetching, isPending, metaData, isError } = useProduct();
+export default function CategoryPage() {
+  const { categories, isFetching, isPending, metaData } = useCategory();
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || "1";
 
-  console.log("Products", products);
-
+  console.log("Categories", categories);
   if (isPending) {
     return <div>Loading...</div>;
   }
@@ -32,20 +30,8 @@ export default function ProductsPage() {
       accesor: "name",
     },
     {
-      title: "Category",
-      accesor: "category",
-    },
-    {
-      title: "Price",
-      accesor: "price",
-    },
-    {
-      title: "Stock",
-      accesor: "stock",
-    },
-    {
-      title: "Status",
-      accesor: "status",
+      title: "Description",
+      accesor: "description",
     },
     {
       title: "Actions",
@@ -53,35 +39,19 @@ export default function ProductsPage() {
     },
   ];
 
-  const data = products?.map((product: ProductProps) => ({
-    id: product.id,
-    name: product.name,
-    category: product.category.name,
-    price: product.price,
-    stock: product.stock,
-    status: (
-      <>
-        {product.is_active && (
-          <Badge variant={"secondary"} className="text-green-500">
-            Active
-          </Badge>
-        )}
-        {!product.is_active && (
-          <Badge variant={"secondary"} className="text-red-500">
-            Inactive
-          </Badge>
-        )}
-      </>
-    ),
+  const data = categories?.map((category: any) => ({
+    id: category.id,
+    name: category.name,
+    description: category.description,
     actions: (
       <div className="flex gap-2">
         <Button variant="ghost" size="sm" asChild>
-          <Link href={`/admin/products/${product.id}`}>
+          <Link href={`/admin/categories/${category.id}`}>
             <Eye className="h-4 w-4" />
           </Link>
         </Button>
         <Button variant="ghost" size="sm" asChild>
-          <Link href={`/admin/products/${product.id}/edit`}>
+          <Link href={`/admin/categories/${category.id}/edit`}>
             <Edit className="h-4 w-4" />
           </Link>
         </Button>
@@ -93,22 +63,19 @@ export default function ProductsPage() {
     <FullScreenWrapper notop>
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold">Products Management</h2>
+          <h2 className="text-2xl font-bold">Category Management</h2>
           <FormModal
-            title="Add a new Product"
+            title="Add New Category"
             trigger={
               <>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Product
+                Add Category
               </>
             }
           >
-            {({ setOpen }) => <ProductForm setOpen={setOpen} />}
+            {({ setOpen }) => <CategoryForm setOpen={setOpen} />}
           </FormModal>
         </div>
-        {isError && (
-          <p className="text-red-500 text-center">Something went wrong.</p>
-        )}
 
         <div className="border rounded-lg">
           <TableComponent columns={columns} data={data} metaData={metaData} />

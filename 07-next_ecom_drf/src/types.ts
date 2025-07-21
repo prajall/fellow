@@ -43,6 +43,7 @@ export interface ProductProps {
   price: string;
   discount: string;
   stock?: number;
+  status: boolean;
   image?: string | null;
   is_active: boolean;
   created_at: string;
@@ -66,4 +67,17 @@ export interface ProductCreateProps {
   stock?: number;
   image?: string | null;
   is_active: boolean;
+}
+
+export interface CategoryProps {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface CategoryAPIProps {
+  count: number;
+  next?: string;
+  previous?: string;
+  results: CategoryProps[];
 }

@@ -43,7 +43,7 @@ export const useProduct = () => {
     return response;
   };
 
-  const { data, error, isFetching, isPending } =
+  const { data, isError, isFetching, isPending } =
     useQuery<ProductAPIProps | null>({
       queryKey: ["products", page],
       queryFn: fetchProducts,
@@ -70,7 +70,7 @@ export const useProduct = () => {
     products: data?.results || [],
     createProduct: productMutation.mutate,
     isCreating: productMutation.isPending,
-    error,
+    isError,
     isFetching,
     isPending,
     formSchema,

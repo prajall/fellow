@@ -1,4 +1,5 @@
 import DynamicForm from "@/components/forms/DynamicForm";
+import { useCategory } from "@/hooks/useCategory";
 import { useProduct } from "@/hooks/useProduct";
 import { FormFieldProp } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,62 +18,60 @@ const defaultValues = {
   is_active: true,
 };
 
-const formFields: FormFieldProp[] = [
-  {
-    label: "Name",
-    name: "name",
-    type: "text",
-  },
-  {
-    label: "Description",
-    name: "description",
-    type: "text-area",
-  },
-  {
-    label: "Price",
-    name: "price",
-    type: "text",
-    width: "1/2",
-  },
-  {
-    label: "Category",
-    name: "category",
-    type: "select",
-    width: "1/2",
-    options: [
-      {
-        label: "Fashion",
-        value: "1",
-      },
-      {
-        label: "Electronic",
-        value: "2",
-      },
-    ],
-  },
-
-  {
-    label: "Discount",
-    name: "discount",
-    type: "text",
-    width: "1/2",
-  },
-  {
-    label: "Stock",
-    name: "stock",
-    type: "text",
-    width: "1/2",
-  },
-  {
-    label: "Active ",
-    name: "is_active",
-    type: "switch",
-    width: "1/2",
-  },
-];
-
 const ProductForm = ({ setOpen }: { setOpen: (value: boolean) => void }) => {
   const { formSchema, createProduct } = useProduct();
+  const { categories } = useCategory();
+
+  const categoryOptions =
+    categories?.map((category: any) => ({
+      label: category.name,
+      value: category.id,
+    })) || [];
+
+  const formFields: FormFieldProp[] = [
+    {
+      label: "Name",
+      name: "name",
+      type: "text",
+    },
+    {
+      label: "Description",
+      name: "description",
+      type: "text-area",
+    },
+    {
+      label: "Price",
+      name: "price",
+      type: "text",
+      width: "1/2",
+    },
+    {
+      label: "Category",
+      name: "category",
+      type: "select",
+      width: "1/2",
+      options: categoryOptions,
+    },
+
+    {
+      label: "Discount",
+      name: "discount",
+      type: "text",
+      width: "1/2",
+    },
+    {
+      label: "Stock",
+      name: "stock",
+      type: "text",
+      width: "1/2",
+    },
+    {
+      label: "Active ",
+      name: "is_active",
+      type: "switch",
+      width: "1/2",
+    },
+  ];
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
