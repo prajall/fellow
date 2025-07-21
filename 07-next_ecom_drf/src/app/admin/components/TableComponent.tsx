@@ -19,7 +19,6 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 function getNestedValue(obj: any, path: string): any {
-  console.log("Getting nested value for :", path);
   const keys = path.split(".");
 
   let value = obj;

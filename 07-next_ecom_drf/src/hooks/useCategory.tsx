@@ -1,7 +1,7 @@
 import { api } from "@/lib/api";
-import { CategoryAPIProps } from "@/types";
+import { CategoryAPIProps, CategoryProps } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import z from "zod";
 
@@ -15,13 +15,29 @@ export const useCategory = () => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || "1";
 
+  const params = useParams();
+  console.log("params", params);
+  const categoryId = params.categoryId;
+
   const fetchCategories = async () => {
     const response = await api.get(`/product/category/?page=${page}`);
     return response.data;
   };
+  const fetchCategoryDetail = async () => {
+    const response = await api.get(`/product/category/${categoryId}`);
+    return response.data;
+  };
   const addCategory = async (newCategory: z.infer<any>) => {
     const response = await api.post("/product/category/", newCategory);
-    return response;
+    return response.data;
+  };
+  const editCategory = async (values: z.infer<any>) => {
+    console.log("Editing category", values);
+    const response = await api.patch(
+      `/product/category/${values.categoryId}/`,
+      values
+    );
+    return response.data;
   };
 
   const { data, error, isFetching, isPending } =
@@ -30,6 +46,12 @@ export const useCategory = () => {
       queryFn: fetchCategories,
       staleTime: 10 * 1000,
     });
+  const { data: categoryDetail } = useQuery<CategoryProps | null>({
+    queryKey: ["category", categoryId],
+    queryFn: fetchCategoryDetail,
+    staleTime: 10 * 1000,
+    enabled: !!categoryId,
+  });
 
   const categoryMutation = useMutation({
     mutationKey: ["categories"],
@@ -47,9 +69,27 @@ export const useCategory = () => {
     },
   });
 
+  const editCategoryMutation = useMutation({
+    mutationKey: ["categories"],
+    mutationFn: editCategory,
+    onMutate: async () => {
+      toast.loading("Uploading Category...", { id: "category" });
+    },
+    onSuccess: () => {
+      toast.success("Uploaded Successfully", { id: "category" });
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+    onError: (err) => {
+      console.log("Error uplaoding category", err);
+      toast.error("Failed to upload category", { id: "category" });
+    },
+  });
+
   return {
     categories: data?.results || [],
     createCategory: categoryMutation.mutate,
+    updateCategory: editCategoryMutation.mutate,
+    categoryDetail,
     isCreating: categoryMutation.isPending,
     error,
     isFetching,

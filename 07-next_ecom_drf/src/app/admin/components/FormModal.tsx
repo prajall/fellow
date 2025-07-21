@@ -20,7 +20,9 @@ const FormModal = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className={buttonVariants()}>{trigger}</DialogTrigger>
+      <DialogTrigger className={`${buttonVariants({ variant: "default" })}`}>
+        {trigger}
+      </DialogTrigger>
       <DialogContent showCloseButton={false} className=" w-3/4 max-w-xl p-0">
         <DialogTitle className="px-4 pt-4">{title}</DialogTitle>
         {children({ setOpen })}

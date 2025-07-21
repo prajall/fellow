@@ -56,6 +56,14 @@ const Navbar = () => {
               </Link>
             </>
           )}
+          {user && user.role == "admin" && (
+            <Link
+              className={buttonVariants({ variant: "outline" })}
+              href={"/admin"}
+            >
+              Admin Panel
+            </Link>
+          )}
           {user && <UserIcon user={user} />}
         </div>
       </FullScreenWrapper>

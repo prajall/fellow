@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import FullScreenWrapper from "@/components/FullScreenWrapper";
+import FormModal from "../components/FormModal";
 
 const page = () => {
   const { orders } = useOrder();
@@ -31,7 +32,7 @@ const page = () => {
           <h2 className="text-2xl font-bold">Order Management</h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 ">
           {orders?.map((order: any) => (
             <Card key={order.id}>
               <CardHeader>

@@ -13,6 +13,7 @@ import FormModal from "../components/FormModal";
 import TableComponent from "../components/TableComponent";
 import { useCategory } from "@/hooks/useCategory";
 import CategoryForm from "./components/CategoryForm";
+import CategoryEditForm from "./components/CategoryEditForm";
 
 export default function CategoryPage() {
   const { categories, isFetching, isPending, metaData } = useCategory();
@@ -51,9 +52,18 @@ export default function CategoryPage() {
           </Link>
         </Button>
         <Button variant="ghost" size="sm" asChild>
-          <Link href={`/admin/categories/${category.id}/edit`}>
-            <Edit className="h-4 w-4" />
-          </Link>
+          <FormModal
+            title="Add New Category"
+            trigger={
+              // <Button variant="ghost" size="sm" asChild className="text-black">
+              <Edit className="h-4 w-4" />
+              // </Button>
+            }
+          >
+            {({ setOpen }) => (
+              <CategoryEditForm setOpen={setOpen} categoryId={category.id} />
+            )}
+          </FormModal>
         </Button>
       </div>
     ),
