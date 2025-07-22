@@ -2,10 +2,12 @@ import MultiImageUploader from "@/app/components/MultiImageUploader";
 import DynamicForm from "@/components/forms/DynamicForm";
 import { useCategory } from "@/hooks/useCategory";
 import { useProduct } from "@/hooks/useProduct";
+import { api } from "@/lib/api";
 import { FormFieldProp } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import z from "zod";
 
 const defaultValues = {
@@ -19,10 +21,17 @@ const defaultValues = {
   is_active: true,
 };
 
-const ProductForm = ({ setOpen }: { setOpen: (value: boolean) => void }) => {
-  const { formSchema, createProduct } = useProduct();
+const ProductForm = ({
+  productId,
+  setOpen,
+}: {
+  productId?: number;
+  setOpen: (value: boolean) => void;
+}) => {
+  const { formSchema, createProduct, updateProduct } = useProduct();
   const { categories } = useCategory();
 
+  console.log("Product id", productId);
   const categoryOptions =
     categories?.map((category: any) => ({
       label: category.name,
@@ -79,11 +88,42 @@ const ProductForm = ({ setOpen }: { setOpen: (value: boolean) => void }) => {
     defaultValues: defaultValues,
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (
+    values: z.infer<typeof formSchema> & { id?: number }
+  ) => {
     console.log("Product Values", values);
     setOpen(false);
-    createProduct(values);
+    if (productId) {
+      values.id = productId;
+      updateProduct(values);
+    } else {
+      createProduct(values);
+    }
   };
+
+  useEffect(() => {
+    const fetchDetail = async () => {
+      try {
+        const response = await api.get(`/product/${productId}/`);
+        if (response.status == 200) {
+          const productDetail = {
+            ...response.data,
+            category: response.data.category.id,
+            stock: String(response.data.stock),
+            prict: String(response.data.price),
+          };
+          console.log("Product Detail on editing", productDetail);
+          form.reset(productDetail || {});
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Error fetching product detail");
+      }
+    };
+    if (productId) {
+      fetchDetail();
+    }
+  }, [productId]);
 
   return (
     <DynamicForm

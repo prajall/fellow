@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/contexts/AuthContext";
 import QueryProvider from "@/providers/QueryProvider";
+import SidebarContent from "./admin/components/SidebarContent";
+import FullScreenWrapper from "@/components/FullScreenWrapper";
+import Sidebar from "./components/Sidebar";
 
 const font = Poppins({
   weight: ["400"],
@@ -28,6 +31,7 @@ export default function RootLayout({
           <QueryProvider>
             <Toaster />
             <Navbar />
+            <Sidebar />
             {children}
           </QueryProvider>
         </AuthProvider>

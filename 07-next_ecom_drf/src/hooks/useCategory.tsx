@@ -57,15 +57,15 @@ export const useCategory = () => {
     mutationKey: ["categories"],
     mutationFn: addCategory,
     onMutate: async () => {
-      toast.loading("Uploading Category...", { id: "category" });
+      toast.loading("Uploading Category...", { id: "categorys" });
     },
     onSuccess: () => {
-      toast.success("Uploaded Successfully", { id: "category" });
+      toast.success("Uploaded Successfully", { id: "categorys" });
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: (err) => {
       console.log("Error uplaoding category", err);
-      toast.error("Failed to upload category", { id: "category" });
+      toast.error("Failed to upload category", { id: "categorys" });
     },
   });
 
@@ -73,14 +73,14 @@ export const useCategory = () => {
     mutationKey: ["categories"],
     mutationFn: editCategory,
     onMutate: async () => {
-      toast.loading("Uploading Category...", { id: "category" });
+      toast.loading("Updating Category...", { id: "category" });
     },
     onSuccess: () => {
-      toast.success("Uploaded Successfully", { id: "category" });
+      toast.success("Updated Successfully", { id: "category" });
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: (err) => {
-      console.log("Error uplaoding category", err);
+      console.log("Error updating category", err);
       toast.error("Failed to upload category", { id: "category" });
     },
   });

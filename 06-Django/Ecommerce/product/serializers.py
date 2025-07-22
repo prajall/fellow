@@ -58,6 +58,27 @@ class ProductSerializerCreate(serializers.ModelSerializer):
         product.save()
         return product
 
+    def update(self, instance, validated_data):
+        images = validated_data.pop('images', [])
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        if images:
+            ProductImage.objects.filter(product=instance).delete()
+
+            for index, image in enumerate(images, start=1):
+                product_image = ProductImage.objects.create(
+                    product=instance, image=image, index=index
+                )
+
+                if index == 1:
+                    instance.image = product_image.image
+
+        instance.save()
+        return instance
+
+
     
 
 

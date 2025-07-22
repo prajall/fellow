@@ -12,13 +12,10 @@ const FullScreenWrapper = ({
   notop?: any;
   className?: any;
 }) => {
-  const pathname = usePathname();
-  const adminPath = pathname.startsWith("/admin");
-
   return (
     <div
       className={cn(
-        adminPath ? "lg:ml-64 " : " md:px-10 container",
+        "lg:ml-64 md:px-10 ",
         `px-4 mx-auto ${notop ? "" : "py-16"}`,
         className
       )}

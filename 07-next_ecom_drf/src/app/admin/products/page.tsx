@@ -93,11 +93,19 @@ export default function ProductsPage() {
             <Eye className="h-4 w-4" />
           </Link>
         </Button>
-        <Button variant="ghost" size="sm" asChild>
-          <Link href={`/admin/products/${product.id}/edit`}>
-            <Edit className="h-4 w-4" />
-          </Link>
-        </Button>
+        <FormModal
+          title="Edit Product"
+          trigger={
+            <>
+              <Edit className="h-4 w-4" />
+            </>
+          }
+        >
+          {({ setOpen }) => (
+            <ProductForm setOpen={setOpen} productId={product.id} />
+          )}
+        </FormModal>
+        {/* <Button variant="ghost" size="sm" asChild></Button> */}
       </div>
     ),
   }));

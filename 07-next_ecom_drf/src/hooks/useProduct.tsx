@@ -62,6 +62,28 @@ export const useProduct = () => {
     return response;
   };
 
+  const editProduct = async (values: z.infer<any>) => {
+    console.log("Editing product", values);
+    const formData = new FormData();
+    Object.keys(values).forEach((key: string) => {
+      if (key != "images" && key != "image" && key != "id") {
+        formData.append(key, values[key]);
+      }
+      const images: File[] = values.images || [];
+      images.forEach((image) => {
+        formData.append("images", image);
+      });
+    });
+    console.log("Updating on url:", `/product/${values.id}/`);
+    console.log("Form data:", formData);
+    const response = await api.patch(`/product/${values.id}/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  };
+
   const { data, isError, isFetching, isPending } =
     useQuery<ProductAPIProps | null>({
       queryKey: ["products", page],
@@ -72,6 +94,21 @@ export const useProduct = () => {
   const productMutation = useMutation({
     mutationKey: ["products"],
     mutationFn: addProduct,
+    onMutate: async () => {
+      toast.loading("Uploading Product...", { id: "products" });
+    },
+    onSuccess: () => {
+      toast.success("Uploaded Successfully", { id: "products" });
+      queryClient.invalidateQueries({ queryKey: ["products", page] });
+    },
+    onError: (err) => {
+      console.log("Error uplaoding product", err);
+      toast.error("Failed to upload product", { id: "products" });
+    },
+  });
+  const editProductMutation = useMutation({
+    mutationKey: ["products"],
+    mutationFn: editProduct,
     onMutate: async () => {
       toast.loading("Uploading Product...", { id: "product" });
     },
@@ -84,12 +121,14 @@ export const useProduct = () => {
       toast.error("Failed to upload product", { id: "product" });
     },
   });
+
   useEffect(() => {
     console.log("Product response", data);
   }, [data]);
   return {
     products: data?.results || [],
     createProduct: productMutation.mutate,
+    updateProduct: editProductMutation.mutate,
     isCreating: productMutation.isPending,
     isError,
     isFetching,
