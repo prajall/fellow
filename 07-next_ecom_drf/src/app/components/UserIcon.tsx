@@ -9,10 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { LogOut, ShieldUser, User } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const UserIcon = ({ user }: { user: AuthUserProps }) => {
+  console.log("User in user icon", user);
   return (
     <div>
       <DropdownMenu>
@@ -36,6 +39,13 @@ const UserIcon = ({ user }: { user: AuthUserProps }) => {
           <DropdownMenuItem className="cursor-pointer">
             <User className="text-neutral-950" /> Profile
           </DropdownMenuItem>
+          {user.role == "admin" && (
+            <DropdownMenuItem asChild className="cursor-pointer">
+              <Link href={"/admin"} className="">
+                <ShieldUser className="text-neutral-950" /> Admin
+              </Link>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem className="cursor-pointer">
             <button className="flex gap-2 items-center cursor-pointer ">
               <LogOut className="text-neutral-950" />

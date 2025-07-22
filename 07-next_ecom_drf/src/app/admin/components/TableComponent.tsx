@@ -38,19 +38,21 @@ export default function TableComponent({ columns, data, metaData }: any) {
   return (
     <>
       <Table>
-        <TableHeader className="bg-neutral-100">
+        <TableHeader className="bg-neutral-100 ">
           <TableRow>
             {columns.map((column: any) => (
-              <TableHead key={column.accesor}>{column.title}</TableHead>
+              <TableHead key={column.accesor} className="pl-4">
+                {column.title}
+              </TableHead>
             ))}
           </TableRow>
         </TableHeader>
         {data && Array.isArray(data) && data.length > 0 && (
-          <TableBody className="text-neutral-700">
+          <TableBody className="text-neutral-700 ">
             {data?.map((row: any, index) => (
               <TableRow key={index}>
                 {columns.map((column: any) => (
-                  <TableCell key={column.accesor} className="font-medium">
+                  <TableCell key={column.accesor} className="font-medium pl-4">
                     {getNestedValue(row, column.accesor)}
                   </TableCell>
                 ))}
@@ -76,7 +78,13 @@ export const PaginationComponent = ({ metaData }: any) => {
           </PaginationItem>
         )}
         {Array.from(
-          { length: metaData.count ? metaData.count / 12 + 1 : 1 },
+          {
+            length: metaData.count
+              ? metaData.count == 12
+                ? 1
+                : metaData.count / 12 + 1
+              : 1,
+          },
           (_, index) => (
             <PaginationItem key={index} className="">
               {index + 1 === Number(page) && (

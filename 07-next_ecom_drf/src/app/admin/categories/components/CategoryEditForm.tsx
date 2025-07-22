@@ -36,7 +36,7 @@ const CategoryEditForm = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: { name: "", description: "" },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {

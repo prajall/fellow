@@ -47,7 +47,7 @@ const page = () => {
                 <div>
                   <p className="font-medium">{order.product.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    ({order.product.category.name})
+                    {order.product.category.name}
                   </p>
                 </div>
 

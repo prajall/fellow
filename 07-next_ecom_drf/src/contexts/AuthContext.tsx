@@ -16,7 +16,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const fetchUser = async () => {
     try {
       const response = await api.get("/user/info/");
-      console.log(response);
       if (response.status == 200) {
         setUser(response.data);
       }

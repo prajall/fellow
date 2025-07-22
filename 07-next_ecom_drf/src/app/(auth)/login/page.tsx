@@ -2,7 +2,7 @@
 
 import DynamicForm from "@/components/forms/DynamicForm";
 import FullScreenWrapper from "@/components/FullScreenWrapper";
-import { API_URL } from "@/lib/api";
+import { api, API_URL } from "@/lib/api";
 import { FormFieldProp } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -14,6 +14,7 @@ import { z } from "zod";
 import { loginApi } from "../api";
 import { useEffect, useTransition } from "react";
 import toast from "react-hot-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const formSchema = z.object({
   email: z.email(),
@@ -30,6 +31,8 @@ const LoginPage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
   });
+
+  const { user, setUser } = useAuth();
 
   const [isLoading, loginTransition] = useTransition();
 
@@ -48,7 +51,10 @@ const LoginPage = () => {
           Cookies.set("access", accessToken);
           Cookies.set("refresh", refreshToken, { expires: 2592000 });
           toast.success("Logged in successfully");
-
+          const userResponse = await api.get("/user/info/");
+          if (userResponse.status == 200) {
+            setUser(userResponse.data);
+          }
           router.push("/");
         }
       } catch (error: any) {

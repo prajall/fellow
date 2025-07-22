@@ -28,6 +28,10 @@ export default function ProductsPage() {
       accesor: "id",
     },
     {
+      title: "Image",
+      accesor: "image",
+    },
+    {
       title: "Name",
       accesor: "name",
     },
@@ -59,15 +63,24 @@ export default function ProductsPage() {
     category: product.category.name,
     price: product.price,
     stock: product.stock,
+    image: (
+      <>
+        <img
+          src={product.image || ""}
+          alt={product.name}
+          className="w-10 h-10 object-cover rounded-sm shadow-md"
+        />
+      </>
+    ),
     status: (
       <>
         {product.is_active && (
-          <Badge variant={"secondary"} className="text-green-500">
+          <Badge variant={"secondary"} className="text-green-500 bg-green-50">
             Active
           </Badge>
         )}
         {!product.is_active && (
-          <Badge variant={"secondary"} className="text-red-500">
+          <Badge variant={"secondary"} className="text-red-500 bg-red-50">
             Inactive
           </Badge>
         )}
