@@ -25,6 +25,8 @@ class OrderListCreateView(APIView):
         data["customer"] = request.user.id
 
         product = get_object_or_404(Product,pk=product_id)
+        discount_amount = product.discount /100 * product.price
+        data['price'] = product.price - discount_amount
 
         if product.stock < data.get('quantity',0):
             return Response({"detail":"Product out of stock"},status = 400)

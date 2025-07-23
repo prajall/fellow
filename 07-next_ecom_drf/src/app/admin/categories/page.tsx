@@ -53,6 +53,7 @@ export default function CategoryPage() {
         </Button>
         <Button variant="ghost" size="sm" asChild>
           <FormModal
+            nobg
             title="Add New Category"
             trigger={
               // <Button variant="ghost" size="sm" asChild className="text-black">

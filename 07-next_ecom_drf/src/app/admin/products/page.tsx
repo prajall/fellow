@@ -6,12 +6,16 @@ import { Button } from "@/components/ui/button";
 
 import { useProduct } from "@/hooks/useProduct";
 import { ProductProps } from "@/types";
-import { Edit, Eye, Plus } from "lucide-react";
+import { Edit, Eye, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import FormModal from "../components/FormModal";
 import TableComponent from "../components/TableComponent";
 import ProductForm from "./components/ProductForm";
+import { api } from "@/lib/api";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import DeleteProduct from "./components/DeleteProduct";
 
 export default function ProductsPage() {
   const { products, isPending, metaData, isError } = useProduct();
@@ -87,17 +91,18 @@ export default function ProductsPage() {
       </>
     ),
     actions: (
-      <div className="flex gap-2">
-        <Button variant="ghost" size="sm" asChild>
+      <div className="flex items-center">
+        {/* <Button variant="ghost" size="sm" asChild>
           <Link href={`/admin/products/${product.id}`}>
-            <Eye className="h-4 w-4" />
+            <Eye className="h-4 w-4 " />
           </Link>
-        </Button>
+        </Button> */}
         <FormModal
+          nobg
           title="Edit Product"
           trigger={
             <>
-              <Edit className="h-4 w-4" />
+              <Edit className="h-4 w-4 text-blue-500  " />
             </>
           }
         >
@@ -105,7 +110,7 @@ export default function ProductsPage() {
             <ProductForm setOpen={setOpen} productId={product.id} />
           )}
         </FormModal>
-        {/* <Button variant="ghost" size="sm" asChild></Button> */}
+        <DeleteProduct productId={product.id} />
       </div>
     ),
   }));

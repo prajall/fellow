@@ -8,6 +8,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import SidebarContent from "./admin/components/SidebarContent";
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import Sidebar from "./components/Sidebar";
+import CartProvider from "@/contexts/CartContext";
 
 const font = Poppins({
   weight: ["400"],
@@ -28,12 +29,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${font.className} antialiased`}>
         <AuthProvider>
-          <QueryProvider>
-            <Toaster />
-            <Navbar />
-            <Sidebar />
-            {children}
-          </QueryProvider>
+          <CartProvider>
+            <QueryProvider>
+              <Toaster />
+              <Navbar />
+              <Sidebar />
+              {children}
+            </QueryProvider>
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

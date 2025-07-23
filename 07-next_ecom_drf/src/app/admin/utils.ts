@@ -10,6 +10,7 @@ const checkUser = async (token: string) => {
       },
     });
     if (response.status === 200) {
+      console.log("User", response.data);
       const user = response.data;
       return user;
     }

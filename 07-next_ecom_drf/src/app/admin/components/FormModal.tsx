@@ -8,10 +8,12 @@ import {
 import React from "react";
 
 const FormModal = ({
+  nobg = false,
   title,
   trigger,
   children,
 }: {
+  nobg?: boolean;
   title: string;
   trigger: React.ReactNode;
   children: (props: { setOpen: (value: boolean) => void }) => React.ReactNode;
@@ -20,7 +22,9 @@ const FormModal = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className={`${buttonVariants({ variant: "ghost" })}`}>
+      <DialogTrigger
+        className={`${buttonVariants({ variant: nobg ? "ghost" : "default" })}`}
+      >
         {trigger}
       </DialogTrigger>
       <DialogContent showCloseButton={false} className=" w-3/4 max-w-xl p-0">

@@ -3,6 +3,7 @@
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
 import { api } from "@/lib/api";
 import { ProductProps } from "@/types";
 import { useQuery } from "@tanstack/react-query";
@@ -10,13 +11,14 @@ import { CreditCard, ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-export default function ProductDetailPage({}: {
-  //   params: { productId: string };
-}) {
+export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState<string>("");
+  const { cartItems, setCartItems } = useCart();
 
   const params = useParams();
+  const productId = params.productId;
 
   const {
     data: product,
@@ -29,6 +31,30 @@ export default function ProductDetailPage({}: {
       return response.data as ProductProps;
     },
   });
+
+  if (!product) return null;
+
+  const handleCart = () => {
+    const existingItem = cartItems.find((item) => item.id == product?.id);
+
+    if (!existingItem) {
+      setCartItems((prev) => [...prev, { ...product, quantity: 1 }]);
+      toast.success("Product added to cart");
+    } else {
+      setCartItems((prev) =>
+        prev.map((item) => {
+          if (item.id != product.id) return item;
+          else {
+            return {
+              ...item,
+              quantity: item.quantity + 1 || 1,
+            };
+          }
+        })
+      );
+      toast("Item already exist. Added Quantity +1");
+    }
+  };
 
   if (isLoading) {
     return <p>loading...</p>;
@@ -113,7 +139,7 @@ export default function ProductDetailPage({}: {
             {product.category.name}
           </Badge>
 
-          <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{product.name}</h1>
 
           <div className="flex items-center gap-2">
             <div className="flex">
@@ -129,7 +155,7 @@ export default function ProductDetailPage({}: {
 
           <div className="space-y-2">
             <div className="flex items-center gap-3">
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-lg font-bold text-gray-900">
                 ${discountedPrice}
               </span>
               {hasDiscount && (
@@ -179,7 +205,12 @@ export default function ProductDetailPage({}: {
               Buy Now
             </Button>
 
-            <Button variant="outline" className="" size="lg">
+            <Button
+              variant="outline"
+              className=""
+              size="lg"
+              onClick={handleCart}
+            >
               <ShoppingCart className="h-5 w-5 mr-2" />
               Add to Cart
             </Button>
