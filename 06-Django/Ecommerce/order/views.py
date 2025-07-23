@@ -8,6 +8,8 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from .models import Order
 from app.permissions import IsAdminOrReadOnly, IsOwnerOrAdminOrReadOnly
+from django.db import transaction
+
 # Create your views here.
 
 class OrderListCreateView(APIView):
@@ -65,27 +67,59 @@ class OrderListCreateView(APIView):
             status=200
             )
 
-class OrderCancel(APIView):
+class OrderListCreateView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = OrderCreateSerializer
+    queryset = Order.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return OrderCreateSerializer
+        else:
+            return OrderSerializerDetail
+    
+    
+    @swagger_auto_schema(request_body = OrderInputSerializer(many=True))
+    @transaction.atomic
+    def post(self, request):
+        data = request.data
+
+        serializer = OrderCreateSerializer(data=request.data, context={"request": request})
+        serializer.is_valid(raise_exception = True)
+        order = serializer.save()
+        order_serializer = OrderSerializerDetail(order)
+        return Response(order_serializer.data, status=201)
+
+class ChangeOrderStatus(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrAdminOrReadOnly]
+    queryset = Order.objects.all()
 
     @swagger_auto_schema(request_body=None)
     def patch(self, request, pk):
+
         try:
             order = Order.objects.get(pk=pk)
         except Order.DoesNotExist:
             return Response({"detail": "Order not found"}, status=404)
 
+        user = request.user
+        data = request.data.copy()
+
         self.check_object_permissions(request, order)
 
-        if order.status != "pending":
-            return Response(
-                {"detail": "Only pending orders can be cancelled"},
-                status=400
-            )
-
+        new_status = data.get("status")
+            # if customer
+        if not getattr(user, 'is_admin',False):
+            # status should be pending and new status should be cancelled
+            if  order.status != "pending" or new_status != 'cancelled':
+                return Response(
+                    {"detail": "Only pending orders can be cancelled"},
+                    status=400
+                )
+        
         serializer = OrderSerializerDetail(
             order,
-            data={"status": "cancelled"},
+            data={"status": new_status},
             partial=True
         )
         serializer.is_valid(raise_exception=True)
