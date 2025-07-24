@@ -10,48 +10,47 @@ export const api = axios.create({
 api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
   const cookies = await cookiesHeader();
   const token = cookies.get("access")?.value;
-  console.log("Access token", token);
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const cookies = await cookiesHeader();
-    console.log("inside response interceptor error", error.response.data);
-    if (error.response?.status == 401 && !error.config._retry) {
-      error.config._retry = true;
+// api.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const cookies = await cookiesHeader();
+//     console.log("inside response interceptor error", error.response.data);
+//     if (error.response?.status == 401 && !error.config._retry) {
+//       error.config._retry = true;
 
-      console.log("Refreshing refresh token");
+//       console.log("Refreshing refresh token");
 
-      try {
-        const refreshToken = cookies.get("refresh")?.value || "";
-        if (!refreshToken) {
-          return Promise.reject("No refresh token available");
-        }
-        console.log("here 1");
-        const refreshResponse = await axios.post(
-          "http://localhost:3000/api/user/refresh",
-          {
-            refresh: refreshToken,
-          }
-        );
-        console.log("From interceptor", refreshResponse.data);
+//       try {
+//         const refreshToken = cookies.get("refresh")?.value || "";
+//         if (!refreshToken) {
+//           return Promise.reject("No refresh token available");
+//         }
+//         console.log("here 1");
+//         const refreshResponse = await axios.post(
+//           "http://localhost:3000/api/user/refresh",
+//           {
+//             refresh: refreshToken,
+//           }
+//         );
+//         console.log("From interceptor", refreshResponse.data);
 
-        if (refreshResponse.status == 200) {
-          console.log("Retrying original request");
-          return api(error.config);
-        }
-      } catch (e: any) {
-        console.log("Error in interceptor", e);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
+//         if (refreshResponse.status == 200) {
+//           console.log("Retrying original request");
+//           return api(error.config);
+//         }
+//       } catch (e: any) {
+//         console.log("Error in interceptor", e);
+//       }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 // try {
 //   const refreshToken = cookies.get("refresh")?.value || "";

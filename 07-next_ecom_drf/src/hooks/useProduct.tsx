@@ -1,4 +1,4 @@
-import { api } from "@/lib/api";
+import { addProduct, editProduct, fetchProducts } from "@/actions/product";
 import { ProductAPIProps } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -35,65 +35,16 @@ export const useProduct = () => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || "1";
 
-  const fetchProducts = async () => {
-    const response = await api.get(`/product/?page=${page}`);
-    return response.data;
-  };
-  const addProduct = async (newProduct: z.infer<any>) => {
-    const formData = new FormData();
-
-    formData.append("name", newProduct.name);
-    formData.append("description", newProduct.description);
-    formData.append("price", newProduct.price);
-    formData.append("discount", newProduct.discount);
-    formData.append("stock", newProduct.stock);
-    formData.append("category", newProduct.category);
-    formData.append("is_active", String(newProduct.is_active));
-
-    newProduct.images.forEach((image: File) => {
-      formData.append("images", image);
-    });
-
-    const response = await api.post("/product/", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return response;
-  };
-
-  const editProduct = async (values: z.infer<any>) => {
-    console.log("Editing product", values);
-    const formData = new FormData();
-    Object.keys(values).forEach((key: string) => {
-      if (key != "images" && key != "image" && key != "id") {
-        formData.append(key, values[key]);
-      }
-      const images: File[] = values.images || [];
-      images.forEach((image) => {
-        formData.append("images", image);
-      });
-    });
-    console.log("Updating on url:", `/product/${values.id}/`);
-    console.log("Form data:", formData);
-    const response = await api.patch(`/product/${values.id}/`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return response.data;
-  };
-
   const { data, isError, isFetching, isPending } =
     useQuery<ProductAPIProps | null>({
       queryKey: ["products", page],
-      queryFn: fetchProducts,
+      queryFn: () => fetchProducts({ page }),
       staleTime: 10 * 1000,
     });
 
   const productMutation = useMutation({
     mutationKey: ["products"],
-    mutationFn: addProduct,
+    mutationFn: (newValues) => addProduct(newValues),
     onMutate: async () => {
       toast.loading("Uploading Product...", { id: "products" });
     },
@@ -108,7 +59,7 @@ export const useProduct = () => {
   });
   const editProductMutation = useMutation({
     mutationKey: ["products"],
-    mutationFn: editProduct,
+    mutationFn: (values) => editProduct(values),
     onMutate: async () => {
       toast.loading("Uploading Product...", { id: "product" });
     },

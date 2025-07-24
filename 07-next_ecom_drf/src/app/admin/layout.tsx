@@ -7,7 +7,7 @@ import { fetchUserInfo } from "@/actions/users";
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await fetchUserInfo();
 
-  console.log("User from admin layout.tsx", user);
+  // console.log("User from admin layout.tsx", user);
 
   if (!user || user.role != "admin") {
     redirect("/");

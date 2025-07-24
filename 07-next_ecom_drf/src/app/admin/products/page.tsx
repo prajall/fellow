@@ -2,20 +2,14 @@
 
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 import { useProduct } from "@/hooks/useProduct";
 import { ProductProps } from "@/types";
-import { Edit, Eye, Plus, Trash } from "lucide-react";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { Edit, Plus } from "lucide-react";
 import FormModal from "../components/FormModal";
 import TableComponent from "../components/TableComponent";
-import ProductForm from "./components/ProductForm";
-import { api } from "@/lib/api";
-import { useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import DeleteProduct from "./components/DeleteProduct";
+import ProductForm from "./components/ProductForm";
 
 export default function ProductsPage() {
   const { products, isPending, metaData, isError } = useProduct();
@@ -69,11 +63,20 @@ export default function ProductsPage() {
     stock: product.stock,
     image: (
       <>
-        <img
-          src={product.image || ""}
-          alt={product.name}
-          className="w-10 h-10 object-cover rounded-sm shadow-md"
-        />
+        {product.image && (
+          <img
+            src={product.image || ""}
+            alt={product.name}
+            className="w-10 h-10 object-cover rounded-sm shadow-md"
+          />
+        )}
+        {!product.image && (
+          <img
+            src="/images/placeholder.png"
+            alt="Placeholder"
+            className="w-10 h-10 object-cover rounded-sm "
+          />
+        )}
       </>
     ),
     status: (

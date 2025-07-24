@@ -1,3 +1,9 @@
+import {
+  addCategory,
+  editCategory,
+  fetchCategories,
+  fetchCategoryDetail,
+} from "@/actions/category";
 import { api } from "@/lib/api";
 import { CategoryAPIProps, CategoryProps } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -16,46 +22,25 @@ export const useCategory = () => {
   const page = searchParams.get("page") || "1";
 
   const params = useParams();
-  console.log("params", params);
   const categoryId = params.categoryId;
-
-  const fetchCategories = async () => {
-    const response = await api.get(`/product/category/?page=${page}`);
-    return response.data;
-  };
-  const fetchCategoryDetail = async () => {
-    const response = await api.get(`/product/category/${categoryId}`);
-    return response.data;
-  };
-  const addCategory = async (newCategory: z.infer<any>) => {
-    const response = await api.post("/product/category/", newCategory);
-    return response.data;
-  };
-  const editCategory = async (values: z.infer<any>) => {
-    console.log("Editing category", values);
-    const response = await api.patch(
-      `/product/category/${values.categoryId}/`,
-      values
-    );
-    return response.data;
-  };
 
   const { data, error, isFetching, isPending } =
     useQuery<CategoryAPIProps | null>({
       queryKey: ["categories", page],
-      queryFn: fetchCategories,
+      queryFn: () => fetchCategories(),
       staleTime: 10 * 1000,
     });
+
   const { data: categoryDetail } = useQuery<CategoryProps | null>({
     queryKey: ["category", categoryId],
-    queryFn: fetchCategoryDetail,
+    queryFn: () => fetchCategoryDetail(categoryId as string | ""),
     staleTime: 10 * 1000,
     enabled: !!categoryId,
   });
 
   const categoryMutation = useMutation({
     mutationKey: ["categories"],
-    mutationFn: addCategory,
+    mutationFn: (newCategory: z.infer<any>) => addCategory(newCategory),
     onMutate: async () => {
       toast.loading("Uploading Category...", { id: "categorys" });
     },
@@ -71,7 +56,7 @@ export const useCategory = () => {
 
   const editCategoryMutation = useMutation({
     mutationKey: ["categories"],
-    mutationFn: editCategory,
+    mutationFn: (values) => editCategory(values),
     onMutate: async () => {
       toast.loading("Updating Category...", { id: "category" });
     },
