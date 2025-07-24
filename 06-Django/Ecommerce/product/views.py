@@ -60,5 +60,4 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
         else:
             return ProductSerializerDetail
         
-    permission_classes = [permissions.IsAdmin]
 

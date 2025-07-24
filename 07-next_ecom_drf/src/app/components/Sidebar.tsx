@@ -6,9 +6,10 @@ import { usePathname } from "next/navigation";
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
+  const restrictedPaths = ["/login", "/signup", "/forgot-password"];
   const pathname = usePathname();
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/admin") || restrictedPaths.includes(pathname)) {
     return null;
   }
 

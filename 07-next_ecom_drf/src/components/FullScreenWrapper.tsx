@@ -12,10 +12,17 @@ const FullScreenWrapper = ({
   notop?: any;
   className?: any;
 }) => {
+  const restrictedPaths = ["/login", "/signup", "/forgot-password"];
+  const pathname = usePathname();
+
+  // if (pathname.startsWith("/admin") || restrictedPaths.includes(pathname)) {
+  //   return null;
+  // }
+
   return (
     <div
       className={cn(
-        "lg:ml-64 md:px-10 ",
+        restrictedPaths.includes(pathname) ? "" : "lg:ml-64 md:px-10 ",
         `px-4 mx-auto ${notop ? "" : "py-16"}`,
         className
       )}
