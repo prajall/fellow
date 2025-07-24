@@ -58,7 +58,7 @@ const LoginPage = () => {
           router.push("/");
         }
       } catch (error: any) {
-        console.log("Error Logging in", error.response.status, error);
+        console.log("Error Logging in", error.response?.status, error);
         if (error.response?.status == 401) {
           console.log("Setting error");
           form.setError("email", { message: "Invalid credentials provided" });

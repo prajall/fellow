@@ -5,12 +5,13 @@ export const middleware = async (request: NextRequest) => {
   const access_token = request.cookies.get("access")?.value || "";
 
   if (!access_token) {
+    console.log("No access token in middleware. Redirecting from middleware");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
 
-  // const response = await api.get("/user/info/");
+  // const response = await fetch("/user/info/");
   // console.log("User", response.data);
   // if (response.status == 200) {
   //   const user = response.data;

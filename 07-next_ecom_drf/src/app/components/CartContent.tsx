@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import toast from "react-hot-toast";
+import { useOrder } from "@/hooks/useOrder";
 
 const ProductObject = ({ product }: { product: CartProps }) => {
   const { setCartItems } = useCart();
@@ -86,6 +87,8 @@ const SidebarContent = () => {
   const { cartItems, setCartItems } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const { createOrder } = useOrder();
+
   useEffect(() => {
     let total = 0;
     if (cartItems.length > 0)
@@ -95,6 +98,17 @@ const SidebarContent = () => {
       });
     setTotalPrice(Number(total.toFixed(2)));
   }, [cartItems]);
+
+  const handleCheckout = () => {
+    const newOrders = cartItems.map((item) => {
+      return {
+        product: item.id,
+        quantity: item.quantity,
+      };
+    });
+    console.log("newOrders", newOrders);
+    createOrder(newOrders);
+  };
 
   return (
     <div className="pt-0 h-full flex flex-col gap-2">
@@ -115,7 +129,9 @@ const SidebarContent = () => {
         })}
       </div>
       <div className="mt-auto">
-        <Button className="w-full mt-auto">Checkout (${totalPrice})</Button>
+        <Button className="w-full mt-auto" onClick={handleCheckout}>
+          Checkout (${totalPrice})
+        </Button>
       </div>
     </div>
   );

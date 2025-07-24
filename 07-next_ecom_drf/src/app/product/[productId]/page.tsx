@@ -3,6 +3,7 @@
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
 import { useCart } from "@/contexts/CartContext";
 import { api } from "@/lib/api";
 import { ProductProps } from "@/types";
@@ -12,13 +13,13 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import BuyNowComponent from "./BuyNowComponent";
 
 export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState<string>("");
   const { cartItems, setCartItems } = useCart();
 
   const params = useParams();
-  const productId = params.productId;
 
   const {
     data: product,
@@ -82,7 +83,7 @@ export default function ProductDetailPage() {
   return (
     <FullScreenWrapper notop className="flex justify-center">
       <div className="flex flex-col lg:flex-row gap-8 w-full py-4">
-        <div className="space-y-4 w-full md:w-2/3 lg:w-1/3 ">
+        <div className="space-y-4 w-full min-w-[300px] sm:w-1/2  md:w-2/3 lg:w-1/3 ">
           <div className="aspect-[3/4] relative overflow-hidden rounded-lg">
             {product.images.length > 0 ? (
               <Image
@@ -196,14 +197,7 @@ export default function ProductDetailPage() {
           </div>
 
           <div className="flex gap-4 space-y-3 mt-4">
-            <Button
-              className=""
-              size="lg"
-              //   disabled={product.stock === 0 || !product.is_active}
-            >
-              <CreditCard className="h-5 w-5 mr-2" />
-              Buy Now
-            </Button>
+            <BuyNowComponent product={product} />
 
             <Button
               variant="outline"

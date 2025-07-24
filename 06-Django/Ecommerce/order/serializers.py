@@ -14,8 +14,13 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = "__all__"
 
+class ProductNameImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id','name','image']
+
 class OrderItemSerializer(serializers.ModelSerializer):
-    product = serializers.StringRelatedField()
+    product = ProductNameImageSerializer()
 
     class Meta:
         model = OrderItem

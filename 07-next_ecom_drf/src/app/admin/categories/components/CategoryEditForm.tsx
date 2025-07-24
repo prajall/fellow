@@ -1,11 +1,9 @@
 import DynamicForm from "@/components/forms/DynamicForm";
 import { useCategory } from "@/hooks/useCategory";
-import { useProduct } from "@/hooks/useProduct";
 import { api } from "@/lib/api";
-import { CategoryProps, FormFieldProp } from "@/types";
+import { FormFieldProp } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import z from "zod";

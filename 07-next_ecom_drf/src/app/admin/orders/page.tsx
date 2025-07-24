@@ -8,9 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import FullScreenWrapper from "@/components/FullScreenWrapper";
 import FormModal from "../components/FormModal";
+import ProductObject from "./ProductObject";
+import { PaginationComponent } from "../components/TableComponent";
 
 const page = () => {
-  const { orders } = useOrder();
+  const { orders, metaData } = useOrder();
+
+  console.log("Orders", orders);
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -44,47 +48,42 @@ const page = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div>
-                  <p className="font-medium">{order.product.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {order.product.category.name}
-                  </p>
-                </div>
-
                 <div className="flex gap-1">
                   <p className="text-sm font-medium">Customer:</p>
                   <p className="text-sm text-muted-foreground">
                     {order.customer.name} ({order.customer.email})
                   </p>
                 </div>
-
-                <div className="">
-                  <span className="text-sm">
-                    Quantity: <span className="">{order.quantity}</span>
-                  </span>
+                <div className="flex gap-1">
+                  <p className="text-sm font-medium">Total Price:</p>
+                  <p className="text-sm text-muted-foreground">
+                    ${order.total_price}
+                  </p>
                 </div>
-                <div>
-                  <span className="text-sm">
-                    Price: <span className="">{order.price}</span>
-                  </span>
+                <div className="space-y-1">
+                  <div className="flex gap-1">
+                    <p className="text-sm font-medium">Items:</p>
+                  </div>
+                  {order.items.map((item: any) => (
+                    <ProductObject key={item.id} item={item} />
+                  ))}
                 </div>
 
-                <div className="flex gap-2 pt-2 justify-end text-blue-500">
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link href={`/admin/orders/${order.id}`}>
-                      <Eye className="h-4 w-4" /> View
-                    </Link>
+                {/* <div className="flex gap-2 pt-2 justify-end ">
+                  <Button variant="ghost" size="sm">
+                    Cancel Order
                   </Button>
                   <Button variant="ghost" size="sm" asChild>
                     <Link href={`/admin/orders/${order.id}/edit`}>
                       <Edit className="h-4 w-4" /> Edit
                     </Link>
                   </Button>
-                </div>
+                </div> */}
               </CardContent>
             </Card>
           ))}
         </div>
+        <PaginationComponent metaData={metaData} />
       </div>
     </FullScreenWrapper>
   );

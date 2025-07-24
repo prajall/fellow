@@ -72,6 +72,13 @@ class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderCreateSerializer
     queryset = Order.objects.all()
 
+
+    def get_queryset(self):
+        if not getattr(self.request.user, "is_admin", False):
+            return self.request.user.orders.all()
+        else:
+            return Order.objects.all()
+
     def get_serializer_class(self):
         if self.request.method == "POST":
             return OrderCreateSerializer

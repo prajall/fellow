@@ -16,7 +16,10 @@ const checkUser = async (token: string) => {
     }
     return null;
   } catch (error: any) {
+    console.log("Error in checkuser", error);
     if (error.status == 401) {
+      console.log("Error in checkuser", error.response.data);
+      console.log("Redirecting from checkUser in admin layout");
       return redirect("/login");
     }
     if (error.status == 403) {

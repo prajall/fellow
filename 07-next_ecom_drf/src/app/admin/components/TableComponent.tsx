@@ -69,6 +69,11 @@ export default function TableComponent({ columns, data, metaData }: any) {
 export const PaginationComponent = ({ metaData }: any) => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || "1";
+
+  if (!metaData) {
+    return null;
+  }
+
   return (
     <Pagination>
       <PaginationContent className="py-2">

@@ -1,5 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
+// import Cookies from "next/headers";
 
 export const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
