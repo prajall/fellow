@@ -40,6 +40,7 @@ export const addProduct = async (newProduct: z.infer<any>) => {
 export const editProduct = async (values: z.infer<any>) => {
   console.log("Editing product", values);
   const formData = new FormData();
+  console.log("Values", values);
   Object.keys(values).forEach((key: string) => {
     if (key != "images" && key != "image" && key != "id") {
       formData.append(key, values[key]);

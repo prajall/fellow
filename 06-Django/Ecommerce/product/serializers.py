@@ -29,14 +29,16 @@ class ProductSerializerBasic(serializers.ModelSerializer):
         model = Product
         fields = ['id','name','description','category','category_id','price','discount','image','stock','images']
 
+class MultipleImageField(serializers.ImageField):
+    def to_internal_value(self, data):
+        if isinstance(data, list):
+            return [super().to_internal_value(item) for item in data]
+        return [super().to_internal_value(data)]
+
 
 class ProductSerializerCreate(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset = Category.objects.all())
-    images = serializers.ListField(
-        child = serializers.ImageField(),
-        write_only = True,
-        required = False
-    )
+    images = MultipleImageField(write_only=True, required=False)
     
 
     class Meta:
@@ -60,11 +62,12 @@ class ProductSerializerCreate(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         images = validated_data.pop('images', [])
+        print("number of Images in updated",len(images))
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
 
-        if images:
+        if images is not None and len(images)>0:
             ProductImage.objects.filter(product=instance).delete()
 
             for index, image in enumerate(images, start=1):

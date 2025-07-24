@@ -108,9 +108,10 @@ const ProductForm = ({
         if (response.status == 200) {
           const productDetail = {
             ...response.data,
-            category: response.data.category.id,
+            category: response.data.category.id.toString(),
             stock: String(response.data.stock),
-            prict: String(response.data.price),
+            price: String(response.data.price),
+            images: [],
           };
           console.log("Product Detail on editing", productDetail);
           form.reset(productDetail || {});
