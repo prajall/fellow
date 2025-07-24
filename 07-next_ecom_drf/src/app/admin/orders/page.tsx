@@ -1,33 +1,21 @@
 "use client";
-import { useOrder } from "@/hooks/useOrder";
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Eye, Edit } from "lucide-react";
-import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import FullScreenWrapper from "@/components/FullScreenWrapper";
-import FormModal from "../components/FormModal";
-import ProductObject from "./ProductObject";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { useOrder } from "@/hooks/useOrder";
+import { ChevronDown } from "lucide-react";
 import { PaginationComponent } from "../components/TableComponent";
+import ProductObject from "./components/ProductObject";
+
+import { cn } from "@/lib/utils";
+import Status from "./components/Status";
 
 const page = () => {
   const { orders, metaData } = useOrder();
 
   console.log("Orders", orders);
-
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "pending":
-        return "bg-blue-500";
-      case "completed":
-        return "bg-green-500";
-      case "cancelled":
-        return "bg-red-500";
-      default:
-        return "bg-gray-100 text-black";
-    }
-  };
 
   return (
     <FullScreenWrapper notop>
@@ -36,15 +24,18 @@ const page = () => {
           <h2 className="text-2xl font-bold">Order Management</h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 ">
+        <div className="w-full flex gap-2">
+          <Input placeholder="Search" />
+          <Button>Filter</Button>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3 ">
           {orders?.map((order: any) => (
             <Card key={order.id}>
               <CardHeader>
                 <CardTitle className="flex justify-between items-start">
                   <span>Order #{order.id}</span>
-                  <Badge className={getStatusColor(order.status)}>
-                    {order.status}
-                  </Badge>
+                  <Status status={order.status} orderId={order.id} />
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">

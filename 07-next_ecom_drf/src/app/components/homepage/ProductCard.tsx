@@ -47,7 +47,7 @@ const ProductCard = ({ product }: { product: ProductProps }) => {
             }}
             className="py-2 absolute z-50 hidden group-hover:flex top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-transparent hover:bg-black/70 hover:text-white group-hover:bg-black/40 border-white text-white duration-300  "
           >
-            Add to Cart
+            View Product
           </Button>
         </CardContent>
         <CardHeader className="px-3">
