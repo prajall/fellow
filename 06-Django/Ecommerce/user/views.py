@@ -27,6 +27,7 @@ def signup(request):
         password = request.data.get('password')
 
 
+
         if not email or not password:
             return Response("Email and Password are required",status=400)
     

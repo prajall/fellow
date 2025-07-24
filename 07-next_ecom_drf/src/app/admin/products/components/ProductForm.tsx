@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import z from "zod";
 
 const defaultValues = {
-  category: "2",
+  category: "",
   images: [],
   name: "",
   description: "",
@@ -35,7 +35,7 @@ const ProductForm = ({
   const categoryOptions =
     categories?.map((category: any) => ({
       label: category.name,
-      value: category.id,
+      value: category.id.toString(),
     })) || [];
 
   const formFields: FormFieldProp[] = [

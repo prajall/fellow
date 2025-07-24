@@ -1,6 +1,14 @@
 "use client";
 import React from "react";
-import { Package, FolderOpen, ShoppingCart, Users, Menu } from "lucide-react";
+import {
+  Package,
+  FolderOpen,
+  ShoppingCart,
+  Users,
+  Menu,
+  Settings,
+  ChartLine,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -8,6 +16,11 @@ import { cn } from "@/lib/utils";
 const SidebarContent = () => {
   const pathname = usePathname();
   const menuItems = [
+    {
+      title: "Dashboard",
+      url: "#",
+      icon: ChartLine,
+    },
     {
       title: "Products",
       url: "/admin/products",
@@ -23,12 +36,10 @@ const SidebarContent = () => {
       url: "/admin/orders",
       icon: ShoppingCart,
     },
-  ];
-  const userItems = [
     {
-      title: "Users",
-      url: "/admin/users",
-      icon: Users,
+      title: "Settings",
+      url: "#",
+      icon: Settings,
     },
   ];
 
@@ -59,7 +70,7 @@ const SidebarContent = () => {
               <span>{item.title}</span>
             </Link>
           ))}
-          <h3 className="text-sm font-medium text-neutral-700 my-2 mt-4">
+          {/* <h3 className="text-sm font-medium text-neutral-700 my-2 mt-4">
             User Management
           </h3>
           {userItems.map((item) => (
@@ -76,7 +87,7 @@ const SidebarContent = () => {
               <item.icon className="h-4 w-4" />
               <span>{item.title}</span>
             </Link>
-          ))}
+          ))} */}
         </div>
       </nav>
     </div>

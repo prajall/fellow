@@ -1,18 +1,13 @@
-import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AuthUserProps } from "@/types";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, ShieldUser, User } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { AuthUserProps } from "@/types";
+import { LogOut, ShieldUser, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 const UserIcon = ({ user }: { user: AuthUserProps }) => {
   console.log("User in user icon", user);
@@ -46,6 +41,14 @@ const UserIcon = ({ user }: { user: AuthUserProps }) => {
               </Link>
             </DropdownMenuItem>
           )}
+          {user.role == "customer" && (
+            <DropdownMenuItem asChild className="cursor-pointer">
+              <Link href={"/my-orders"} className="">
+                <ShoppingBag className="text-neutral-950" /> My Orders
+              </Link>
+            </DropdownMenuItem>
+          )}
+
           <DropdownMenuItem className="cursor-pointer">
             <button className="flex gap-2 items-center cursor-pointer ">
               <LogOut className="text-neutral-950" />

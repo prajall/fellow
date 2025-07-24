@@ -36,7 +36,7 @@ const ConfirmDialog = ({
   const updateStatus = updateStatusMutation(orderId);
 
   const handleUpdate = async () => {
-    updateStatus.mutate({ orderId, status });
+    updateStatus.mutate({ status });
     setOpen(false);
   };
   return (
@@ -63,22 +63,21 @@ const ConfirmDialog = ({
   );
 };
 
+export const getStatusColor = (status: string) => {
+  switch (status.toLowerCase()) {
+    case "pending":
+      return "border bg-cyan-100 text-cyan-500";
+    case "confirmed":
+      return "border bg-blue-100 text-blue-500";
+    case "delivered":
+      return "border bg-green-100 text-green-500";
+    case "cancelled":
+      return "border bg-red-100 text-red-500";
+    default:
+      return "border bg-neutral-100 text-blue-500 text-black";
+  }
+};
 const Status = ({ status, orderId }: { status: string; orderId: string }) => {
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "pending":
-        return "border bg-cyan-100 text-cyan-500";
-      case "confirmed":
-        return "border bg-blue-100 text-blue-500";
-      case "delivered":
-        return "border bg-green-100 text-green-500";
-      case "cancelled":
-        return "border bg-red-100 text-red-500";
-      default:
-        return "border bg-neutral-100 text-blue-500 text-black";
-    }
-  };
-
   const statusList = ["pending", "confirmed", "delivered", "cancelled"];
   const filteredList = statusList.filter((item) => item != status);
 

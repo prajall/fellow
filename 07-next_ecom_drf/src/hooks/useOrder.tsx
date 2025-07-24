@@ -38,7 +38,7 @@ export const useOrder = () => {
   const updateStatusMutation = (orderId: string) => {
     return useMutation({
       mutationKey: ["order", orderId],
-      mutationFn: ({ orderId, status }: { orderId: string; status: string }) =>
+      mutationFn: ({ status }: { status: string }) =>
         updateOrderStatus(orderId, status),
       onMutate: async ({ status }) => {
         const previousState = queryClient.getQueryData(["orders"]);

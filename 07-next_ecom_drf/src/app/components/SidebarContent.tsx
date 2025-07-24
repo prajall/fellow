@@ -16,30 +16,7 @@ import { cn } from "@/lib/utils";
 import { useCategory } from "@/hooks/useCategory";
 
 const SidebarContent = () => {
-  const pathname = usePathname();
   const { categories } = useCategory();
-  const menuItems = [
-    {
-      title: "Products",
-      url: "/admin/products",
-      icon: Package,
-    },
-    {
-      title: "Orders",
-      url: "/admin/orders",
-      icon: ShoppingCart,
-    },
-    {
-      title: "Orders",
-      url: "/admin/orders",
-      icon: ShoppingBag,
-    },
-    {
-      title: "Orders",
-      url: "/admin/orders",
-      icon: Target,
-    },
-  ];
 
   return (
     <div className="flex flex-col h-full">

@@ -38,7 +38,10 @@ class ProductListCreate(generics.ListCreateAPIView):
         queryset = Product.objects.all()
         search_query = self.request.GET.get("search")
         category = self.request.GET.get("category")
+        status = self.request.GET.get("status")
 
+        if status:
+            queryset = queryset.filter(status__icontains = status)      
         if search_query:
             queryset = queryset.filter(name__icontains = search_query)      
         if category:
