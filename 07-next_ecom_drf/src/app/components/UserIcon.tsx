@@ -11,6 +11,9 @@ import Link from "next/link";
 
 const UserIcon = ({ user }: { user: AuthUserProps }) => {
   console.log("User in user icon", user);
+
+  const logoutHandler = async () => {};
+
   return (
     <div>
       <DropdownMenu>

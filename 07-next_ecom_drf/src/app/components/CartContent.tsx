@@ -99,7 +99,7 @@ const SidebarContent = () => {
     setTotalPrice(Number(total.toFixed(2)));
   }, [cartItems]);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     const newOrders = cartItems.map((item) => {
       return {
         product: item.id,
@@ -108,6 +108,7 @@ const SidebarContent = () => {
     });
     console.log("newOrders", newOrders);
     createOrder(newOrders);
+    setCartItems([]);
   };
 
   return (

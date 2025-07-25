@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'user',
     'product',
     'order',
-    'corsheaders'
+    'corsheaders',
+    "rest_framework_simplejwt.token_blacklist"
 ]
 
 
@@ -81,7 +82,7 @@ SWAGGER_SETTINGS = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600),  
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=30),  
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
 }
 

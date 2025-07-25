@@ -15,6 +15,7 @@ import { loginApi } from "../api";
 import { useEffect, useTransition } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { loginUser } from "@/actions/users";
 
 const formSchema = z.object({
   email: z.email(),
@@ -32,7 +33,7 @@ const LoginPage = () => {
     defaultValues: defaultValues,
   });
 
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
 
   const [isLoading, loginTransition] = useTransition();
 
@@ -42,30 +43,21 @@ const LoginPage = () => {
     loginTransition(async () => {
       console.log("submitting", values);
       try {
-        const response = await loginApi(values);
+        const response = await loginUser(values);
         console.log(response);
-        if (response.status == 200) {
-          const refreshToken = response.data?.refresh;
-          const accessToken = response.data?.access;
-
-          Cookies.set("access", accessToken);
-          Cookies.set("refresh", refreshToken, { expires: 2592000 });
+        if (response?.success) {
           toast.success("Logged in successfully");
-          const userResponse = await api.get("/user/info/");
-          if (userResponse.status == 200) {
-            setUser(userResponse.data);
-          }
+          setUser(response.data);
           router.push("/");
-        }
-      } catch (error: any) {
-        console.log("Error Logging in", error.response?.status, error);
-        if (error.response?.status == 401) {
-          console.log("Setting error");
+        } else if (!response?.success && response?.status == 401) {
           form.setError("email", { message: "Invalid credentials provided" });
           form.setError("password", {
             message: "Invalid credentials provided",
           });
         }
+      } catch (error: any) {
+        console.log("Error logging in", error);
+        toast.error("Error logging in");
       }
     });
   };

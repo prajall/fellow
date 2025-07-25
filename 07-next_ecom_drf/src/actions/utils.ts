@@ -1,7 +1,7 @@
 "use server";
 import { api } from "@/lib/serverApi";
-import axios from "axios";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -17,7 +17,9 @@ export const withRetry = async (func: () => any) => {
       console.log("Cookie Expired. Refreshing");
       const refreshToken = cookieStore.get("refresh")?.value;
 
-      if (!refreshToken) throw new Error("No refresh token");
+      if (!refreshToken) {
+        redirect("/login");
+      }
 
       try {
         const response = await api.post(`${API_URL}/user/token/refresh/`, {
@@ -26,7 +28,11 @@ export const withRetry = async (func: () => any) => {
 
         if (response.status === 200) {
           const newAccessToken = response.data.access;
-          cookieStore.set("access", newAccessToken);
+          cookieStore.set("access", newAccessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "lax",
+          });
 
           return await func();
         }

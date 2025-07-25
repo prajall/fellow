@@ -8,16 +8,14 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  return NextResponse.next();
+  await fetch("http://localhost:8000/user/info/", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  }).then((res) => console.log("User response in middleware", res.json()));
 
-  // const response = await fetch("/user/info/");
-  // console.log("User", response.data);
-  // if (response.status == 200) {
-  //   const user = response.data;
-  //   if (user?.role == "admin") {
-  //   }
-  // }
-  // return NextResponse.redirect(new URL("/"));
+  return NextResponse.next();
 };
 
 export const config = {
