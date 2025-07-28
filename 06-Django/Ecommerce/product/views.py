@@ -38,6 +38,8 @@ class ProductListCreate(generics.ListCreateAPIView):
         category = self.request.GET.get("category")
         status = self.request.GET.get("status")
 
+        print("Authenticated User = ",self.request.user)
+
         if status:
             queryset = queryset.filter(status__icontains = status)      
         if search_query:
@@ -51,7 +53,7 @@ class ProductListCreate(generics.ListCreateAPIView):
         return queryset
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsOwnerOrAdminOrReadOnly]
+    permission_classes = [permissions.IsAdminOrReadOnly]
     queryset = Product.objects.all()
     # serializer_class = ProductSerializerCreate
 

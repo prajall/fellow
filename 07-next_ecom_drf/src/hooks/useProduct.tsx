@@ -65,7 +65,7 @@ export const useProduct = () => {
     },
     onSuccess: () => {
       toast.success("Uploaded Successfully", { id: "product" });
-      queryClient.invalidateQueries({ queryKey: ["product"] });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: (err) => {
       console.log("Error uplaoding product", err);

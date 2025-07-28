@@ -27,7 +27,7 @@ class ProductSerializerBasic(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ['id','name','description','category','category_id','price','discount','image','stock','images']
+        fields = ['id','name','description','category','category_id','price','discount','image','stock','images','is_active']
 
 class MultipleImageField(serializers.ImageField):
     def to_internal_value(self, data):

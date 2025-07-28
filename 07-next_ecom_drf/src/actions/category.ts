@@ -8,9 +8,7 @@ import axios from "axios";
 // Functions with retry
 export const fetchCategories = async (page: string = "1") => {
   // return await withRetry(async () => {
-  const response = await axios.get(
-    `${api.defaults.baseURL}/product/category/?page=${page}`
-  );
+  const response = await api.get(`/product/category/?page=${page}`);
   return response.data;
   // });
 };

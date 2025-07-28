@@ -5,13 +5,13 @@ import { withRetry } from "./utils";
 import axios from "axios";
 
 export const fetchProducts = async ({ page = "1" }: { page: string }) => {
-  const response = await axios.get(
+  const response = await api.get(
     `${api.defaults.baseURL}/product/?page=${page}`
   );
   return response.data;
 };
 export const fetchProductDetail = async (productId: string) => {
-  const response = await axios.get(
+  const response = await api.get(
     `${api.defaults.baseURL}/product/${productId}`
   );
   return response.data;
