@@ -61,6 +61,22 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex gap-2 items-center">
+          <Sheet>
+            <SheetTrigger className="hover:bg-neutral-100 relative w-10 h-10 flex items-center justify-center cursor-pointer rounded">
+              {cartItems && cartItems.length > 0 && (
+                <p className="absolute top-0 right-0 bg-black text-white rounded-full w-4 h-4 text-xs flex items-center justify-center font-semibold">
+                  {cartItems.length}
+                </p>
+              )}
+              <ShoppingCart size={20} />
+            </SheetTrigger>
+            <SheetContent className="gap-0 p-4">
+              <SheetHeader className="p-0">
+                <SheetTitle>Cart</SheetTitle>
+              </SheetHeader>
+              <CartContent />
+            </SheetContent>
+          </Sheet>
           {!user && (
             <>
               <Link
@@ -78,22 +94,6 @@ const Navbar = () => {
               </Link>
             </>
           )}
-          <Sheet>
-            <SheetTrigger className="hover:bg-neutral-100 relative w-10 h-10 flex items-center justify-center cursor-pointer rounded">
-              {cartItems && cartItems.length > 0 && (
-                <p className="absolute top-0 right-0 bg-black text-white rounded-full w-4 h-4 text-xs flex items-center justify-center font-semibold">
-                  {cartItems.length}
-                </p>
-              )}
-              <ShoppingCart size={20} />
-            </SheetTrigger>
-            <SheetContent className="gap-0 p-4">
-              <SheetHeader className="p-0">
-                <SheetTitle>Cart</SheetTitle>
-              </SheetHeader>
-              <CartContent />
-            </SheetContent>
-          </Sheet>
 
           {user && <UserIcon user={user} />}
         </div>

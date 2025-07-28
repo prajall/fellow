@@ -2,12 +2,19 @@
 import { api } from "@/lib/serverApi";
 import z from "zod";
 import { withRetry } from "./utils";
+import axios from "axios";
 
 export const fetchProducts = async ({ page = "1" }: { page: string }) => {
-  return await withRetry(async () => {
-    const response = await api.get(`/product/?page=${page}`);
-    return response.data;
-  });
+  const response = await axios.get(
+    `${api.defaults.baseURL}/product/?page=${page}`
+  );
+  return response.data;
+};
+export const fetchProductDetail = async (productId: string) => {
+  const response = await axios.get(
+    `${api.defaults.baseURL}/product/${productId}`
+  );
+  return response.data;
 };
 
 export const addProduct = async (newProduct: z.infer<any>) => {

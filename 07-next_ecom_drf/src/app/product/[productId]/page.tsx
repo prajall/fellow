@@ -4,13 +4,14 @@ import FullScreenWrapper from "@/components/FullScreenWrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
+import { fetchProductDetail } from "@/actions/product";
+import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
-import { api } from "@/lib/api";
-import { ProductProps } from "@/types";
+import { ProductImageProps } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { CreditCard, ShoppingCart, Star } from "lucide-react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import BuyNowComponent from "./BuyNowComponent";
@@ -18,6 +19,8 @@ import BuyNowComponent from "./BuyNowComponent";
 export default function ProductDetailPage() {
   const [selectedImage, setSelectedImage] = useState<string>("");
   const { cartItems, setCartItems } = useCart();
+  const { user } = useAuth();
+  const router = useRouter();
 
   const params = useParams();
 
@@ -28,8 +31,7 @@ export default function ProductDetailPage() {
   } = useQuery({
     queryKey: ["product", params.productId],
     queryFn: async () => {
-      const response = await api.get(`/product/${params.productId}/`);
-      return response.data as ProductProps;
+      return fetchProductDetail(params.productId as string);
     },
   });
 
@@ -80,6 +82,10 @@ export default function ProductDetailPage() {
 
   const hasDiscount = product.discount !== "0.00";
 
+  const handleBuyNow = () => {
+    router.push("/login");
+  };
+
   return (
     <FullScreenWrapper notop className="flex justify-center">
       <div className="flex flex-col lg:flex-row gap-8 w-full py-4">
@@ -111,8 +117,11 @@ export default function ProductDetailPage() {
           {product.images.length > 0 && (
             <div className="grid grid-cols-4 gap-2">
               {product.images
-                .sort((a, b) => a.index - b.index)
-                .map((image) => (
+                .sort(
+                  (a: ProductImageProps, b: ProductImageProps) =>
+                    a.index - b.index
+                )
+                .map((image: ProductImageProps) => (
                   <div
                     key={image.id}
                     className={`aspect-square relative overflow-hidden rounded border-2 cursor-pointer transition-all ${
@@ -197,7 +206,17 @@ export default function ProductDetailPage() {
           </div>
 
           <div className="flex gap-4 space-y-3 mt-4">
-            <BuyNowComponent product={product} />
+            {user && <BuyNowComponent product={product} />}
+            {!user && (
+              <Button
+                size="lg"
+                disabled={product.stock === 0 || !product.is_active}
+                onClick={handleBuyNow}
+              >
+                <CreditCard className="h-5 w-5 mr-2" />
+                Buy Now
+              </Button>
+            )}
 
             <Button
               variant="outline"

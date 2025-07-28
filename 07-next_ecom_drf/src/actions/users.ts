@@ -20,7 +20,7 @@ export const fetchUserInfo = async () => {
       const refreshToken = cookieStore.get("refresh")?.value;
 
       if (!refreshToken) {
-        redirect("/login");
+        return null;
       }
 
       try {
@@ -55,12 +55,6 @@ const userAPI = async () => {
   const response = await api.get(`/user/info/`);
   return response.data;
 };
-
-// export const fetchUserInfo = async () => {
-//   const response = await withRetry(userAPI);
-//   console.log("Data", response);
-//   return response;
-// };
 
 export const loginUser = async (values: {
   email: string;
@@ -105,4 +99,9 @@ export const loginUser = async (values: {
   }
 };
 
-export const logoutUser = async () => {};
+export const logoutUser = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("access");
+  cookieStore.delete("refresh");
+  return { success: true };
+};

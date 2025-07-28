@@ -106,3 +106,10 @@ export interface Order {
   price: string;
   status: string;
 }
+
+export interface ProductImageProps {
+  id: number;
+  image: string;
+  product: number;
+  index: number;
+}

@@ -8,11 +8,24 @@ import {
 import { AuthUserProps } from "@/types";
 import { LogOut, ShieldUser, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { useAuth } from "@/contexts/AuthContext";
+import { logoutUser } from "@/actions/users";
+import { useRouter } from "next/navigation";
 
 const UserIcon = ({ user }: { user: AuthUserProps }) => {
+  const { setUser } = useAuth();
   console.log("User in user icon", user);
 
-  const logoutHandler = async () => {};
+  const router = useRouter();
+
+  const logoutHandler = async () => {
+    const response = await logoutUser();
+    if (response.success) {
+      setUser(null);
+      router.push("/");
+    }
+  };
 
   return (
     <div>
@@ -53,7 +66,10 @@ const UserIcon = ({ user }: { user: AuthUserProps }) => {
           )}
 
           <DropdownMenuItem className="cursor-pointer">
-            <button className="flex gap-2 items-center cursor-pointer ">
+            <button
+              className="flex gap-2 items-center cursor-pointer "
+              onClick={logoutHandler}
+            >
               <LogOut className="text-neutral-950" />
               Logout
             </button>

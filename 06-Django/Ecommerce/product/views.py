@@ -9,9 +9,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework import generics
 from app import permissions
-from rest_framework.permissions import SAFE_METHODS
-
-
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticatedOrReadOnly
 
 # Create your views here.
 
@@ -53,6 +51,7 @@ class ProductListCreate(generics.ListCreateAPIView):
         return queryset
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsOwnerOrAdminOrReadOnly]
     queryset = Product.objects.all()
     # serializer_class = ProductSerializerCreate
 
