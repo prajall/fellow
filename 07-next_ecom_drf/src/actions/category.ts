@@ -31,19 +31,37 @@ const editCategoryFunction = async (values: z.infer<any>) => {
 };
 
 // Functions with retry
-export const fetchCategories = async (page: string) => {
-  const response = await withRetry(fetchCategoriesFunction, page);
-  return response;
+export const fetchCategories = async (page: string = "1") => {
+  return await withRetry(async () => {
+    const response = await api.get(`/product/category/?page=${page}`);
+    return response.data;
+  });
 };
+
 export const addCategory = async (newCategory: z.infer<any>) => {
-  const response = await withRetry(addCategoryFunction, newCategory);
-  return response;
+  return await withRetry(async () => {
+    try {
+      const response = await api.post("/product/category/", newCategory);
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  });
 };
+
 export const fetchCategoryDetail = async (categoryId: string) => {
-  const response = await withRetry(fetchCategoryDetailFunction, categoryId);
-  return response;
+  return await withRetry(async () => {
+    const response = await api.get(`/product/category/${categoryId}`);
+    return response.data;
+  });
 };
+
 export const editCategory = async (values: z.infer<any>) => {
-  const response = await withRetry(editCategoryFunction, values);
-  return response;
+  return await withRetry(async () => {
+    const response = await api.patch(
+      `/product/category/${values.categoryId}/`,
+      values
+    );
+    return response.data;
+  });
 };

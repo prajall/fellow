@@ -1,5 +1,5 @@
 "use client";
-import { api } from "@/lib/api";
+import { fetchUserInfo } from "@/actions/users";
 import { AuthUserProps } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -14,14 +14,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUserProps | null>(null);
 
   const fetchUser = async () => {
-    try {
-      const response = await api.get("/user/info/");
-      if (response.status == 200) {
-        setUser(response.data);
-      }
-    } catch (error) {
-      console.log("Error Fetching User", error);
-    }
+    const user = await fetchUserInfo();
+    setUser(user);
   };
   useEffect(() => {
     fetchUser();

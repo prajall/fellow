@@ -1,21 +1,66 @@
 "use server";
 import { api } from "@/lib/serverApi";
-import { withRetry } from "./utils";
+// import { withRetry } from "./utils";
 import axios from "axios";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+export const fetchUserInfo = async () => {
+  try {
+    const response = await api.get(`/user/info/`);
+    return response.data;
+  } catch (error: any) {
+    const cookieStore = await cookies();
+    const status = error?.response?.status || error?.status;
+
+    if (status === 401) {
+      console.log("Cookie Expired. Refreshing");
+      const refreshToken = cookieStore.get("refresh")?.value;
+
+      if (!refreshToken) {
+        redirect("/login");
+      }
+
+      try {
+        const response = await api.post(`${API_URL}/user/token/refresh/`, {
+          refresh: refreshToken,
+        });
+
+        if (response.status === 200) {
+          const newAccessToken = response.data.access;
+          cookieStore.set("access", newAccessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "lax",
+          });
+          if (cookieStore.get("access")?.value == newAccessToken) {
+            console.log("Cookie set successrully");
+          }
+
+          const newResponse = await api.get(`/user/info/`);
+          return newResponse.data;
+        }
+      } catch (e) {
+        throw e;
+      }
+    }
+
+    throw error;
+  }
+};
 
 const userAPI = async () => {
   const response = await api.get(`/user/info/`);
   return response.data;
 };
 
-export const fetchUserInfo = async () => {
-  const response = await withRetry(userAPI);
-  console.log("Data", response);
-  return response;
-};
+// export const fetchUserInfo = async () => {
+//   const response = await withRetry(userAPI);
+//   console.log("Data", response);
+//   return response;
+// };
 
 export const loginUser = async (values: {
   email: string;

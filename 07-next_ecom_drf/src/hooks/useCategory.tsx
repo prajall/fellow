@@ -27,7 +27,7 @@ export const useCategory = () => {
   const { data, error, isFetching, isPending } =
     useQuery<CategoryAPIProps | null>({
       queryKey: ["categories", page],
-      queryFn: () => fetchCategories(),
+      queryFn: () => fetchCategories(page),
       staleTime: 10 * 1000,
     });
 
