@@ -24,17 +24,15 @@ class UserManager(BaseUserManager):
         superuser = self.create_user(email,password, **extra_fields)
         return superuser
         
-
 class User(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=200, default="User")
-    profile_image = models.ImageField(upload_to='profile_images/', default='default.jpg')
+    profile_image = models.ImageField(upload_to='profile_images/', default='/media/profile_images/default.jpg')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
    
-
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

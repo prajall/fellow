@@ -9,38 +9,42 @@ from django.contrib.auth import authenticate
 from .serializers import CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
+from app.utils import api_response, api_error
+from django.core.mail import send_mail
 
 
 # Create your views here.
-@swagger_auto_schema(
-    method = 'POST',
-    request_body = UserLoginSerializer,
-    responses={200: 'Successfully logged out'}
-)
-@api_view(['POST','GET'])    
+@api_view(['POST'])
 def signup(request):
     if request.method == 'POST':
         email = request.data.get('email')
         password = request.data.get('password')
 
-
-
         if not email or not password:
-            return Response("Email and Password are required",status=400)
+            return api_error(400,"Email and Password are required")
     
         existing_user = User.objects.filter(email=email).exists()
 
         if existing_user:
-            return Response("Email already taken",status=400)
+            return api_error(400,"Email already exists")
 
         new_user = User.objects.create_user(email=email, password=password)
-        serializer  = UserSerializer(new_user)
-        token = Token.objects.create(user = new_user)
+        # send confirmation email
 
-        return Response({"error":"User created Successfully","user":serializer.data,"token":token.key}, status=201)
+        # mail = send_mail(
+        #     subject='Activate your account',
+        #     message=f'Click the link to activate your account',
+        #     from_email=None,
+        #     recipient_list=[email],
+        #     fail_silently=False,
+        # )
+
+        # print("Mail sent successfully:", mail)
+
+        serializer  = UserSerializer(new_user)
+        return api_response(201,"User created successfully",serializer.data)
     
     serializer = UserSerializer(User.objects.all(), many=True)
     return Response(serializer.data)
@@ -53,15 +57,12 @@ class SignupView(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        return Response(serializer.data, status=201, )
+        return Response(serializer.data, status=201 )
     
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
-    @swagger_auto_schema(
-        responses={200: 'Successfully logged out'}
-    )
     def post(self, request):
         return Response({"detail": "Successfully logged out."}, status=200)
 
