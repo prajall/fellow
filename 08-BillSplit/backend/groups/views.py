@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response    
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, DestroyAPIView
 from rest_framework.views import  APIView
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerOrReadOnly, IsGroupMember
@@ -84,5 +84,11 @@ class AcceptInvitation(APIView):
         except Exception as e:
             return Response({"message": "Error saving data", "error": str(e)}, status=500)
 
-
         return Response("Invitation accepted successfully.", status=200)
+
+
+class LeaveGroup(DestroyAPIView):
+
+    permission_classes = [IsAuthenticated, IsGroupMember]
+    queryset = GroupMember.objects.all()
+    serializer_class = GroupMemberSerializer
