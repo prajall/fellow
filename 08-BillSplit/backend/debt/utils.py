@@ -33,3 +33,5 @@ def update_debt(user_a, user_b, amount, group):
         print("Debt created", debt)
         return debt
     
+
+# def minimize_transactions(group):
