@@ -322,17 +322,16 @@ export function CreateExpenseForm({
 
         <Card className="mt-4 p-0 bg-muted">
           <CardContent className="p-4">
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
+            <div className="space-y-1">
+              <div className="flex justify-between items-center">
                 <p className="text-sm text-muted-foreground">Total Amount</p>
-                <p className="text-lg font-bold">
-                  Rs {watchedTotalAmount.toFixed(2)}
-                </p>
+                <p className="text-md">Rs {watchedTotalAmount.toFixed(2)}</p>
               </div>
-              <div>
+
+              <div className="flex justify-between items-center">
                 <p className="text-sm text-muted-foreground">Total Allocated</p>
                 <p
-                  className={`text-lg font-bold ${
+                  className={`text-md ${
                     totalAllocated != watchedTotalAmount
                       ? "text-red-600"
                       : "text-green-600"
@@ -341,16 +340,18 @@ export function CreateExpenseForm({
                   Rs {totalAllocated.toFixed(2)}
                 </p>
               </div>
-              <div>
+
+              <div className="flex justify-between items-center">
                 <p className="text-sm text-muted-foreground">Total Paid</p>
-                <p className="text-lg font-bold">Rs {totalPaid.toFixed(2)}</p>
+                <p className="text-md">Rs {totalPaid.toFixed(2)}</p>
               </div>
             </div>
-            {totalAllocated != watchedTotalAmount && (
+
+            {/* {totalAllocated != watchedTotalAmount && (
               <p className="text-sm text-red-600 text-center mt-2">
-                Warning: Allocated amount doesnt match total amount
+                Warning: Allocated amount doesn’t match total amount
               </p>
-            )}
+            )} */}
           </CardContent>
         </Card>
 

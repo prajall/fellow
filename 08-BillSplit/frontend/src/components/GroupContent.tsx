@@ -105,11 +105,11 @@ export function GroupContent({ groupId }: { groupId: number }) {
                   <DollarSign className="h-4 w-4 text-blue-600" />
                 )}
               </CardHeader>
-              <CardContent className="mt-0">
+              <CardContent className="mt-0 ">
                 {!!balance && (
                   <>
                     <div
-                      className={`text-2xl font-bold ${
+                      className={`text-xl font-semibold ${
                         balance > 0
                           ? "text-green-600"
                           : balance < 0
@@ -117,7 +117,7 @@ export function GroupContent({ groupId }: { groupId: number }) {
                           : "text-blue-600"
                       }`}
                     >
-                      {balance}
+                      Rs {balance}
                     </div>
                     <p className="text-xs text-muted-foreground">
                       {balance > 0
@@ -148,7 +148,9 @@ export function GroupContent({ groupId }: { groupId: number }) {
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{group.total_members}</div>
+                <div className="text-xl font-semibold">
+                  {group.total_members}
+                </div>
                 <p className="text-xs text-muted-foreground">
                   Active participants
                 </p>
@@ -163,11 +165,11 @@ export function GroupContent({ groupId }: { groupId: number }) {
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-xl font-semibold ">
                   Rs {totalExpenses.toFixed(2)}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Across {expenses.length} expenses
+                  From {expenses.length} expenses
                 </p>
               </CardContent>
             </Card>

@@ -36,22 +36,22 @@ class ExpenseSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     
-    # def validate_group_id(self, value):
-    #     # try:
-    #         print("group_id", value)
-    #         group = Group.objects.get(id=value.id)
-    #         group.members.get(member=self.context.get('request').user)
-    #         return value
+    def validate_group_id(self, value):
+        try:
+            print("group_id", value)
+            group = Group.objects.get(id=value.id)
+            # group.members.get(member=self.context.get('request').user)
+            return value
     
-        # except Group.DoesNotExist:
-        #     raise serializers.ValidationError("Group does not exist")
+        except Group.DoesNotExist:
+            raise serializers.ValidationError("Group does not exist")
 
-        # except GroupMember.DoesNotExist:
-        #     raise serializers.ValidationError("You are not a member of this group")
+        except GroupMember.DoesNotExist:
+            raise serializers.ValidationError("You are not a member of this group")
         
-        # except Exception as e:
-        #     print("Error in validate group_id", e)
-        #     raise serializers.ValidationError("Invalid group_id")
+        except Exception as e:
+            print("Error in validate group_id", e)
+            raise serializers.ValidationError("Invalid group_id")
         
 
     # def get_queryset(self):
