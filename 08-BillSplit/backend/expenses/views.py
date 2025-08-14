@@ -22,18 +22,16 @@ class ExpenseViewSet(generics.ListCreateAPIView):
         with transaction.atomic():
             try:
                 serializer.is_valid(raise_exception=True)
-                new_expense = serializer.save()
-                print("new_expense", new_expense)
                 participants_data = request.data.get('participants', [])
-
             
                 if not type(participants_data) == list:
                     return Response({"detail": "Participants must be a list"}, status=status.HTTP_400_BAD_REQUEST)
                 
                 if len(participants_data) <=1:
                     return Response({"detail": "Atleast 2 participants are required"}, status=status.HTTP_400_BAD_REQUEST)
-                
                 total_amount = sum(participant_data.get('paid_amount', 0) for participant_data in participants_data)
+                
+                new_expense = serializer.save()
                 if total_amount != new_expense.total_amount:
                     return Response({"total_amount": "Sum of paid amounts does not match the total amount"}, status=status.HTTP_400_BAD_REQUEST)
                 
@@ -42,9 +40,11 @@ class ExpenseViewSet(generics.ListCreateAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             
             except ValidationError as e:
+                # new_expense.delete()
                 return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
             except Exception as e:
+                # new_expense.delete()
                 print("Error", e)
                 return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

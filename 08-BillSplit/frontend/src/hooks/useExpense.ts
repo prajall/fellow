@@ -38,9 +38,13 @@ export const useExpenses = (groupId?: number) => {
       toast.success("Expense created successfully", { id: "expense-create" });
       queryClient.invalidateQueries({ queryKey: ["expenses"] });
     },
-    onError: (err) => {
-      console.error("Error creating expense:", err);
-      toast.error("Failed to create expense", { id: "expense-create" });
+    onError: (err: any) => {
+      console.log("Error creating expense:", err);
+      if (err.response.data?.detail) {
+        toast.error(err.response.data?.detail, { id: "expense-create" });
+      } else {
+        toast.error("Failed to create expense", { id: "expense-create" });
+      }
     },
   });
 

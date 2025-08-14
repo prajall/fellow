@@ -25,7 +25,7 @@ const createGroup = async (groupData: CreateGroupData): Promise<Group> => {
 export const useGroups = () => {
   const queryClient = useQueryClient();
 
-  const { data, error, isFetching, isPending } = useQuery<GroupResponse[]>({
+  const { data, error, isPending } = useQuery<GroupResponse[]>({
     queryKey: ["groups"],
     queryFn: () => fetchGroups(),
     staleTime: 10 * 1000,
@@ -42,7 +42,7 @@ export const useGroups = () => {
       queryClient.invalidateQueries({ queryKey: ["groups"] });
     },
     onError: (err) => {
-      console.error("Error creating group:", err);
+      console.log("Error creating group:", err);
       toast.error("Failed to create group", { id: "group-create" });
     },
   });

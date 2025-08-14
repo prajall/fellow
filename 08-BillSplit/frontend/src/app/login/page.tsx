@@ -8,6 +8,7 @@ import { useAuth } from "@/src/contexts/AuthProvider";
 import { LoginFormData, loginSchema } from "@/src/forms/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -104,6 +105,12 @@ export default function LoginPage() {
               {isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
           </form>
+          <div className="flex items-center justify-center gap-1 mt-4">
+            <span className="text-xs">Don't have an account? </span>
+            <Link href="/signup" className="text-sm text-blue-500">
+              Sign up
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </div>

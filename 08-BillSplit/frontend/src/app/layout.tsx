@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={font.className}>
         <AuthProvider>
           {children}
-          <Toaster position="top-right" />
+          <Toaster />
         </AuthProvider>
       </body>
     </html>

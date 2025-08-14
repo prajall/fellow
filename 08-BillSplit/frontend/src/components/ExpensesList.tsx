@@ -1,17 +1,10 @@
 "use client";
 
-import { Eye } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { useExpenses } from "@/src/hooks/useExpense";
-import { ExpenseDetailDialog } from "./ExpenseDetailDialog";
+import { Card, CardContent, CardTitle } from "@/src/components/ui/card";
 import { useEffect, useState } from "react";
 import { Expense } from "../lib/types";
+import { ExpenseDetailDialog } from "./ExpenseDetailDialog";
 
 interface ExpensesListProps {
   groupId: number;
@@ -54,7 +47,7 @@ export function ExpensesList({ groupId, expenses }: ExpensesListProps) {
                 <div className="w-full">
                   <CardTitle className="mb-2">{expense.title}</CardTitle>
                   <span className="text-muted-foreground text-sm">
-                    ${expense.total_amount.toFixed(2)}
+                    Rs {expense.total_amount.toFixed(2)}
                   </span>
                 </div>
               </div>

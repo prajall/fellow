@@ -37,7 +37,7 @@ export function GroupContent({ groupId }: { groupId: number }) {
   const { getGroupById } = useGroups();
   const { data: group } = useQuery(getGroupById(groupId));
   const { expenses = [] } = useExpenses(groupId);
-  const { balance, isBalanceLoading } = useDebts(groupId);
+  const { balance } = useDebts(groupId);
 
   if (!group) {
     return (
@@ -58,7 +58,6 @@ export function GroupContent({ groupId }: { groupId: number }) {
   console.log("expenses", expenses);
 
   return (
-    // hide scrollbar
     <div className="flex flex-col max-h-screen overflow-y-auto hide-scrollbar">
       <div className="border-b border-border bg-card">
         <div className="p-6">
@@ -107,7 +106,7 @@ export function GroupContent({ groupId }: { groupId: number }) {
                 )}
               </CardHeader>
               <CardContent className="mt-0">
-                {balance && (
+                {!!balance && (
                   <>
                     <div
                       className={`text-2xl font-bold ${
@@ -118,7 +117,7 @@ export function GroupContent({ groupId }: { groupId: number }) {
                           : "text-blue-600"
                       }`}
                     >
-                      ${Math.abs(balance).toFixed(2) || "0.00"}
+                      {balance}
                     </div>
                     <p className="text-xs text-muted-foreground">
                       {balance > 0
@@ -132,7 +131,7 @@ export function GroupContent({ groupId }: { groupId: number }) {
                 {!balance && (
                   <>
                     <div className={`text-2xl font-bold ${"text-blue-600"}`}>
-                      $0.00
+                      Rs 0.00
                     </div>
                     <p className="text-xs text-muted-foreground">
                       You're all settled
@@ -165,7 +164,7 @@ export function GroupContent({ groupId }: { groupId: number }) {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ${totalExpenses.toFixed(2)}
+                  Rs {totalExpenses.toFixed(2)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Across {expenses.length} expenses

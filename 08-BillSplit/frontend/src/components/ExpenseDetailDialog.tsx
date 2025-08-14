@@ -1,23 +1,17 @@
 "use client";
 
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
+import { Card } from "@/src/components/ui/card";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/src/components/ui/dialog";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/src/components/ui/avatar";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { useExpense } from "@/src/hooks/useExpense";
 import { Expense } from "../lib/types";
 
 interface ExpenseDetailDialogProps {
@@ -45,7 +39,7 @@ export function ExpenseDetailDialog({
         <div className="space-y-4">
           <Card className="p-4 flex flex-row justify-between ">
             <p className="">Total Amount</p>
-            <p className="">${expense.total_amount.toFixed(2)}</p>
+            <p className="">Rs {expense.total_amount.toFixed(2)}</p>
           </Card>
 
           <div className="space-y-3">

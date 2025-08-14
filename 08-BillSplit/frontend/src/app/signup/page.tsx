@@ -4,8 +4,7 @@ import { Button } from "@/src/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
-import { useAuth } from "@/src/contexts/AuthProvider";
-import { SignupFormData, signupSchema } from "@/src/forms/schemas/signupSchema";
+import { signupSchema, SignupFormData } from "@/src/forms/schemas/signupSchema";
 import { apiRequest } from "@/src/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -15,7 +14,6 @@ import toast from "react-hot-toast";
 
 export default function SignupPage() {
   const router = useRouter();
-  const { setUser, isLoading } = useAuth();
 
   const form = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
@@ -24,7 +22,6 @@ export default function SignupPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
   } = form;
 
   const onSubmit = async (data: SignupFormData) => {
@@ -145,14 +142,14 @@ export default function SignupPage() {
               {isSubmitting ? "Creating account..." : "Sign Up"}
             </Button>
 
-            <div className="text-center mt-4">
+            <div className="text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{" "}
                 <Link
                   href="/login"
                   className="text-blue-600 hover:text-blue-800"
                 >
-                  Sign in
+                  Login
                 </Link>
               </p>
             </div>

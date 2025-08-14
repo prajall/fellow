@@ -53,7 +53,7 @@ export const useDebts = (groupId: number) => {
       queryClient.invalidateQueries({ queryKey: ["debts"] });
     },
     onError: (err) => {
-      console.error("Error settling debt:", err);
+      console.log("Error settling debt:", err);
       toast.error("Failed to settle debt", { id: "debt-settle" });
     },
   });

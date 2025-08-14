@@ -25,6 +25,7 @@ import {
 } from "./schemas/createExpenseSchema";
 import type { User } from "@/src/lib/types";
 import { useExpenses } from "../hooks/useExpense";
+import toast from "react-hot-toast";
 
 interface CreateExpenseFormProps {
   isLoading?: boolean;
@@ -114,7 +115,7 @@ export function CreateExpenseForm({
       form.reset();
       onClose();
     } catch (error: any) {
-      console.error("Error creating expense in form:", error);
+      console.log("Error creating expense in form:", error);
 
       if (error.response && error.response.data) {
         Object.keys(error.response.data).forEach((key) => {
@@ -325,7 +326,7 @@ export function CreateExpenseForm({
               <div>
                 <p className="text-sm text-muted-foreground">Total Amount</p>
                 <p className="text-lg font-bold">
-                  ${watchedTotalAmount.toFixed(2)}
+                  Rs {watchedTotalAmount.toFixed(2)}
                 </p>
               </div>
               <div>
@@ -337,17 +338,17 @@ export function CreateExpenseForm({
                       : "text-green-600"
                   }`}
                 >
-                  ${totalAllocated.toFixed(2)}
+                  Rs {totalAllocated.toFixed(2)}
                 </p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Total Paid</p>
-                <p className="text-lg font-bold">${totalPaid.toFixed(2)}</p>
+                <p className="text-lg font-bold">Rs {totalPaid.toFixed(2)}</p>
               </div>
             </div>
             {totalAllocated != watchedTotalAmount && (
               <p className="text-sm text-red-600 text-center mt-2">
-                Warning: Allocated amount doesn't match total amount
+                Warning: Allocated amount doesnt match total amount
               </p>
             )}
           </CardContent>
@@ -363,7 +364,7 @@ export function CreateExpenseForm({
           <Button type="button" variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit" disabled={isLoading || !form.formState.isValid}>
+          <Button type="submit" disabled={isLoading}>
             {isLoading ? "Creating..." : "Create Expense"}
           </Button>
         </div>
