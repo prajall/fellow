@@ -10,7 +10,7 @@ const AppPage = () => {
       </h1>
 
       <p className="text-sm text-muted-foreground mt-2">
-        Select a group to get started
+        Select or join a group to get started
       </p>
     </div>
   );
