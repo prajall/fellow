@@ -47,7 +47,7 @@ export function GroupSidebar() {
 
         <div className="flex items-center space-x-3 p-2 rounded-xl bg-primary/10">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user?.profile_image || "/placeholder.svg"} />
+            <AvatarImage src={""} />
             <AvatarFallback className="bg-white">
               {user?.name.charAt(0)}
             </AvatarFallback>

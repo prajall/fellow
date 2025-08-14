@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
-from debt.utils import update_debt
+from debt.utils import update_debt, minimize_transactions
 from rest_framework.permissions import IsAuthenticated
 from groups.permissions import IsGroupMember
 import json
@@ -36,6 +36,7 @@ class ExpenseViewSet(generics.ListCreateAPIView):
                     return Response({"total_amount": "Sum of paid amounts does not match the total amount"}, status=status.HTTP_400_BAD_REQUEST)
                 
                 validate_participant_and_create_debt(participants_data, new_expense)
+                # minimize_transactions(new_expense.group_id)
 
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             

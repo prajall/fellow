@@ -38,6 +38,7 @@ export const useExpenses = (groupId?: number) => {
       toast.success("Expense created successfully", { id: "expense-create" });
       queryClient.invalidateQueries({ queryKey: ["expenses"] });
       queryClient.invalidateQueries({ queryKey: ["balance"] });
+      queryClient.invalidateQueries({ queryKey: ["debts"] });
     },
     onError: (err: any) => {
       console.log("Error creating expense:", err);

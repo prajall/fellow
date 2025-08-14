@@ -60,7 +60,7 @@ export function DebtsList({ groupId }: DebtsListProps) {
                       <span className="font-medium">{debt.user_b.name}</span>
                     </p>
                     <p className="text-lg font-bold">
-                      ${Number(debt.amount).toFixed(2)}
+                      Rs {Number(debt.amount).toFixed(2)}
                     </p>
                   </div>
                 </div>

@@ -23,8 +23,8 @@ const GroupsList = ({ groups }: { groups: GroupResponse[] }) => {
             <div className="flex items-center space-x-3">
               <Avatar className="h-12 w-12">
                 <AvatarImage
-                  src={group.group_image || "/placeholder.svg"}
-                  alt={group.name}
+                // src={group.group_image || "/placeholder.svg"}
+                // alt={group.name}
                 />
                 <AvatarFallback>
                   <Users className="h-5 w-5" />

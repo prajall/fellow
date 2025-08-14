@@ -25,6 +25,7 @@ def signup(request):
     if request.method == 'POST':
         email = request.data.get('email')
         password = request.data.get('password')
+        name = request.data.get('name')
 
         if not email or not password:
             return api_error(400,"Email and Password are required")
@@ -34,7 +35,7 @@ def signup(request):
         if existing_user:
             return api_error(400,"Email already exists")
 
-        new_user = User.objects.create_user(email=email, password=password)
+        new_user = User.objects.create_user(email=email, password=password, name=name)
         # send confirmation email
 
         # mail = send_mail(
@@ -58,7 +59,7 @@ class SignupView(CreateAPIView):
     serializer_class = UserSerializer
 
     def create(self, request):
-        serializer = self.get_serializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return Response(serializer.data, status=201 )

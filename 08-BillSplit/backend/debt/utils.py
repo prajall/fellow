@@ -44,5 +44,48 @@ def update_debt(user_a, user_b, amount, group):
         return debt
     
 
-# def minimize_transactions(group):
+def minimize_transactions(group):
+    debts = DebtModel.objects.filter(group=group).all()
+    min_debts = {}
+
+    for debt in debts:
+        min_debts[debt.user_a.id] = min_debts.get(debt.user_a.id, 0) - debt.amount
+        min_debts[debt.user_b.id] = min_debts.get(debt.user_b.id, 0) + debt.amount
+    
+    borrowers = []
+    lenders = []
+    for user_id, amount in min_debts.items():
+        if amount != 0:
+            if amount > 0:
+                borrowers.append({
+                    'user_id': user_id,
+                    'amount': amount
+                })
+            else:
+                lenders.append({
+                    'user_id': user_id,
+                    'amount': amount
+                })
+
+    for borrower in borrowers:
+        if borrower['amount'] == 0:
+            break
+        for lender in lenders:
+            if lender['amount'] == 0:
+                break
+            if lender['amount'] >= borrower['amount']:
+                debt_amount = borrower['amount']
+                update_debt(borrower['user_id'], lender['user_id'], debt_amount, group)
+                # update_debt(lender['user_id'], borrower['user_id'], debt_amount, group)
+
+                borrower['amount'] = 0
+                lender['amount'] -= debt_amount
+            else:
+                debt_amount = lender['amount']
+                update_debt(borrower['user_id'], lender['user_id'], debt_amount, group)
+                # update_debt(lender['user_id'], borrower['user_id'], debt_amount, group)
+
+                lender['amount'] = 0
+                borrower['amount'] -= debt_amount
+
 
