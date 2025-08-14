@@ -1,6 +1,6 @@
 from django.db import models
-from groups.model import Group
-from django.contrib.auth.models import User
+from groups.models import Group
+from users.models import User
 
 # Create your models here.
 class ExpenseModel(models.Model):
@@ -15,11 +15,13 @@ class ExpenseModel(models.Model):
 
 class ExpenseParticipant(models.Model):
     expense_id = models.ForeignKey(ExpenseModel, on_delete=models.CASCADE, related_name='participants')
+
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='expenses')
     paid_amount = models.PositiveIntegerField()
     allocated_amount = models.PositiveIntegerField()
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user_id.username} - {self.expense_id.title}"
+        return f"{self.user_id.email} - {self.expense_id.title}"

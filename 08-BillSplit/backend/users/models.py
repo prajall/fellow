@@ -44,5 +44,5 @@ class User(AbstractBaseUser,PermissionsMixin):
         return self.role=="admin"
 
     def __str__(self):
-        return self.email
+        return f"{self.id} {self.email}"
     

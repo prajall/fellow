@@ -12,8 +12,12 @@ class IsGroupMember(permissions.BasePermission):
 
     def has_permission(self,request,view):
         user_id = request.user
-        group_id = view.kwargs.get('pk')  
+        if request.method == 'GET':
+            group_id = request.query_params.get('group_id')  
+        else:
+            group_id = request.data.get('group_id')
 
+        print("user_id",user_id)
         print(user_id,group_id)
         is_group_member = GroupMember.objects.filter(member=user_id, group=group_id).exists()
         print("is_group_member:",is_group_member)

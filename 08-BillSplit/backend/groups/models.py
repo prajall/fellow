@@ -9,6 +9,9 @@ class Group(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.id} {self.name}"
+
 
 class GroupMember(models.Model):
     member = models.ForeignKey(User, on_delete=models.CASCADE, related_name='joined_groups')
@@ -19,3 +22,6 @@ class GroupMember(models.Model):
 
     class Meta:
         unique_together = ('member', 'group')
+    
+    def __str__(self):
+        return f"{self.group.name} - {self.member.name}"
