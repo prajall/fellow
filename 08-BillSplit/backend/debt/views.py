@@ -46,11 +46,20 @@ class GetUserBalance(views.APIView):
     serializer_class = DebtSerializer
 
     def get(self, request, *args, **kwargs):
-        user = request.user
-        group = request.query_params.get('group_id')
-        borrows = DebtModel.objects.filter(group=group, user_b=user)
-        lends = DebtModel.objects.filter(group=group, user_a=user)
-        total_borrows = sum(borrow.amount for borrow in borrows)
-        total_lends = sum(lend.amount for lend in lends)
-        balance = total_borrows - total_lends
-        return Response({"balance": balance})
+        try:
+            user = request.user
+            group = request.query_params.get('group_id')
+            borrows = DebtModel.objects.filter(group=group, user_b=user)
+            print("borrows", borrows)
+            lends = DebtModel.objects.filter(group=group, user_a=user)
+            print("lends", lends)
+            total_borrows = sum(borrow.amount for borrow in borrows)
+            print("total_borrows", total_borrows)
+            total_lends = sum(lend.amount for lend in lends)
+            print("total_lends", total_lends)
+            balance = total_borrows - total_lends
+            print("balance", balance)
+            return Response({"balance": balance})
+        except Exception as e:
+            print("Error", e)
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

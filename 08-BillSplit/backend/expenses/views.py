@@ -18,7 +18,7 @@ class ExpenseViewSet(generics.ListCreateAPIView):
     
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
-        serializer = ExpenseSerializer(data=data)
+        serializer = ExpenseSerializer(data=data, context={'request': request})
         with transaction.atomic():
             try:
                 serializer.is_valid(raise_exception=True)

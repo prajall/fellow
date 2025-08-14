@@ -14,7 +14,4 @@ class DebtModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        if self.amount > 0:
-            return f"{self.user_a.name} owes {self.user_b.name} Rs.{self.amount}"
-        else:
-            return f"{self.user_b.name} owes {self.user_a.name} Rs.{self.amount}"
+        return f"{self.user_a.name} owes {self.user_b.name} Rs.{self.amount}"
